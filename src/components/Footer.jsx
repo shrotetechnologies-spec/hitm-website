@@ -121,7 +121,13 @@ export default function Footer() {
       <Separator className="bg-white/10" />
 
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
-        <p className="text-gray-500 text-xs">© {new Date().getFullYear()} HITM Ranchi. All rights reserved.</p>
+        <div className="flex flex-col md:flex-row items-center gap-1 md:gap-4">
+          <p className="text-gray-500 text-xs">© {new Date().getFullYear()} HITM Ranchi. All rights reserved.</p>
+          <span className="hidden md:inline text-gray-700 text-xs">|</span>
+          <p className="text-gray-500 text-xs">
+            Managed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>
+          </p>
+        </div>
         <div className="flex gap-4">
           {['Privacy Policy', 'Terms of Use', 'Sitemap'].map((l) => (
             <Link key={l} href="#" className="text-gray-500 text-xs hover:text-hitm-gold transition-colors">{l}</Link>
