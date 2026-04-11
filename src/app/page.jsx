@@ -421,7 +421,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Gallery */}
+   
       <section className="py-20 bg-gray-950">
         <div className="container mx-auto px-4">
           <div className="section-title">
