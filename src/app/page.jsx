@@ -16,19 +16,19 @@ import { cn } from '@/lib/utils';
 // ── Hero Slides ─────────────────────────────────────────────────────────────
 const heroSlides = [
   {
-    gradient: 'hero-gradient-1',
+    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1600',
     badge: 'Admissions Open 2026',
     title: 'Shaping Future Leaders Through Quality Education',
     subtitle: "HITM Ranchi — Where Innovation Meets Excellence. Join Jharkhand's most dynamic institute for Engineering, Management & Technology.",
   },
   {
-    gradient: 'hero-gradient-2',
+    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1600',
     badge: 'NAAC Accredited Institution',
     title: 'Excellence in Technology & Management Education',
     subtitle: 'With state-of-the-art infrastructure and experienced faculty, HITM Ranchi provides industry-focused education that prepares you for tomorrow.',
   },
   {
-    gradient: 'hero-gradient-3',
+    image: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&q=80&w=1600',
     badge: '100% Placement Assistance',
     title: 'Your Career Begins Here at HITM Ranchi',
     subtitle: 'Partnered with 200+ leading companies, our dedicated placement cell ensures every student gets the right opportunity.',
@@ -71,19 +71,32 @@ const events = [
 const testimonials = [
   {
     text: 'HITM Ranchi gave me the technical foundation and soft skills to land my dream job at Wipro. The faculty are incredibly supportive and industry-connected.',
-    name: 'Rahul Kumar Singh', role: 'B.Tech CSE 2024 | SDE at Wipro', stars: 5, initials: 'R',
+    name: 'Rahul Kumar Singh', role: 'B.Tech CSE 2024 | SDE at Wipro', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
   },
   {
     text: "The MBA program at HITM is outstanding. The case-study approach and industry visits gave me a real-world perspective. I'm now consulting at Deloitte.",
-    name: 'Priya Sharma', role: 'MBA 2023 | Business Analyst at Deloitte', stars: 5, initials: 'P',
+    name: 'Priya Sharma', role: 'MBA 2023 | Business Analyst at Deloitte', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm2',
   },
   {
     text: 'From Day 1, HITM focused on our overall development. The campus life, clubs, and events made my 4 years truly memorable.',
-    name: 'Ankit Mishra', role: 'B.Tech Mechanical 2025 | Engineer at SAIL', stars: 5, initials: 'A',
+    name: 'Ankit Mishra', role: 'B.Tech Mechanical 2025 | Engineer at SAIL', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm3',
   },
 ];
 
-const recruiters = ['Infosys', 'TCS', 'Wipro', 'HCL', 'Cognizant', 'Capgemini', 'Deloitte', 'Accenture', 'L&T', 'BHEL', 'SAIL', 'TATA', 'Amazon', 'Flipkart'];
+const recruiters = [
+  { name: 'Infosys', logo: 'https://logo.clearbit.com/infosys.com' },
+  { name: 'TCS', logo: 'https://logo.clearbit.com/tcs.com' },
+  { name: 'Wipro', logo: 'https://logo.clearbit.com/wipro.com' },
+  { name: 'HCL', logo: 'https://logo.clearbit.com/hcltech.com' },
+  { name: 'Cognizant', logo: 'https://logo.clearbit.com/cognizant.com' },
+  { name: 'Capgemini', logo: 'https://logo.clearbit.com/capgemini.com' },
+  { name: 'Deloitte', logo: 'https://logo.clearbit.com/deloitte.com' },
+  { name: 'Accenture', logo: 'https://logo.clearbit.com/accenture.com' },
+  { name: 'Amazon', logo: 'https://logo.clearbit.com/amazon.com' },
+  { name: 'Flipkart', logo: 'https://logo.clearbit.com/flipkart.com' },
+  { name: 'IBM', logo: 'https://logo.clearbit.com/ibm.com' },
+  { name: 'Microsoft', logo: 'https://logo.clearbit.com/microsoft.com' }
+];
 
 const quickLinks = [
   { icon: <Bell size={18} />, label: 'Apply Online', href: '/admissions/apply' },
@@ -108,7 +121,10 @@ function HeroSlider() {
   return (
     <section className="relative h-[calc(100vh-100px)] min-h-[580px] overflow-hidden">
       {heroSlides.map((s, i) => (
-        <div key={i} className={cn("absolute inset-0 transition-opacity duration-1000", s.gradient, i === current ? "opacity-100" : "opacity-0")} />
+        <div key={i} className={cn("absolute inset-0 transition-opacity duration-1000", i === current ? "opacity-100" : "opacity-0")}>
+          <img src={s.image} alt={s.title} className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-950/90 via-hitm-navy/80 to-hitm-red/60" />
+        </div>
       ))}
 
       {/* Content */}
@@ -219,11 +235,9 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
-              <div className="w-full h-[480px] bg-gradient-to-br from-hitm-navy to-hitm-red rounded-2xl flex items-center justify-center shadow-2xl">
-                <Building2 size={120} className="text-white/30" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-8xl">🏛️</span>
-                </div>
+              <div className="w-full h-[480px] bg-gray-100 rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
+                <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800" alt="HITM Campus" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/60 to-transparent" />
               </div>
               <Card className="absolute -bottom-5 -right-5 shadow-xl bg-hitm-red text-white border-none">
                 <CardContent className="p-4 text-center">
@@ -336,24 +350,17 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-            {/* Notice Board – wider */}
             <div className="lg:col-span-2">
               <h2 className="text-2xl font-bold font-serif mb-5 flex items-center gap-2">
                 <Bell className="text-hitm-red" size={22} /> Notice Board
               </h2>
-              <Card className="overflow-hidden shadow-lg">
-                <div className="bg-hitm-red px-5 py-3 flex justify-between items-center">
-                  <span className="text-white font-semibold text-sm">Latest Notices</span>
-                  <Link href="/notice" className="text-white/75 text-xs flex items-center gap-1 hover:text-white">
-                    View All <ChevronRight size={12} />
-                  </Link>
-                </div>
-                <div className="divide-y divide-gray-100 max-h-[420px] overflow-y-auto">
-                  {notices.map((n, i) => (
-                    <div key={i} className="flex gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors group">
-                      <div className="bg-hitm-red text-white rounded-lg p-2.5 text-center min-w-[52px] shrink-0">
+              <Card className="relative h-[420px] overflow-hidden bg-white group">
+                <div className="absolute w-full animate-marquee-vertical group-hover:[animation-play-state:paused] flex flex-col">
+                  {[...notices, ...notices].map((n, i) => (
+                    <div key={i} className="flex gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100">
+                      <div className="bg-hitm-red text-white rounded-lg p-2.5 text-center min-w-[52px] shrink-0 h-fit shadow-sm">
                         <div className="text-xl font-black leading-none">{n.day}</div>
-                        <div className="text-[10px] text-white/80 uppercase">{n.month}</div>
+                        <div className="text-[10px] text-white/80 uppercase mt-0.5">{n.month}</div>
                       </div>
                       <div className="flex-1">
                         <p className="font-semibold text-sm text-gray-800 group-hover:text-hitm-red transition-colors">{n.title}</p>
@@ -419,17 +426,17 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 h-[400px]">
             {[
-              { label: 'Main Campus', emoji: '🏛️', className: 'col-span-2 row-span-2', bg: 'from-hitm-navy to-hitm-red' },
-              { label: 'Computer Lab', emoji: '💻', bg: 'from-green-900 to-emerald-700' },
-              { label: 'Library', emoji: '📚', bg: 'from-purple-900 to-purple-700' },
-              { label: 'Sports Ground', emoji: '🏃', bg: 'from-orange-900 to-orange-700' },
-              { label: 'TechFest 2025', emoji: '🎉', bg: 'from-pink-900 to-pink-700' },
+              { label: 'Main Campus', image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800', className: 'col-span-2 row-span-2' },
+              { label: 'Computer Lab', image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400' },
+              { label: 'Library', image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=400' },
+              { label: 'Sports Ground', image: 'https://images.unsplash.com/photo-1461896836934-ffe607fa8211?auto=format&fit=crop&q=80&w=400' },
+              { label: 'TechFest 2026', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=400' },
             ].map((item, i) => (
-              <div key={i} className={cn("relative overflow-hidden rounded-xl cursor-pointer group", item.className)}>
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.bg}`} />
-                <div className="absolute inset-0 flex items-center justify-center text-6xl">{item.emoji}</div>
-                <div className="absolute inset-0 bg-hitm-red/60 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-all">
-                  <span className="text-white font-semibold text-sm">{item.label}</span>
+              <div key={i} className={cn("relative overflow-hidden rounded-xl cursor-pointer group bg-gray-800", item.className)}>
+                <img src={item.image} alt={item.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-hitm-red/90 transition-colors duration-300" />
+                <div className="absolute inset-0 flex items-end p-4">
+                  <span className="text-white font-semibold text-sm drop-shadow-md">{item.label}</span>
                 </div>
               </div>
             ))}
@@ -459,9 +466,7 @@ export default function HomePage() {
                   </div>
                   <p className="text-gray-600 text-sm italic leading-relaxed mb-5">"{t.text}"</p>
                   <div className="flex items-center gap-3">
-                    <div className={`w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg shrink-0 ${['bg-hitm-red', 'bg-hitm-navy', 'bg-emerald-600'][i]}`}>
-                      {t.initials}
-                    </div>
+                    <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full border-2 border-hitm-gold object-cover shrink-0 shadow-sm" />
                     <div>
                       <p className="font-semibold text-sm text-gray-900">{t.name}</p>
                       <p className="text-xs text-gray-500">{t.role}</p>
@@ -523,10 +528,10 @@ export default function HomePage() {
       <section className="py-12 border-t border-gray-100">
         <div className="container mx-auto px-4">
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">Our Placement Partners & Top Recruiters</p>
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
             {recruiters.map((r) => (
-              <div key={r} className="font-bold text-gray-300 hover:text-hitm-red transition-colors text-lg tracking-tight cursor-pointer hover:scale-105">
-                {r}
+              <div key={r.name} className="flex items-center justify-center w-32 md:w-40 h-16 bg-white border border-gray-200 rounded-lg shadow-sm text-gray-400 font-bold uppercase tracking-wider text-sm md:text-base hover:text-hitm-red hover:border-hitm-red/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-pointer select-none">
+                {r.name}
               </div>
             ))}
           </div>

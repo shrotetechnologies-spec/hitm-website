@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Clock, Facebook, Twitter, Instagram, Youtube, Linkedin, ChevronRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaLinkedinIn } from 'react-icons/fa';
 import { Separator } from '@/components/ui/separator';
 
 const footerLinks = {
@@ -26,11 +27,11 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: <Facebook size={16} />, href: '#', label: 'Facebook', className: 'bg-[#1877F2]' },
-  { icon: <Twitter size={16} />, href: '#', label: 'Twitter', className: 'bg-[#1DA1F2]' },
-  { icon: <Instagram size={16} />, href: '#', label: 'Instagram', className: 'bg-gradient-to-br from-[#f09433] to-[#bc1888]' },
-  { icon: <Youtube size={16} />, href: '#', label: 'YouTube', className: 'bg-[#FF0000]' },
-  { icon: <Linkedin size={16} />, href: '#', label: 'LinkedIn', className: 'bg-[#0A66C2]' },
+  { icon: <FaFacebookF size={16} />, href: '#', label: 'Facebook', className: 'bg-[#1877F2]' },
+  { icon: <FaTwitter size={16} />, href: '#', label: 'Twitter', className: 'bg-[#1DA1F2]' },
+  { icon: <FaInstagram size={16} />, href: '#', label: 'Instagram', className: 'bg-gradient-to-br from-[#f09433] to-[#bc1888]' },
+  { icon: <FaYoutube size={16} />, href: '#', label: 'YouTube', className: 'bg-[#FF0000]' },
+  { icon: <FaLinkedinIn size={16} />, href: '#', label: 'LinkedIn', className: 'bg-[#0A66C2]' },
 ];
 
 export default function Footer() {
