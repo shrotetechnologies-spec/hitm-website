@@ -25,11 +25,11 @@ export default function NotFound() {
         </div>
         
         <h1 className="text-4xl md:text-5xl font-black font-serif text-gray-900 mb-4 leading-tight">
-          Oops! You've Wandered <br/>Off-Campus.
+          Oops! You&apos;ve Wandered <br/>Off-Campus.
         </h1>
         
         <p className="text-gray-500 text-lg md:text-xl mb-10 max-w-lg mx-auto leading-relaxed">
-          The page you are looking for has been moved or graduated. Let's get you back to the right classroom.
+          The page you are looking for has been moved or graduated. Let&apos;s get you back to the right classroom.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

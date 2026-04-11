@@ -207,7 +207,9 @@ export default function HomePage() {
             '🛡️ Anti-ragging helpline: 1800-180-5522',
             '🚀 New B.Tech in AI & ML starting 2026',
           ]).map((text, i) => (
-            <span key={i} className="inline-block px-12 text-white/90 text-sm font-medium">{text}</span>
+            <span key={i} className="inline-block px-12 text-white/90 text-sm font-medium">
+              {text.replace('–', '&ndash;').replace('—', '&mdash;')}
+            </span>
           ))}
         </div>
       </div>
@@ -251,13 +253,13 @@ export default function HomePage() {
               <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">About HITM Ranchi</p>
               <h2 className="text-4xl font-black font-serif text-gray-900 mb-5 leading-tight">A Legacy of Excellence in Education</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Holistic Institute of Technology & Management (HITM Ranchi) has been a beacon of quality education in Jharkhand since 2008.
-                Situated in the heart of Ranchi, we have grown into one of the region's most respected institutions, offering a wide range of 
+                Holistic Institute of Technology &amp; Management (HITM Ranchi) has been a beacon of quality education in Jharkhand since 2008.
+                Situated in the heart of Ranchi, we have grown into one of the region&apos;s most respected institutions, offering a wide range of 
                 undergraduate, postgraduate, and doctoral programs.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
                 Our commitment to academic rigor, cutting-edge research, industry collaboration, and holistic student development has produced 
-                thousands of successful alumni now leading in India's top corporations, government organizations, and startups.
+                thousands of successful alumni now leading in India&apos;s top corporations, government organizations, and startups.
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -467,7 +469,7 @@ export default function HomePage() {
                   <div className="flex text-hitm-gold mb-3">
                     {[...Array(t.stars)].map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
                   </div>
-                  <p className="text-gray-600 text-sm italic leading-relaxed mb-5">"{t.text}"</p>
+                  <p className="text-gray-600 text-sm italic leading-relaxed mb-5">&quot;{t.text}&quot;</p>
                   <div className="flex items-center gap-3">
                     <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full border-2 border-hitm-gold object-cover shrink-0 shadow-sm" />
                     <div>

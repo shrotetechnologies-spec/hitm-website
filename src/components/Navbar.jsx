@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
-  Phone, Mail, Calendar, Image, MapPin, ChevronDown, Menu, X,
+  Phone, Mail, Calendar, Image as ImageIcon, MapPin, ChevronDown, Menu, X,
   BookOpen, GraduationCap, Users, Building2, Trophy, Briefcase,
   Bell, ArrowRight
 } from 'lucide-react';
@@ -111,7 +111,7 @@ export default function Navbar() {
               <Calendar size={12} className="text-hitm-gold" /> Calendar
             </Link>
             <Link href="/campus/gallery" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <Image size={12} className="text-hitm-gold" /> Gallery
+              <ImageIcon size={12} className="text-hitm-gold" /> Gallery
             </Link>
             <Link href="/contact" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
               <MapPin size={12} className="text-hitm-gold" /> Contact
