@@ -5,7 +5,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import Link from 'next/link';
 import {
-  LayoutDashboard, Bell, CalendarDays, Image, GraduationCap, Users, Briefcase,
+  LayoutDashboard, Bell, CalendarDays, Image as ImageIcon, GraduationCap, Users, Briefcase,
   Globe, LogOut, Menu, X, Plus, Trash2, Pencil, Eye, TrendingUp, CheckCircle,
   AlertCircle, Clock, ChevronRight
 } from 'lucide-react';
@@ -24,7 +24,7 @@ const navItems = [
   { id: 'events', label: 'Events', icon: <CalendarDays size={16} /> },
   { id: 'enquiries', label: 'Enquiries', icon: <Users size={16} /> },
   { id: 'programs', label: 'Programs', icon: <GraduationCap size={16} /> },
-  { id: 'gallery', label: 'Gallery', icon: <Image size={16} /> },
+  { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={16} /> },
   { id: 'placement', label: 'Placement', icon: <Briefcase size={16} /> },
 ];
 
