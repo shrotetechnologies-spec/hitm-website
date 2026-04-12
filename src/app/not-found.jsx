@@ -58,7 +58,7 @@ export default function NotFound() {
             <Link href="/contact" className="text-sm font-bold text-hitm-red hover:underline">Help Desk</Link>
           </div>
           <p className="text-gray-400 text-[10px] uppercase tracking-widest font-bold">
-            © {new Date().getFullYear()} HITM Ranchi | <span className="text-hitm-navy">Academic Excellence</span>
+            © {new Date().getFullYear()} AHCT Ranchi | <span className="text-hitm-navy">Academic Excellence</span>
           </p>
         </div>
       </div>

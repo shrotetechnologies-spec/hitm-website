@@ -1,8 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { auth, db } from '@/lib/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -22,8 +23,18 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError('');
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push('/admin/dashboard');
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Check Firestore for admin status
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      
+      if (userDoc.exists() && userDoc.data().userType === 'admin') {
+        router.push('/admin/dashboard');
+      } else {
+        await signOut(auth);
+        setError('Access denied. No admin privileges found for this account.');
+      }
     } catch (err) {
       setError(
         err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password'
@@ -42,9 +53,9 @@ export default function AdminLoginPage() {
       <Card className="w-full max-w-md shadow-2xl">
         <CardHeader className="text-center pb-2">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-hitm-red to-hitm-navy flex items-center justify-center text-white font-black text-2xl font-serif mx-auto mb-4 shadow-lg">
-            H
+            A
           </div>
-          <CardTitle className="text-2xl">HITM Ranchi</CardTitle>
+          <CardTitle className="text-2xl">AHCT Ranchi</CardTitle>
           <CardDescription>Admin Portal — Secure Login</CardDescription>
         </CardHeader>
         <CardContent className="pt-4">

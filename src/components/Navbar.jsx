@@ -14,68 +14,67 @@ const navItems = [
   {
     label: 'About', icon: <Building2 size={16} />,
     children: [
-      { label: 'HITM Overview', href: '/about' },
-      { label: 'Vision & Mission', href: '/about/vision-mission' },
-      { label: "Chancellor's Message", href: '/about/chancellor-message' },
-      { label: "Director's Message", href: '/about/director-message' },
-      { label: 'Awards & Achievements', href: '/about/awards' },
-      { label: 'NAAC Accreditation', href: '/about/naac' },
-      { label: 'NIRF Ranking', href: '/about/nirf' },
-      { label: 'Anti Ragging', href: '/about/anti-ragging' },
+      { label: 'AHCT Overview', href: '#' },
+      { label: 'Vision & Mission', href: '#' },
+      { label: 'Governing Body', href: '/about/governing-body' },
+      { label: "Director's Message", href: '#' },
+      { label: 'Awards & Achievements', href: '#' },
+      { label: 'NAAC Accreditation', href: '#' },
+      { label: 'NIRF Ranking', href: '#' },
+      { label: 'Our Faculty', href: '/about/faculty' },
+      { label: 'Anti Ragging', href: '#' },
     ],
   },
   {
     label: 'Programs', icon: <BookOpen size={16} />,
     children: [
-      { label: 'B.Tech (CSE)', href: '/programs/btech-cse' },
-      { label: 'B.Tech (Mechanical)', href: '/programs/btech-mechanical' },
-      { label: 'B.Tech (EEE)', href: '/programs/btech-eee' },
-      { label: 'BCA', href: '/programs/bca' },
-      { label: 'MCA', href: '/programs/mca' },
-      { label: 'MBA', href: '/programs/mba' },
-      { label: 'BBA', href: '/programs/bba' },
-      { label: 'B.Com (Hons.)', href: '/programs/bcom' },
-      { label: 'LLB (Hons.)', href: '/programs/llb' },
-      { label: 'Ph.D Programs', href: '/programs/phd' },
+      { label: 'B.Tech (CSE)', href: '#' },
+      { label: 'B.Tech (Mechanical)', href: '#' },
+      { label: 'B.Tech (EEE)', href: '#' },
+      { label: 'BCA', href: '#' },
+      { label: 'MCA', href: '#' },
+      { label: 'MBA', href: '#' },
+      { label: 'BBA', href: '#' },
     ],
   },
   {
     label: 'Academics', icon: <GraduationCap size={16} />,
     children: [
-      { label: 'Academic Calendar', href: '/academics/calendar' },
-      { label: 'Examinations', href: '/academics/examinations' },
+      { label: 'Academic Calendar', href: '#' },
+      { label: 'Examinations', href: '#' },
       { label: 'Syllabus', href: '/academics/syllabus' },
-      { label: 'Library', href: '/academics/library' },
-      { label: 'E-Learning', href: '/academics/e-learning' },
-      { label: 'Scholarships', href: '/academics/scholarships' },
+      { label: 'Library', href: '#' },
+      { label: 'E-Learning', href: '#' },
+      { label: 'Scholarships', href: '#' },
     ],
   },
   {
     label: 'Admissions', icon: <Users size={16} />,
     children: [
-      { label: 'How to Apply', href: '/admissions/how-to-apply' },
-      { label: 'Eligibility Criteria', href: '/admissions/eligibility' },
+      { label: 'How to Apply', href: '/admissions/apply' },
+      { label: 'Eligibility Criteria', href: '#' },
       { label: 'Course Fee', href: '/admissions/fee' },
-      { label: 'Scholarship', href: '/admissions/scholarship' },
-      { label: 'Download Brochure', href: '/admissions/brochures' },
+      { label: 'Scholarship', href: '#' },
+      { label: 'Download Brochure', href: '#' },
     ],
   },
   {
     label: 'Campus Life', icon: <Trophy size={16} />,
     children: [
-      { label: 'Photo Gallery', href: '/campus/gallery' },
-      { label: 'Events & Fests', href: '/campus/events' },
-      { label: 'Clubs & Centers', href: '/campus/clubs' },
-      { label: 'Sports', href: '/campus/sports' },
-      { label: 'NSS/NCC', href: '/campus/nss-ncc' },
+      { label: 'Photo Gallery', href: '#' },
+      { label: 'Events & Fests', href: '#' },
+      { label: 'Campus Facilities', href: '/campus/facilities' },
+      { label: 'Clubs & Centers', href: '#' },
+      { label: 'Sports', href: '#' },
+      { label: 'NSS/NCC', href: '#' },
     ],
   },
   {
     label: 'Placement', icon: <Briefcase size={16} />,
     children: [
-      { label: 'Placement Overview', href: '/placement' },
-      { label: 'Top Recruiters', href: '/placement/recruiters' },
-      { label: 'Placement Stats', href: '/placement/statistics' },
+      { label: 'Placement Overview', href: '#' },
+      { label: 'Top Recruiters', href: '#' },
+      { label: 'Placement Stats', href: '#' },
     ],
   },
 ];
@@ -97,11 +96,11 @@ export default function Navbar() {
       <div className="bg-hitm-navy text-gray-300 text-[10px] uppercase tracking-widest py-1.5 border-b border-white/10 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-6 font-semibold">
-            <a href="tel:+916512345678" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <Phone size={12} className="text-hitm-gold" /> Admissions: 0651-234-5678
+            <a href="tel:0001119889" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
+              <Phone size={12} className="text-hitm-gold" /> Admissions: 000-111-9889
             </a>
-            <a href="mailto:info@hitmranchi.ac.in" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <Mail size={12} className="text-hitm-gold" /> info@hitmranchi.ac.in
+            <a href="mailto:support@ahctranchi.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
+              <Mail size={12} className="text-hitm-gold" /> support@ahctranchi.com
             </a>
           </div>
           <div className="flex items-center gap-6 font-semibold">
@@ -132,14 +131,14 @@ export default function Navbar() {
             {/* Premium Logo */}
             <Link href="/" className="flex items-center gap-3 group">
               <div className="w-11 h-11 md:w-14 md:h-14 rounded-lg bg-hitm-navy flex items-center justify-center text-white font-black text-xl md:text-2xl font-serif shadow-inner border-[3px] border-hitm-gold overflow-hidden relative">
-                <span className="relative z-10 transition-transform duration-500 group-hover:scale-110">H</span>
+                <span className="relative z-10 transition-transform duration-500 group-hover:scale-110">A</span>
                 <div className="absolute inset-0 bg-hitm-red translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
               </div>
               <div className="flex flex-col justify-center">
                 <h2 className="text-xl md:text-2xl font-black text-hitm-navy uppercase tracking-tighter leading-none group-hover:text-hitm-red transition-colors flex items-center gap-1">
-                  HITM <span className="font-light text-gray-400">Ranchi</span>
+                  AHCT <span className="font-light text-gray-400">Ranchi</span>
                 </h2>
-                <span className="text-[8px] md:text-[10px] font-bold text-hitm-gold tracking-[0.2em] uppercase mt-1">Holistic Institute</span>
+                <span className="text-[8px] md:text-[10px] font-bold text-hitm-gold uppercase mt-1" style={{ letterSpacing: '0.1em' }}>Al Haider College of Technology</span>
               </div>
             </Link>
 
@@ -216,8 +215,8 @@ export default function Navbar() {
             <Building2 size={150} />
           </div>
           <div className="relative z-10">
-            <h3 className="text-white font-black font-serif text-2xl tracking-tight">HITM RANCHI</h3>
-            <p className="text-hitm-gold font-bold text-xs uppercase tracking-widest mt-1">Holistic Institute</p>
+            <h3 className="text-white font-black font-serif text-2xl tracking-tight">AHCT RANCHI</h3>
+            <p className="text-hitm-gold font-bold text-[10px] uppercase tracking-widest mt-1">Al Haider College of Technology</p>
           </div>
           <button onClick={() => setMobileOpen(false)} className="absolute top-4 right-4 text-white/50 hover:text-white bg-white/10 hover:bg-hitm-red rounded-full p-2 transition-colors z-20">
             <X size={20} />
@@ -259,7 +258,7 @@ export default function Navbar() {
             <Link href="/admissions/apply">Apply Now 2026</Link>
           </Button>
           <div className="mt-4 text-center pb-2">
-            <p className="text-xs font-semibold text-gray-400">Call Admissions: 0651-234-5678</p>
+            <p className="text-xs font-semibold text-gray-400">Call Admissions: 000-111-9889</p>
           </div>
         </div>
       </div>

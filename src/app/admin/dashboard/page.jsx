@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
+import { doc, getDoc, collection, onSnapshot, query, orderBy, addDoc, updateDoc, serverTimestamp, deleteDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import {
   LayoutDashboard, Bell, CalendarDays, Image as ImageIcon, GraduationCap, Users, Briefcase,
@@ -23,9 +24,6 @@ const navItems = [
   { id: 'notices', label: 'Notices', icon: <Bell size={16} /> },
   { id: 'events', label: 'Events', icon: <CalendarDays size={16} /> },
   { id: 'enquiries', label: 'Enquiries', icon: <Users size={16} /> },
-  { id: 'programs', label: 'Programs', icon: <GraduationCap size={16} /> },
-  { id: 'gallery', label: 'Gallery', icon: <ImageIcon size={16} /> },
-  { id: 'placement', label: 'Placement', icon: <Briefcase size={16} /> },
 ];
 
 // ── Stats ─────────────────────────────────────────────────────────────────────
@@ -51,17 +49,50 @@ const statusColors = {
 
 // ── Dashboard View ────────────────────────────────────────────────────────────
 function DashboardView() {
-  const [notices, setNotices] = useState([]);
+  const [noticesCount, setNoticesCount] = useState(0);
+  const [enquiriesCount, setEnquiriesCount] = useState(0);
+  const [recentEnquiries, setRecentEnquiries] = useState([]);
+  const [recentNotices, setRecentNotices] = useState([]);
+
+  const [eventsCount, setEventsCount] = useState(0);
+  const [recentEvents, setRecentEvents] = useState([]);
+
   useEffect(() => {
-    fetch('/api/notices?limit=4').then(r => r.json()).then(d => setNotices(d.data || []));
+    // Stats and Real-time data
+    const qNotices = query(collection(db, 'notices'), orderBy('createdAt', 'desc'));
+    const unsubNotices = onSnapshot(qNotices, (snapshot) => {
+      setNoticesCount(snapshot.size);
+      setRecentNotices(snapshot.docs.slice(0, 4).map(d => ({ id: d.id, ...d.data() })));
+    });
+
+    const qEnquiries = query(collection(db, 'enquiries'), orderBy('createdAt', 'desc'));
+    const unsubEnquiries = onSnapshot(qEnquiries, (snapshot) => {
+      setEnquiriesCount(snapshot.size);
+      setRecentEnquiries(snapshot.docs.slice(0, 4).map(d => ({ id: d.id, ...d.data() })));
+    });
+
+    const qEvents = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
+    const unsubEvents = onSnapshot(qEvents, (snapshot) => {
+      setEventsCount(snapshot.size);
+      setRecentEvents(snapshot.docs.slice(0, 4).map(d => ({ id: d.id, ...d.data() })));
+    });
+
+    return () => { unsubNotices(); unsubEnquiries(); unsubEvents(); };
   }, []);
+
+  const stats = [
+    { icon: <Users size={22} />, label: 'Total Enquiries', value: enquiriesCount.toString(), change: 'Real-time', color: 'text-hitm-red bg-hitm-red/10' },
+    { icon: <CalendarDays size={22} />, label: 'Active Events', value: eventsCount.toString(), change: 'Live', color: 'text-hitm-navy bg-hitm-navy/10' },
+    { icon: <Bell size={22} />, label: 'Active Notices', value: noticesCount.toString(), change: 'Live', color: 'text-amber-600 bg-amber-50' },
+    { icon: <TrendingUp size={22} />, label: 'Admissions Status', value: 'Open', change: '2026-27', color: 'text-emerald-600 bg-emerald-50' },
+  ];
 
   return (
     <div className="space-y-6">
       {/* Stats */}
       <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-        {statsData.map((s, i) => (
-          <Card key={i} className="hover:shadow-md transition-shadow">
+        {stats.map((s, i) => (
+          <Card key={i} className="hover:shadow-md transition-shadow transition-all duration-300">
             <CardContent className="p-5 flex items-center gap-4">
               <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${s.color}`}>
                 {s.icon}
@@ -96,16 +127,16 @@ function DashboardView() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {mockEnquiries.map((e) => (
-                  <tr key={e.id} className="hover:bg-gray-50 transition-colors">
+                {recentEnquiries.length > 0 ? recentEnquiries.map((e) => (
+                  <tr key={e.id} className="hover:bg-gray-50 transition-colors animate-fade-in">
                     <td className="px-4 py-3">
                       <p className="font-medium text-gray-900">{e.name}</p>
                       <p className="text-xs text-gray-400">{e.phone}</p>
                     </td>
                     <td className="px-4 py-3 text-gray-600">{e.program}</td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${statusColors[e.status]}`}>
-                        {e.status}
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${statusColors[e.status] || 'bg-gray-100'}`}>
+                        {e.status || 'New'}
                       </span>
                     </td>
                     <td className="px-4 py-3">
@@ -114,7 +145,9 @@ function DashboardView() {
                       </Button>
                     </td>
                   </tr>
-                ))}
+                )) : (
+                  <tr><td colSpan="4" className="text-center py-10 text-gray-400 text-xs">No recent enquiries</td></tr>
+                )}
               </tbody>
             </table>
           </div>
@@ -129,8 +162,8 @@ function DashboardView() {
             </CardTitle>
           </CardHeader>
           <div className="divide-y divide-gray-100">
-            {notices.slice(0, 4).map((n, i) => (
-              <div key={n.id || i} className="flex items-start gap-3 px-5 py-3.5 hover:bg-gray-50">
+            {recentNotices.length > 0 ? recentNotices.map((n, i) => (
+              <div key={n.id || i} className="flex items-start gap-3 px-5 py-3.5 hover:bg-gray-50 transition-colors animate-fade-in">
                 <Bell size={14} className="text-hitm-red shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm text-gray-800 truncate">{n.title}</p>
@@ -140,7 +173,9 @@ function DashboardView() {
                   {n.active ? 'Active' : 'Off'}
                 </Badge>
               </div>
-            ))}
+            )) : (
+              <p className="text-center py-10 text-gray-400 text-xs text-center w-full">No active notices</p>
+            )}
           </div>
         </Card>
       </div>
@@ -150,49 +185,68 @@ function DashboardView() {
 
 // ── Notices Manager ───────────────────────────────────────────────────────────
 function NoticesManager() {
-  const [notices, setNotices] = useState([
-    { id: '1', title: 'Admission Notice 2026-27', category: 'Admissions', date: '2026-04-11', active: true, content: 'Admissions open for 2026-27.' },
-    { id: '2', title: 'End Semester Exam Schedule', category: 'Examination', date: '2026-04-10', active: true, content: 'Exams from May 5.' },
-    { id: '3', title: 'Campus Placement Drive – Infosys', category: 'Placement', date: '2026-04-09', active: true, content: 'Drive on April 25.' },
-  ]);
+  const [notices, setNotices] = useState([]);
+  const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ title: '', category: 'Admissions', content: '', date: '' });
+  const [form, setForm] = useState({ title: '', category: 'Admissions', content: '', date: '', active: true });
   const [saving, setSaving] = useState(false);
 
-  const handleAdd = async (e) => {
+  useEffect(() => {
+    const q = query(collection(db, 'notices'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setNotices(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSave = async (e) => {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch('/api/notices', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
-      const data = await res.json();
-      if (data.success) {
-        setNotices([data.data, ...notices]);
-        setForm({ title: '', category: 'Admissions', content: '', date: '' });
-        setShowForm(false);
+      if (editingId) {
+        await updateDoc(doc(db, 'notices', editingId), { 
+          ...form, 
+          updatedAt: serverTimestamp() 
+        });
+      } else {
+        await addDoc(collection(db, 'notices'), {
+          ...form,
+          createdAt: serverTimestamp(),
+        });
       }
-    } catch {}
+      setForm({ title: '', category: 'Admissions', content: '', date: '', active: true });
+      setShowForm(false);
+      setEditingId(null);
+    } catch (e) { console.error(e); }
     setSaving(false);
   };
 
+  const handleEdit = (notice) => {
+    setForm({ title: notice.title, category: notice.category, content: notice.content, date: notice.date, active: notice.active });
+    setEditingId(notice.id);
+    setShowForm(true);
+  };
+
   const handleDelete = async (id) => {
-    await fetch(`/api/notices/${id}`, { method: 'DELETE' });
-    setNotices(notices.filter(n => n.id !== id));
+    if (confirm('Delete this notice?')) {
+      await deleteDoc(doc(db, 'notices', id));
+    }
   };
 
   return (
     <div className="space-y-5">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold font-serif">Notice Board</h2>
-        <Button variant="default" size="sm" onClick={() => setShowForm(!showForm)}>
+        <Button variant="default" size="sm" onClick={() => { setShowForm(!showForm); if(showForm) setEditingId(null); }}>
           {showForm ? <><X size={14} /> Cancel</> : <><Plus size={14} /> Add Notice</>}
         </Button>
       </div>
 
       {showForm && (
         <Card>
-          <CardHeader><CardTitle className="text-base">Add New Notice</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">{editingId ? 'Edit Notice' : 'Add New Notice'}</CardTitle></CardHeader>
           <CardContent>
-            <form onSubmit={handleAdd} className="space-y-4">
+            <form onSubmit={handleSave} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <Label>Notice Title *</Label>
@@ -214,7 +268,7 @@ function NoticesManager() {
                 <Textarea placeholder="Notice content..." value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} />
               </div>
               <Button type="submit" variant="default" disabled={saving}>
-                {saving ? 'Saving...' : <><CheckCircle size={14} /> Save Notice</>}
+                {saving ? 'Saving...' : <><CheckCircle size={14} /> {editingId ? 'Update Notice' : 'Save Notice'}</>}
               </Button>
             </form>
           </CardContent>
@@ -251,7 +305,7 @@ function NoticesManager() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex gap-1.5">
-                      <Button variant="ghost" size="sm" className="h-7 text-xs text-hitm-navy">
+                      <Button variant="ghost" size="sm" className="h-7 text-xs text-hitm-navy" onClick={() => handleEdit(n)}>
                         <Pencil size={12} />
                       </Button>
                       <Button variant="ghost" size="sm" className="h-7 text-xs text-red-500 hover:text-red-700 hover:bg-red-50"
@@ -270,11 +324,156 @@ function NoticesManager() {
   );
 }
 
+// ── Events Manager ────────────────────────────────────────────────────────────
+function EventsManager() {
+  const [events, setEvents] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [form, setForm] = useState({ title: '', date: '', type: 'Academic', description: '', active: true });
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setEvents(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    try {
+      if (editingId) {
+        await updateDoc(doc(db, 'events', editingId), { ...form, updatedAt: serverTimestamp() });
+      } else {
+        await addDoc(collection(db, 'events'), { ...form, createdAt: serverTimestamp() });
+      }
+      setForm({ title: '', date: '', type: 'Academic', description: '', active: true });
+      setShowForm(false);
+      setEditingId(null);
+    } catch (e) { console.error(e); }
+    setSaving(false);
+  };
+
+  const handleEdit = (event) => {
+    setForm({ title: event.title, date: event.date, type: event.type, description: event.description, active: event.active });
+    setEditingId(event.id);
+    setShowForm(true);
+  };
+
+  const handleDelete = async (id) => {
+    if (confirm('Delete this event?')) {
+      await deleteDoc(doc(db, 'events', id));
+    }
+  };
+
+  return (
+    <div className="space-y-5">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-bold font-serif">College Events</h2>
+        <Button variant="default" size="sm" onClick={() => { setShowForm(!showForm); if(showForm) setEditingId(null); }}>
+          {showForm ? <><X size={14} /> Cancel</> : <><Plus size={14} /> Add Event</>}
+        </Button>
+      </div>
+
+      {showForm && (
+        <Card>
+          <CardHeader><CardTitle className="text-base">{editingId ? 'Edit Event' : 'Add New Event'}</CardTitle></CardHeader>
+          <CardContent>
+            <form onSubmit={handleSave} className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-1.5">
+                  <Label>Event Title *</Label>
+                  <Input required placeholder="Event title" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} />
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Event Type *</Label>
+                  <Select value={form.type} onChange={e => setForm({ ...form, type: e.target.value })}>
+                    {['Academic', 'Technical', 'Sports', 'Cultural', 'Social', 'Placement'].map(t => <option key={t}>{t}</option>)}
+                  </Select>
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Date *</Label>
+                  <Input type="date" required value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label>Description</Label>
+                <Textarea placeholder="Short description..." value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} />
+              </div>
+              <Button type="submit" variant="default" disabled={saving}>
+                {saving ? 'Saving...' : <><CheckCircle size={14} /> {editingId ? 'Update Event' : 'Save Event'}</>}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      )}
+
+      <Card className="overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-gray-50 text-xs text-gray-500 uppercase">
+              <tr>
+                <th className="text-left px-4 py-3">Event</th>
+                <th className="text-left px-4 py-3">Type</th>
+                <th className="text-left px-4 py-3">Date</th>
+                <th className="text-left px-4 py-3">Status</th>
+                <th className="text-left px-4 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {events.length > 0 ? events.map((ev) => (
+                <tr key={ev.id} className="hover:bg-gray-50">
+                  <td className="px-4 py-3">
+                    <p className="font-bold text-gray-900">{ev.title}</p>
+                    <p className="text-[10px] text-gray-400 truncate max-w-[200px]">{ev.description}</p>
+                  </td>
+                  <td className="px-4 py-3"><Badge variant="outline" className="text-[10px] uppercase font-bold">{ev.type}</Badge></td>
+                  <td className="px-4 py-3 text-xs text-gray-500">{ev.date}</td>
+                  <td className="px-4 py-3">
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${ev.active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                      {ev.active ? 'Active' : 'Past'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex gap-1.5">
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-hitm-navy" onClick={() => handleEdit(ev)}><Pencil size={12} /></Button>
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-red-500" onClick={() => handleDelete(ev.id)}><Trash2 size={12} /></Button>
+                    </div>
+                  </td>
+                </tr>
+              )) : (
+                <tr><td colSpan="5" className="text-center py-10 text-gray-400">No events found</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 // ── Enquiries Manager ─────────────────────────────────────────────────────────
 function EnquiriesManager() {
-  const [enquiries, setEnquiries] = useState(mockEnquiries);
+  const [enquiries, setEnquiries] = useState([]);
   const [search, setSearch] = useState('');
-  const filtered = enquiries.filter(e => e.name.toLowerCase().includes(search.toLowerCase()) || e.program.toLowerCase().includes(search.toLowerCase()));
+
+  useEffect(() => {
+    const q = query(collection(db, 'enquiries'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setEnquiries(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const filtered = enquiries.filter(e => e.name?.toLowerCase().includes(search.toLowerCase()) || e.program?.toLowerCase().includes(search.toLowerCase()));
+
+  const handleDelete = async (id) => {
+    if (confirm('Delete this enquiry?')) {
+      await deleteDoc(doc(db, 'enquiries', id));
+    }
+  };
 
   return (
     <div className="space-y-5">
@@ -294,26 +493,29 @@ function EnquiriesManager() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {filtered.map((e, i) => (
-                <tr key={e.id} className="hover:bg-gray-50">
+              {filtered.length > 0 ? filtered.map((e, i) => (
+                <tr key={e.id} className="hover:bg-gray-50 transition-colors animate-fade-in">
                   <td className="px-4 py-3 text-gray-400">{i + 1}</td>
                   <td className="px-4 py-3">
                     <p className="font-medium text-gray-900">{e.name}</p>
+                    <p className="text-[10px] text-gray-400">{e.email}</p>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{e.program}</td>
+                  <td className="px-4 py-3 text-gray-600 font-medium">{e.program}</td>
                   <td className="px-4 py-3 text-gray-600">{e.phone}</td>
-                  <td className="px-4 py-3 text-xs text-gray-500">{e.date}</td>
+                  <td className="px-4 py-3 text-[10px] text-gray-500">{e.date || 'Today'}</td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${statusColors[e.status]}`}>{e.status}</span>
+                    <span className={`text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-tighter ${statusColors[e.status] || 'bg-gray-100'}`}>{e.status || 'New'}</span>
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex gap-1">
-                      <Button variant="ghost" size="sm" className="h-7 text-xs text-hitm-navy"><Eye size={12} /></Button>
-                      <Button variant="ghost" size="sm" className="h-7 text-xs text-hitm-red"><Pencil size={12} /></Button>
+                    <div className="flex gap-1.5">
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-hitm-navy hover:bg-hitm-navy/10 transition-colors"><Eye size={14} /></Button>
+                      <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors" onClick={() => handleDelete(e.id)}><Trash2 size={14} /></Button>
                     </div>
                   </td>
                 </tr>
-              ))}
+              )) : (
+                <tr><td colSpan="7" className="text-center py-20 text-gray-400 font-serif">Empty Inbox</td></tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -331,11 +533,26 @@ export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    return onAuthStateChanged(auth, (u) => {
-      if (u) setUser(u);
-      else router.push('/admin/login');
+    const unsubscribe = onAuthStateChanged(auth, async (u) => {
+      if (u) {
+        try {
+          const userDoc = await getDoc(doc(db, 'users', u.uid));
+          if (userDoc.exists() && userDoc.data().userType === 'admin') {
+            setUser({ ...u, ...userDoc.data() });
+          } else {
+            await signOut(auth);
+            router.push('/admin/login');
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          router.push('/admin/login');
+        }
+      } else {
+        router.push('/admin/login');
+      }
       setLoading(false);
     });
+    return () => unsubscribe();
   }, [router]);
 
   const handleSignOut = async () => {
@@ -358,6 +575,7 @@ export default function AdminDashboard() {
     switch (activeSection) {
       case 'dashboard': return <DashboardView />;
       case 'notices': return <NoticesManager />;
+      case 'events': return <EventsManager />;
       case 'enquiries': return <EnquiriesManager />;
       default: return (
         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
@@ -382,8 +600,8 @@ export default function AdminDashboard() {
         sidebarOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0"
       )}>
         <div className="bg-hitm-red/80 px-4 py-5 text-center shrink-0">
-          <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white font-black text-xl font-serif mx-auto mb-2">H</div>
-          <h2 className="text-white font-bold font-serif text-sm">HITM Admin</h2>
+          <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white font-black text-xl font-serif mx-auto mb-2">A</div>
+          <h2 className="text-white font-bold font-serif text-sm">AHCT Admin</h2>
           <p className="text-white/60 text-[11px] mt-0.5">Management Portal</p>
         </div>
 
@@ -422,7 +640,7 @@ export default function AdminDashboard() {
               <h1 className="font-bold text-gray-900 text-sm leading-tight">
                 {navItems.find(i => i.id === activeSection)?.label || 'Dashboard'}
               </h1>
-              <p className="text-xs text-gray-400">Welcome, {user?.email}</p>
+              <p className="text-xs text-gray-400">Welcome, {user?.name || user?.email}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

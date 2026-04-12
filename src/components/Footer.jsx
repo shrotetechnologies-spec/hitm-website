@@ -5,24 +5,22 @@ import { Separator } from '@/components/ui/separator';
 
 const footerLinks = {
   quickLinks: [
-    { label: 'About HITM', href: '/about' },
-    { label: 'All Programs', href: '/programs' },
+    { label: 'About AHCT', href: '#' },
+    { label: 'All Programs', href: '#' },
     { label: 'Apply Online', href: '/admissions/apply' },
-    { label: 'Academic Calendar', href: '/academics/calendar' },
-    { label: 'Placement', href: '/placement' },
-    { label: 'Photo Gallery', href: '/campus/gallery' },
-    { label: 'Notice Board', href: '/notice' },
-    { label: 'Career', href: '/career' },
+    { label: 'Academic Calendar', href: '#' },
+    { label: 'Placement', href: '#' },
+    { label: 'Photo Gallery', href: '#' },
+    { label: 'Notice Board', href: '#' },
+    { label: 'Career', href: '#' },
   ],
   programs: [
-    { label: 'B.Tech (CSE)', href: '/programs/btech-cse' },
-    { label: 'B.Tech (Mechanical)', href: '/programs/btech-mechanical' },
-    { label: 'BCA', href: '/programs/bca' },
-    { label: 'MCA', href: '/programs/mca' },
-    { label: 'MBA', href: '/programs/mba' },
-    { label: 'BBA', href: '/programs/bba' },
-    { label: 'B.Com (Hons.)', href: '/programs/bcom' },
-    { label: 'Ph.D Programs', href: '/programs/phd' },
+    { label: 'B.Tech (CSE)', href: '#' },
+    { label: 'B.Tech (Mechanical)', href: '#' },
+    { label: 'BCA', href: '#' },
+    { label: 'MCA', href: '#' },
+    { label: 'MBA', href: '#' },
+    { label: 'BBA', href: '#' },
   ],
 };
 
@@ -44,15 +42,15 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-hitm-red to-hitm-navy flex items-center justify-center text-white font-black text-xl font-serif shadow-lg">
-                H
+                A
               </div>
               <div>
-                <h3 className="text-white font-bold font-serif text-base leading-tight">HITM Ranchi</h3>
+                <h3 className="text-white font-bold font-serif text-base leading-tight">AHCT Ranchi</h3>
                 <p className="text-gray-500 text-[10px]">Est. 2008</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Holistic Institute of Technology & Management, Ranchi — committed to excellence in 
+              Al Haider College of Technology, Ranchi — committed to excellence in 
               education, innovation, and producing industry-ready graduates who make a difference.
             </p>
             <div className="flex gap-2">
@@ -99,15 +97,15 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex gap-3">
                 <MapPin size={16} className="text-hitm-gold shrink-0 mt-0.5" />
-                <p className="text-gray-400 text-sm">NH-33, Tatisilwai, Ranchi, Jharkhand – 835103</p>
+                <p className="text-gray-400 text-sm">Ranchi 834006 Jharkhand, India</p>
               </div>
               <div className="flex gap-3">
                 <Phone size={16} className="text-hitm-gold shrink-0" />
-                <p className="text-gray-400 text-sm">+91 651-234-5678<br />+91 651-987-6543</p>
+                <p className="text-gray-400 text-sm">000-111-9889</p>
               </div>
               <div className="flex gap-3">
                 <Mail size={16} className="text-hitm-gold shrink-0" />
-                <p className="text-gray-400 text-sm">admissions@hitmranchi.ac.in<br />info@hitmranchi.ac.in</p>
+                <p className="text-gray-400 text-sm">support@ahctranchi.com</p>
               </div>
               <div className="flex gap-3">
                 <Clock size={16} className="text-hitm-gold shrink-0" />
@@ -122,7 +120,7 @@ export default function Footer() {
 
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
         <div className="flex flex-col md:flex-row items-center gap-1 md:gap-4">
-          <p className="text-gray-500 text-xs">© {new Date().getFullYear()} HITM Ranchi. All rights reserved.</p>
+          <p className="text-gray-500 text-xs">© {new Date().getFullYear()} AHCT Ranchi. All rights reserved.</p>
           <span className="hidden md:inline text-gray-700 text-xs">|</span>
           <p className="text-gray-500 text-xs">
             Managed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>

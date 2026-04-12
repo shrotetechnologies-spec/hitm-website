@@ -19,18 +19,18 @@ const heroSlides = [
     image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1600',
     badge: 'Admissions Open 2026',
     title: 'Shaping Future Leaders Through Quality Education',
-    subtitle: "HITM Ranchi — Where Innovation Meets Excellence. Join Jharkhand's most dynamic institute for Engineering, Management & Technology.",
+    subtitle: "AHCT Ranchi — Where Innovation Meets Excellence. Join Jharkhand's most dynamic institute for Engineering, Management & Technology.",
   },
   {
     image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1600',
     badge: 'NAAC Accredited Institution',
     title: 'Excellence in Technology & Management Education',
-    subtitle: 'With state-of-the-art infrastructure and experienced faculty, HITM Ranchi provides industry-focused education that prepares you for tomorrow.',
+    subtitle: 'With state-of-the-art infrastructure and experienced faculty, AHCT Ranchi provides industry-focused education that prepares you for tomorrow.',
   },
   {
     image: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&q=80&w=1600',
     badge: '100% Placement Assistance',
-    title: 'Your Career Begins Here at HITM Ranchi',
+    title: 'Your Career Begins Here at AHCT Ranchi',
     subtitle: 'Partnered with 200+ leading companies, our dedicated placement cell ensures every student gets the right opportunity.',
   },
 ];
@@ -43,12 +43,12 @@ const stats = [
 ];
 
 const programs = [
-  { icon: <BookOpen className="text-white" size={24} />, name: 'School of Engineering & IT', desc: 'Cutting-edge programs in CS, Mechanical, Electrical Engineering', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', courses: ['B.Tech CSE', 'B.Tech Mechanical', 'B.Tech EEE', 'BCA', 'MCA'] },
-  { icon: <Briefcase className="text-white" size={24} />, name: 'School of Management', desc: 'Industry-aligned MBA, BBA programs with real-world exposure', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800', courses: ['MBA', 'BBA', 'B.Com (H)'] },
-  { icon: <Award className="text-white" size={24} />, name: 'School of Law', desc: 'Comprehensive legal education with moot court practice', image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800', courses: ['LLB (Hons.)', 'BBA LLB', '5-Year Integrated'] },
-  { icon: <Globe className="text-white" size={24} />, name: 'School of Sciences', desc: 'Research-driven programs in biotechnology and allied sciences', image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', courses: ['B.Sc Biotech', 'M.Sc Programs'] },
-  { icon: <Target className="text-white" size={24} />, name: 'School of Humanities', desc: 'Creative programs in journalism, English, fashion design', image: 'https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&q=80&w=800', courses: ['BA English', 'BA Journalism', 'BA Fashion'] },
-  { icon: <GraduationCap className="text-white" size={24} />, name: 'Research & Ph.D', desc: 'Advanced research programs with expert academic guidance', image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800', courses: ['Ph.D CSE', 'Ph.D Management', 'Ph.D Commerce'] },
+  { icon: <BookOpen className="text-white" size={24} />, name: 'B.Tech Programs', desc: '4-Year Undergraduate Engineering Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', courses: ['CSE', 'AI', 'Data Science', 'Electrical', 'EEE', 'ECE', 'Mechanical', 'Civil'] },
+  { icon: <Briefcase className="text-white" size={24} />, name: 'Diploma (Polytechnic)', desc: '3-Year Diploma Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800', courses: ['CSE', 'Data Science', 'AI', 'Mechanical', 'Civil', 'Electrical', 'EEE', 'ECE'] },
+  { icon: <Award className="text-white" size={24} />, name: 'MBA Program', desc: '2-Year Master of Business Administration (60 Seats)', image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800', courses: ['The Master of Business'] },
+  { icon: <Globe className="text-white" size={24} />, name: 'MCA Program', desc: '2-Year Master of Computer Applications', image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', courses: ['MCA (4 Semesters)'] },
+  { icon: <Target className="text-white" size={24} />, name: 'BCA Program', desc: '3-Year Bachelor of Computer Applications', image: 'https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&q=80&w=800', courses: ['BCA (6 Semesters)'] },
+  { icon: <GraduationCap className="text-white" size={24} />, name: 'BBA Program', desc: '3-Year Bachelor of Business Administration', image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800', courses: ['BBA (6 Semesters)'] },
 ];
 
 const notices = [
@@ -70,7 +70,7 @@ const events = [
 
 const testimonials = [
   {
-    text: 'HITM Ranchi gave me the technical foundation and soft skills to land my dream job at Wipro. The faculty are incredibly supportive and industry-connected.',
+    text: 'AHCT Ranchi gave me the technical foundation and soft skills to land my dream job at Wipro. The faculty are incredibly supportive and industry-connected.',
     name: 'Rahul Kumar Singh', role: 'B.Tech CSE 2024 | SDE at Wipro', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
   },
   {
@@ -200,8 +200,8 @@ export default function HomePage() {
         <div className="marquee-track">
           {[...Array(2)].flatMap(() => [
             '📣 Admissions Open for 2026-27 Academic Year',
-            '🏆 HITM Ranchi achieves record 95% placement rate',
-            '💼 Campus drive by Infosys & TCS – April 25, 2026',
+            '🏆 AHCT Ranchi achieves record 95% placement rate',
+            '💼 Campus drive by Infosys & TCS - April 25, 2026',
             '🎉 TechFest HITMX 2026 registrations open',
             '🎓 Apply now for Scholarship 2026 – Last date: April 30',
             '🛡️ Anti-ragging helpline: 1800-180-5522',
@@ -250,10 +250,10 @@ export default function HomePage() {
             </div>
 
             <div>
-              <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">About HITM Ranchi</p>
+              <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">About AHCT Ranchi</p>
               <h2 className="text-4xl font-black font-serif text-gray-900 mb-5 leading-tight">A Legacy of Excellence in Education</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Holistic Institute of Technology &amp; Management (HITM Ranchi) has been a beacon of quality education in Jharkhand since 2008.
+                Al Haider College of Technology (AHCT Ranchi) has been a beacon of quality education in Jharkhand since 2008.
                 Situated in the heart of Ranchi, we have grown into one of the region&apos;s most respected institutions, offering a wide range of 
                 undergraduate, postgraduate, and doctoral programs.
               </p>
@@ -318,8 +318,8 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="section-title">
-            <h2>Schools & Programs</h2>
-            <p className="text-gray-500 mt-4 max-w-xl mx-auto">Explore our diverse range of undergraduate, postgraduate, and doctoral programs designed for the future.</p>
+            <h2>Programs Offered</h2>
+            <p className="text-gray-500 mt-4 max-w-xl mx-auto">Explore our diverse range of diploma, undergraduate, and postgraduate programs designed for the future.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {programs.map((p, i) => (
@@ -342,7 +342,7 @@ export default function HomePage() {
                     ))}
                   </div>
                   <Link href="/programs" className="mt-auto inline-flex items-center gap-1.5 text-hitm-red font-semibold text-sm hover:gap-3 transition-all px-1 py-2 rounded">
-                    Explore School <ArrowRight size={14} />
+                    Explore Program <ArrowRight size={14} />
                   </Link>
                 </CardContent>
               </Card>
@@ -459,7 +459,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="section-title">
             <h2>What Our Alumni Say</h2>
-            <p className="text-gray-500 mt-4">Hear from the achievers who started their journey at HITM Ranchi.</p>
+            <p className="text-gray-500 mt-4">Hear from the achievers who started their journey at AHCT Ranchi.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
@@ -517,7 +517,7 @@ export default function HomePage() {
                   <select required className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-hitm-red outline-none"
                     value={enquiry.program} onChange={e => setEnquiry({ ...enquiry, program: e.target.value })}>
                     <option value="">Select Program</option>
-                    {['B.Tech (CSE)', 'B.Tech (Mechanical)', 'B.Tech (EEE)', 'BCA', 'MCA', 'MBA', 'BBA', 'B.Com (H)', 'LLB (H)'].map(p => <option key={p}>{p}</option>)}
+                    {['B.Tech CSE', 'B.Tech AI', 'B.Tech Data Science', 'B.Tech Electrical', 'B.Tech EEE', 'B.Tech ECE', 'B.Tech Mechanical', 'B.Tech Civil', 'Diploma CSE', 'Diploma Data Science', 'Diploma AI', 'Diploma Mechanical', 'Diploma Civil', 'Diploma Electrical', 'Diploma EEE', 'Diploma ECE', 'MBA', 'MCA', 'BCA', 'BBA'].map(p => <option key={p}>{p}</option>)}
                   </select>
                 </div>
                 <Button type="submit" variant="default" size="lg" className="md:col-span-2 w-full">
