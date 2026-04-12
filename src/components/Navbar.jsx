@@ -12,69 +12,52 @@ import { cn } from '@/lib/utils';
 
 const navItems = [
   {
-    label: 'About', icon: <Building2 size={16} />,
+    label: 'Courses', icon: <BookOpen size={16} />,
     children: [
-      { label: 'AHCT Overview', href: '/about/overview' },
-      { label: 'Vision & Mission', href: '/about/vision' },
+      { label: 'MBA', href: '/programs/mba' },
+      { label: 'BBA', href: '/programs/bba' },
+      { label: 'MCA', href: '/programs/mca' },
+      { label: 'BCA', href: '/programs/bca' },
+      { label: 'Engineering (B.Tech)', href: '/programs/engineering' },
+      { label: 'Diploma / Polytechnic', href: '/programs/diploma' },
+    ],
+  },
+  {
+    label: 'Management', icon: <Building2 size={16} />,
+    children: [
       { label: 'Governing Body', href: '/about/governing-body' },
+      { label: 'Vision & Mission', href: '/about/vision' },
       { label: "Director's Message", href: '/about/director' },
-      { label: 'Awards & Achievements', href: '/about/awards' },
-      { label: 'NAAC Accreditation', href: '/about/naac' },
-      { label: 'NIRF Ranking', href: '/about/nirf' },
-      { label: 'Our Faculty', href: '/about/faculty' },
-      { label: 'Anti Ragging', href: '/about/anti-ragging' },
-    ],
-  },
-  {
-    label: 'Programs', icon: <BookOpen size={16} />,
-    children: [
-      { label: 'B.Tech (CSE)', href: '#' },
-      { label: 'B.Tech (Mechanical)', href: '#' },
-      { label: 'B.Tech (EEE)', href: '#' },
-      { label: 'BCA', href: '#' },
-      { label: 'MCA', href: '#' },
-      { label: 'MBA', href: '#' },
-      { label: 'BBA', href: '#' },
-    ],
-  },
-  {
-    label: 'Academics', icon: <GraduationCap size={16} />,
-    children: [
-      { label: 'Academic Calendar', href: '/academics/calendar' },
-      { label: 'Examinations', href: '/academics/examination' },
-      { label: 'Syllabus', href: '/academics/syllabus' },
-      { label: 'Library', href: '/academics/library' },
-      { label: 'E-Learning', href: '/academics/e-learning' },
-      { label: 'Scholarships', href: '/academics/scholarship-academic' },
     ],
   },
   {
     label: 'Admissions', icon: <Users size={16} />,
     children: [
-      { label: 'How to Apply', href: '/admissions/apply' },
-      { label: 'Eligibility Criteria', href: '/admissions/eligibility' },
-      { label: 'Course Fee', href: '/admissions/fee' },
-      { label: 'Scholarship', href: '/admissions/scholarship-admission' },
-      { label: 'Download Brochure', href: '/admissions/brochure' },
+      { label: 'Admission Process', href: '/admissions/apply' },
+      { label: 'Eligibility', href: '/admissions/eligibility' },
+      { label: 'Fee Structure', href: '/admissions/fee' },
     ],
   },
   {
-    label: 'Campus Life', icon: <Trophy size={16} />,
+    label: 'Academics', icon: <GraduationCap size={16} />,
     children: [
-      { label: 'Photo Gallery', href: '/campus/gallery' },
-      { label: 'Events & Fests', href: '/campus/events' },
-      { label: 'Campus Facilities', href: '/campus/facilities' },
-      { label: 'Clubs & Centers', href: '/campus/clubs' },
-      { label: 'Sports', href: '/campus/sports' },
-      { label: 'NSS/NCC', href: '/campus/nss' },
+      { label: 'Syllabus (PDF)', href: '/academics/syllabus' },
+      { label: 'Academic Calendar', href: '/academics/calendar' },
+      { label: 'Faculty Details', href: '/about/faculty' },
     ],
   },
   {
-    label: 'Placement', icon: <Briefcase size={16} />,
+    label: 'Student Life', icon: <Trophy size={16} />,
     children: [
-      { label: 'Placement Overview', href: '/placement/overview' },
-      { label: 'Top Recruiters', href: '/placement/recruiters' },
-      { label: 'Placement Stats', href: '/placement/stats' },
+      { label: 'Facilities', href: '/student-life' },
+      { label: 'Events', href: '/campus/events' },
+      { label: 'Hostel & Transport', href: '/student-life' },
+    ],
+  },
+  {
+    label: 'Contact', icon: <Phone size={16} />,
+    children: [
+      { label: 'Address', href: '/contact' }
     ],
   },
 ];
@@ -171,15 +154,7 @@ export default function Navbar() {
                   </div>
                 </li>
               ))}
-              <li className="relative group">
-                <Link href="/career" className="flex items-center gap-1.5 px-3 py-6 text-[13px] font-bold text-hitm-navy uppercase tracking-wide transition-colors group-hover:text-hitm-red">
-                  Career
-                  <span className="absolute bottom-0 left-0 w-full h-[4px] bg-hitm-red rounded-t-md opacity-0 group-hover:opacity-100 transition-all scale-x-0 group-hover:scale-x-100 origin-center" />
-                </Link>
-              </li>
             </ul>
-
-            {/* CTA + Hamburger */}
             <div className="flex items-center gap-4">
               <Button asChild variant="default" size="default" className="hidden md:flex bg-hitm-navy hover:bg-hitm-red text-white uppercase tracking-widest text-xs font-bold rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
                 <Link href="/admissions/apply" className="flex items-center gap-2">Apply 2026 <ArrowRight size={14} /></Link>
@@ -246,11 +221,6 @@ export default function Navbar() {
               </div>
             </li>
           ))}
-          <li className="px-4">
-            <Link href="/career" onClick={() => setMobileOpen(false)} className="flex items-center gap-3 py-4 text-sm font-bold text-hitm-navy uppercase tracking-wide hover:text-hitm-red transition-colors">
-              <span className="text-hitm-gold"><Briefcase size={16} /></span> Career
-            </Link>
-          </li>
         </ul>
 
         <div className="p-6 border-t bg-gray-50 mt-auto shadow-inner">

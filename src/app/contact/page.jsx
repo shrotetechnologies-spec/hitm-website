@@ -19,7 +19,7 @@ export default function ContactPage() {
             <Badge variant="gold" className="mb-4">Get In Touch</Badge>
             <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Contact AHCT Ranchi</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              Have questions about admissions, courses, or campus life? We're here to help. 
+              Have questions about admissions, courses, or campus life? We&apos;re here to help. 
               Reach out to us through any of the channels below.
             </p>
           </div>
@@ -86,7 +86,7 @@ export default function ContactPage() {
               <CardContent className="p-10">
                 <div className="mb-8">
                   <h3 className="text-2xl font-bold text-hitm-navy mb-2">Send us a Message</h3>
-                  <p className="text-gray-500 text-sm">We'll get back to you within 24 business hours.</p>
+                  <p className="text-gray-500 text-sm">We&apos;ll get back to you within 24 business hours.</p>
                 </div>
                 <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

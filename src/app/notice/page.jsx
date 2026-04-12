@@ -4,81 +4,110 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Bell, Calendar, ChevronRight, Search, Filter } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { Bell, Calendar, ChevronRight } from 'lucide-react';
 
-export default function DynamicNoticePage() {
+export default function NoticePage() {
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const q = query(collection(db, 'notices'), orderBy('createdAt', 'desc'));
-    const unsub = onSnapshot(q, (snapshot) => {
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       setNotices(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       setLoading(false);
     });
-    return () => unsub();
+    return () => unsubscribe();
   }, []);
 
-  return (
-    <main className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex-1 bg-gray-50 pt-24 pb-20">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center mb-16">
-            <Badge variant="gold" className="mb-4 tracking-widest uppercase">Admin Updates</Badge>
-            <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4 italic uppercase">Official Notice Board</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              Real-time updates regarding admissions, examinations, and events.
-            </p>
-          </div>
+  const filteredNotices = notices.filter(n => 
+    n.title?.toLowerCase().includes(search.toLowerCase()) || 
+    n.dept?.toLowerCase().includes(search.toLowerCase())
+  );
 
-          <Card className="border-none shadow-2xl relative bg-white overflow-hidden min-h-[600px]">
-             <div className="absolute top-0 w-full h-2 bg-hitm-red"></div>
-             <CardContent className="p-0">
-                <div className="bg-hitm-navy text-white px-8 py-4 flex justify-between items-center">
-                   <div className="flex items-center gap-2">
-                      <Bell size={18} className="text-hitm-gold" />
-                      <span className="font-bold text-sm tracking-widest uppercase">Latest Announcements</span>
-                   </div>
-                </div>
-                
-                {loading ? (
-                   <div className="p-20 text-center text-gray-400">Loading notices...</div>
-                ) : notices.length === 0 ? (
-                  <div className="p-20 text-center text-gray-400 italic">No active notices found.</div>
-                ) : (
-                  <div className="divide-y divide-gray-100">
-                    {notices.map((n) => (
-                      <div key={n.id} className="p-6 md:p-8 hover:bg-gray-50 transition-colors group cursor-pointer">
-                        <div className="flex gap-6">
-                           <div className="bg-hitm-red text-white p-3 rounded-xl h-fit text-center min-w-[60px] shadow-lg shadow-hitm-red/20">
-                              <p className="text-xl font-black">{n.date ? new Date(n.date).getDate() : '??'}</p>
-                              <p className="text-[10px] uppercase font-bold">{n.date ? new Date(n.date).toLocaleString('default', { month: 'short' }) : 'Mon'}</p>
-                           </div>
-                           <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <Badge variant="secondary" className="bg-gray-100 text-[10px] uppercase">{n.category || 'General'}</Badge>
-                                {n.active && <Badge variant="default" className="bg-green-500 text-[10px] uppercase">Active</Badge>}
-                              </div>
-                              <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-hitm-red transition-colors">{n.title}</h3>
-                              <p className="text-gray-500 text-sm leading-relaxed mb-4">{n.content}</p>
-                              <div className="flex items-center gap-1 text-hitm-red text-xs font-bold uppercase tracking-wider">
-                                 View Document <ChevronRight size={14} />
-                              </div>
-                           </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-             </CardContent>
-          </Card>
+  return (
+    <main className="min-h-screen bg-gray-50 flex flex-col">
+      <Navbar />
+      
+      {/* Banner */}
+      <div className="bg-hitm-navy pt-32 pb-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-hitm-red/10 skew-x-12 transform translate-x-1/2" />
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <Badge variant="gold" className="mb-4">Information Center</Badge>
+          <h1 className="text-4xl md:text-5xl font-black font-serif text-white mb-6">Notice Board</h1>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            Stay updated with the latest announcements, examination schedules, and campus news from AHCT Ranchi.
+          </p>
         </div>
       </div>
+
+      <div className="container mx-auto px-4 py-12 flex-1">
+        <div className="max-w-4xl mx-auto">
+          {/* Controls */}
+          <div className="flex flex-col md:flex-row gap-4 mb-8">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <input 
+                type="text" 
+                placeholder="Search notices..." 
+                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-hitm-red outline-none shadow-sm"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* Notices List */}
+          <div className="space-y-4">
+            {loading ? (
+              <div className="py-20 text-center">
+                <div className="w-12 h-12 border-4 border-hitm-red/20 border-t-hitm-red rounded-full animate-spin mx-auto mb-4" />
+                <p className="text-gray-500">Loading announcements...</p>
+              </div>
+            ) : filteredNotices.length > 0 ? (
+              filteredNotices.map((n) => (
+                <Card key={n.id} className="hover:shadow-lg transition-all border-none shadow-sm">
+                  <CardContent className="p-0 flex flex-col md:flex-row">
+                    <div className="bg-hitm-red md:w-24 p-6 flex items-center justify-center text-center text-white shrink-0">
+                      <div>
+                        <div className="text-3xl font-black">{new Date(n.date || n.createdAt?.toDate()).getDate()}</div>
+                        <div className="text-xs uppercase font-bold opacity-80">
+                          {new Date(n.date || n.createdAt?.toDate()).toLocaleString('default', { month: 'short' })}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-6 flex-1">
+                      <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <Badge variant="outline" className="text-[10px] text-hitm-red border-hitm-red/20">{n.tag || 'General'}</Badge>
+                        <span className="text-[10px] text-gray-400 flex items-center gap-1">
+                          <Filter size={10} /> {n.dept || 'All Departments'}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{n.title}</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4">{n.content}</p>
+                      {n.link && (
+                        <a href={n.link} className="inline-flex items-center gap-1.5 text-hitm-red font-bold text-xs hover:gap-3 transition-all">
+                          Download Document <ChevronRight size={14} />
+                        </a>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <div className="bg-white rounded-2xl p-12 text-center border-2 border-dashed border-gray-100">
+                <Bell className="mx-auto text-gray-300 mb-4" size={48} />
+                <h3 className="text-xl font-bold text-gray-400">No notices found</h3>
+                <p className="text-gray-500 text-sm">Try searching with a different keyword.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
       <Footer />
     </main>
   );
 }
-

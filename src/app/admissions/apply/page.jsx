@@ -1,26 +1,32 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select } from '@/components/ui/select';
-import { CheckCircle2, ChevronRight, Loader2 } from 'lucide-react';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
+import { CheckCircle2, Loader2, Upload, File as FileIcon, X } from 'lucide-react';
+import { db, storage } from '@/lib/firebase';
+import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState, useEffect } from 'react';
+import imageCompression from 'browser-image-compression';
 
 export default function AdmissionApplyPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [userIp, setUserIp] = useState('');
+  const [showPayment, setShowPayment] = useState(false);
+  
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    program: ''
+    name: '', fatherName: '', email: '', phone: '', program: '', 
+    qualification: '', board: '', percentage: ''
+  });
+  const [documentFile, setDocumentFile] = useState(null);
+  
+  const [paymentData, setPaymentData] = useState({
+    transactionId: '', receiptFile: null
   });
 
   useEffect(() => {
@@ -30,45 +36,86 @@ export default function AdmissionApplyPage() {
       .catch(err => console.error("IP Error:", err));
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleInitialSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
-
+    
+    if (!documentFile) {
+        setError('Please upload your document (Marksheet/ID).');
+        return;
+    }
+    
+    setLoading(true);
     try {
-      // 1. Check for duplicate phone
-      const phoneQuery = query(collection(db, 'enquiries'), where('phone', '==', formData.phone));
-      const phoneSnap = await getDocs(phoneQuery);
-      
-      if (!phoneSnap.empty) {
+      // Check if document already exists for this phone number
+      const docRef = doc(db, 'enquiries', formData.phone);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
         setError("An application with this phone number already exists.");
         setLoading(false);
         return;
       }
+      
+      // If OK, proceed to payment popup
+      setShowPayment(true);
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong verifying your details.");
+    }
+    setLoading(false);
+  };
 
-      // 2. Check for duplicate IP
-      if (userIp) {
-        const ipQuery = query(collection(db, 'enquiries'), where('ipAddress', '==', userIp));
-        const ipSnap = await getDocs(ipQuery);
-        if (!ipSnap.empty) {
-          setError("You have already submitted an application from this device.");
-          setLoading(false);
-          return;
+  const handleFinalSubmit = async (e) => {
+    e.preventDefault();
+    if (!paymentData.receiptFile) {
+      setError('Please upload your payment screenshot.');
+      return;
+    }
+    if (!paymentData.transactionId) {
+      setError('Please enter the transaction ID.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      // File Upload & Compression helper
+      const processUpload = async (file, path) => {
+        let uploadFile = file;
+        if (file.type.startsWith('image/')) {
+          uploadFile = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true });
         }
-      }
+        const storageRef = ref(storage, path);
+        await uploadBytes(storageRef, uploadFile);
+        return await getDownloadURL(storageRef);
+      };
 
-      await addDoc(collection(db, 'enquiries'), {
+      // Upload Document
+      const docUrl = await processUpload(documentFile, `applications/${formData.phone}/document_${Date.now()}`);
+      
+      // Upload Payment Receipt
+      const receiptUrl = await processUpload(paymentData.receiptFile, `applications/${formData.phone}/payment_${Date.now()}`);
+
+      // Save to Firestore using Phone Number as Document ID
+      await setDoc(doc(db, 'enquiries', formData.phone), {
         ...formData,
+        documentUrl: docUrl,
+        payment: {
+            transactionId: paymentData.transactionId,
+            receiptUrl: receiptUrl,
+            status: 'Pending'
+        },
         status: 'New',
         ipAddress: userIp,
-        date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
         createdAt: serverTimestamp()
       });
+
+      setShowPayment(false);
       setSubmitted(true);
-      setFormData({ name: '', email: '', phone: '', program: '' });
     } catch (error) {
-      console.error("Error submitting enquiry:", error);
-      setError("Something went wrong. Please try again.");
+      console.error("Error finalizing:", error);
+      setError("Something went wrong during submission. Please try again.");
     }
     setLoading(false);
   };
@@ -76,151 +123,124 @@ export default function AdmissionApplyPage() {
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar />
-      <div className="flex-1 bg-gray-50 flex items-center pt-24 pb-20">
-        <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Admissions 2026</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              Take the first step towards a brilliant career. Apply now to join Al Haider College of Technology 
-              for the upcoming academic session.
-            </p>
+      <div className="flex-1 bg-gray-50 pt-24 pb-20 relative">
+        <div className="container mx-auto px-4 max-w-4xl">
+           <div className="text-center mb-12">
+            <h1 className="text-4xl font-black font-serif text-hitm-navy mb-4">Online Application Form 2026</h1>
+            <p className="text-gray-500 italic">Please fill in your details accurately to register for the upcoming session.</p>
           </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Form Section */}
-            <Card className="bg-white border-0 shadow-2xl rounded-2xl overflow-hidden relative">
-              <div className="absolute top-0 w-full h-2 bg-gradient-to-r from-hitm-navy to-hitm-red" />
-              <CardHeader className="px-8 pt-10 pb-6 border-b border-gray-100">
-                <CardTitle className="text-2xl font-bold text-hitm-navy">Apply Online</CardTitle>
-                <p className="text-sm text-gray-500 mt-2">Fill in your basic details to start the registration process.</p>
-              </CardHeader>
-              <CardContent className="p-8">
-                {submitted ? (
-                  <div className="text-center py-10 animate-fade-in">
-                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 size={32} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-hitm-navy mb-2">Application Received!</h3>
-                    <p className="text-gray-500 mb-8">Thank you for your interest. Our admissions team will contact you shortly on {formData.phone || 'your provided number'}.</p>
-                    <Button variant="outline" onClick={() => setSubmitted(false)}>Submit Another Application</Button>
+
+          <Card className="border-0 shadow-2xl rounded-3xl overflow-hidden bg-white relative">
+            <div className="absolute top-0 w-full h-2 bg-gradient-to-r from-hitm-navy to-hitm-red" />
+            <CardContent className="p-10">
+              {submitted ? (
+                <div className="text-center py-10 animate-fade-in">
+                  <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6"><CheckCircle2 size={32} /></div>
+                  <h3 className="text-2xl font-bold text-hitm-navy mb-2">Application Submitted successfully!</h3>
+                  <p className="text-gray-500">Your form and payment details have been recorded. Our admissions cell will review and verify your application shortly.</p>
+                </div>
+              ) : (
+                <form className="space-y-6" onSubmit={handleInitialSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2"><Label>Student Name</Label><Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>Father&apos;s Name</Label><Input required value={formData.fatherName} onChange={e => setFormData({...formData, fatherName: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>Mobile Number (Serves as your Application ID)</Label><Input type="tel" required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>Email Address</Label><Input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></div>
                   </div>
-                ) : (
-                  <form className="space-y-5" onSubmit={handleSubmit}>
-                    <div className="space-y-2">
-                      <Label htmlFor="fullname">Full Name</Label>
-                      <Input 
-                        id="fullname" 
-                        placeholder="John Doe" 
-                        required 
-                        className="h-12 bg-gray-50 focus:bg-white" 
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      />
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email Address</Label>
-                        <Input 
-                          id="email" 
-                          type="email" 
-                          placeholder="john@example.com" 
-                          required 
-                          className="h-12 bg-gray-50 focus:bg-white" 
-                          value={formData.email}
-                          onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="phone">Phone Number</Label>
-                        <Input 
-                          id="phone" 
-                          type="tel" 
-                          placeholder="+91 9876543210" 
-                          required 
-                          className="h-12 bg-gray-50 focus:bg-white" 
-                          value={formData.phone}
-                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                        />
-                      </div>
-                    </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="program-select">Select Preferred Program</Label>
-                      <Select 
-                        id="program-select"
-                        required 
-                        value={formData.program} 
-                        onChange={(e) => setFormData({...formData, program: e.target.value})}
-                      >
-                        <option value="" disabled>Choose a program...</option>
-                        <option value="B.Tech (CSE)">B.Tech CSE</option>
-                        <option value="B.Tech (Mech)">B.Tech Mechanical</option>
-                        <option value="Diploma">Diploma (Polytechnic)</option>
-                        <option value="MBA">MBA Program</option>
-                        <option value="MCA">MCA Program</option>
-                        <option value="BCA">BCA Program</option>
-                        <option value="BBA">BBA Program</option>
-                      </Select>
-                    </div>
+                  <div className="space-y-2">
+                    <Label>Select Preferred Course</Label>
+                    <select className="w-full h-10 border rounded-md px-3 bg-gray-50" required value={formData.program} onChange={e => setFormData({...formData, program: e.target.value})}>
+                      <option value="">Choose Course...</option>
+                      <option value="MBA">MBA</option><option value="BBA">BBA</option>
+                      <option value="MCA">MCA</option><option value="BCA">BCA</option>
+                      <option value="B.Tech (CSE)">Engineering (CSE)</option>
+                      <option value="B.Tech (AI/DS)">Engineering (AI/DS)</option>
+                      <option value="Diploma">Diploma / Polytechnic</option>
+                    </select>
+                  </div>
 
-                    {error && (
-                      <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded animate-shake">
-                        <p className="text-sm text-red-700 font-medium">{error}</p>
-                      </div>
-                    )}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-2"><Label>Last Qualification</Label><Input placeholder="12th / Grad" required value={formData.qualification} onChange={e => setFormData({...formData, qualification: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>Board / University</Label><Input placeholder="JAC / CBSE" required value={formData.board} onChange={e => setFormData({...formData, board: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>Percentage (%)</Label><Input type="number" required value={formData.percentage} onChange={e => setFormData({...formData, percentage: e.target.value})} /></div>
+                  </div>
 
-                    <Button 
-                      type="submit" 
-                      disabled={loading}
-                      className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white font-bold tracking-wide uppercase shadow-lg shadow-hitm-red/20 transition-all hover:translate-y-[-2px] mt-4"
-                    >
-                      {loading ? <><Loader2 className="mr-2 animate-spin" size={18} /> Processing...</> : <>Start Application <ChevronRight className="ml-2" size={18} /></>}
-                    </Button>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
+                  <div className="space-y-2">
+                     <Label>Upload Document (Photo/Marksheet/ID - Max 5MB)</Label>
+                     <div className="border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50 p-4 relative flex items-center justify-center min-h-[100px] hover:bg-gray-50 transition-colors">
+                        <input type="file" accept="image/*,.pdf" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onChange={e => setDocumentFile(e.target.files[0])} required />
+                        {documentFile ? (
+                           <div className="flex items-center gap-2 text-hitm-navy font-bold">
+                              <FileIcon className="text-hitm-red" /> {documentFile.name}
+                           </div>
+                        ) : (
+                           <div className="text-center text-gray-500">
+                             <Upload className="mx-auto mb-2 opacity-50" />
+                             <span className="text-sm font-bold uppercase tracking-widest text-gray-400">Click to Browse</span>
+                           </div>
+                        )}
+                     </div>
+                  </div>
 
-            {/* Info Section */}
-            <div className="space-y-8">
-              <div className="bg-white p-8 rounded-2xl shadow-md border border-gray-100 relative overflow-hidden">
-                <div className="absolute -right-10 -bottom-10 opacity-5">
-                  <CheckCircle2 size={150} />
-                </div>
-                <h3 className="text-xl font-bold text-hitm-navy mb-6">Admission Process</h3>
-                <div className="space-y-5 relative z-10">
-                  {[
-                    'Counseling: Contact our advisors for course guidance.',
-                    'Application: Fill the online form with academic details.',
-                    'Review: Our team evaluates your eligibility & merit.',
-                    'Admission Letter: Shortlisted candidates receive admission offers.',
-                    'Final Process: Verification of documents & fee payment.'
-                  ].map((step, idx) => (
-                    <div key={idx} className="flex gap-4">
-                      <div className="w-8 h-8 rounded-full bg-hitm-navy/10 text-hitm-navy font-bold flex items-center justify-center shrink-0">
-                        {idx + 1}
-                      </div>
-                      <p className="text-gray-700 font-medium pt-1 leading-tight">{step}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-hitm-navy p-8 rounded-2xl shadow-xl text-white">
-                <h3 className="text-xl font-bold mb-4 font-serif">Need Help?</h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                  Our admissions counseling team is available from Monday to Saturday to help you with your application process.
-                </p>
-                <div className="space-y-2">
-                  <p className="font-semibold">Call Us: <span className="text-hitm-gold font-bold">000-111-9889</span></p>
-                  <p className="font-semibold">Email: <span className="text-hitm-gold font-bold">support@ahctranchi.com</span></p>
-                </div>
-              </div>
-            </div>
-
-          </div>
+                  {error && !showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100">{error}</p>}
+                  <Button type="submit" disabled={loading} className="w-full h-12 bg-hitm-navy hover:bg-hitm-red text-white uppercase font-bold tracking-widest shadow-lg">
+                    {loading ? <Loader2 className="animate-spin" /> : 'Proceed to Payment'}
+                  </Button>
+                </form>
+              )}
+            </CardContent>
+          </Card>
         </div>
+
+        {/* Payment Popup Modal */}
+        {showPayment && (
+           <div className="fixed inset-0 z-50 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-300">
+                 <div className="bg-gradient-to-r from-hitm-navy to-hitm-red p-6 text-white flex justify-between items-center relative">
+                    <div>
+                       <h3 className="text-xl font-black font-serif italic">Complete Payment</h3>
+                       <p className="text-xs font-bold uppercase tracking-widest opacity-80 mt-1">Application Fee: ₹1,000</p>
+                    </div>
+                    <button onClick={() => setShowPayment(false)} className="bg-white/20 p-2 rounded-full hover:bg-white hover:text-hitm-navy transition-colors text-white absolute top-6 right-6">
+                       <X size={16} />
+                   </button>
+                 </div>
+                 
+                 <form onSubmit={handleFinalSubmit} className="p-6">
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6 space-y-2 shadow-inner">
+                       <p className="text-sm text-gray-500 flex justify-between">Organisation: <span className="font-bold text-hitm-navy">AHCT Ranchi</span></p>
+                       <p className="text-sm text-gray-500 flex justify-between">Bank: <span className="font-bold text-hitm-navy">State Bank of India</span></p>
+                       <p className="text-sm text-gray-500 flex justify-between">A/C No: <span className="font-bold text-hitm-navy">301245678910</span></p>
+                       <p className="text-sm text-gray-500 flex justify-between">IFSC Code: <span className="font-bold text-hitm-navy">SBIN0001234</span></p>
+                       <hr className="border-gray-200 my-2" />
+                       <p className="text-sm text-gray-500 flex justify-between font-bold">UPI ID: <span className="text-hitm-red">ahctranchi@sbi</span></p>
+                    </div>
+
+                    <div className="space-y-4">
+                       <div className="space-y-2">
+                          <Label>Upload Payment Screenshot</Label>
+                          <div className="border border-gray-200 rounded-lg p-2 bg-gray-50">
+                             <input type="file" accept="image/*,.pdf" className="text-sm cursor-pointer w-full" onChange={e => setPaymentData({...paymentData, receiptFile: e.target.files[0]})} required />
+                          </div>
+                          <p className="text-[10px] text-gray-400 italic">Clear screenshot showing successful status.</p>
+                       </div>
+                       
+                       <div className="space-y-2">
+                          <Label>Transaction ID / UTR Number</Label>
+                          <Input placeholder="e.g. 123456789012" className="bg-gray-50" value={paymentData.transactionId} onChange={e => setPaymentData({...paymentData, transactionId: e.target.value})} required />
+                       </div>
+                    </div>
+
+                    {error && showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100 mt-4">{error}</p>}
+                    
+                    <Button type="submit" disabled={loading} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest mt-6 shadow-xl hover:-translate-y-0.5 transition-transform">
+                       {loading ? <Loader2 className="animate-spin" /> : 'Confirm & Submit Application'}
+                    </Button>
+                 </form>
+              </div>
+           </div>
+        )}
       </div>
       <Footer />
     </main>

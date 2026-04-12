@@ -6,7 +6,7 @@ import { Separator } from '@/components/ui/separator';
 const footerLinks = {
   quickLinks: [
     { label: 'About AHCT', href: '/about/overview' },
-    { label: 'All Programs', href: '#' },
+    { label: 'All Programs', href: '/programs' },
     { label: 'Apply Online', href: '/admissions/apply' },
     { label: 'Academic Calendar', href: '/academics/calendar' },
     { label: 'Placement', href: '/placement/overview' },
@@ -15,12 +15,12 @@ const footerLinks = {
     { label: 'Career', href: '/career' },
   ],
   programs: [
-    { label: 'B.Tech (CSE)', href: '#' },
-    { label: 'B.Tech (Mechanical)', href: '#' },
-    { label: 'BCA', href: '#' },
-    { label: 'MCA', href: '#' },
-    { label: 'MBA', href: '#' },
-    { label: 'BBA', href: '#' },
+    { label: 'B.Tech (CSE)', href: '/programs/engineering' },
+    { label: 'B.Tech (Mechanical)', href: '/programs/engineering' },
+    { label: 'BCA', href: '/programs/bca' },
+    { label: 'MCA', href: '/programs/mca' },
+    { label: 'MBA', href: '/programs/mba' },
+    { label: 'BBA', href: '/programs/bba' },
   ],
 };
 
@@ -127,9 +127,9 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex gap-4">
-          {['Privacy Policy', 'Terms of Use', 'Sitemap'].map((l) => (
-            <Link key={l} href="#" className="text-gray-500 text-xs hover:text-hitm-gold transition-colors">{l}</Link>
-          ))}
+          <Link href="/privacy" className="text-gray-500 text-xs hover:text-hitm-gold transition-colors">Privacy Policy</Link>
+          <Link href="/terms" className="text-gray-500 text-xs hover:text-hitm-gold transition-colors">Terms of Use</Link>
+          <Link href="/sitemap" className="text-gray-500 text-xs hover:text-hitm-gold transition-colors">Sitemap</Link>
           <Link href="/admin/login" className="text-gray-500 text-xs hover:text-hitm-gold transition-colors">Admin</Link>
         </div>
       </div>

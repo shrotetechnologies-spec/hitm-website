@@ -2,7 +2,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Target, Award, Globe, Briefcase, GraduationCap, Users } from 'lucide-react';
+import { Target, Award, Globe, Briefcase, GraduationCap, Users, Download } from 'lucide-react';
+import { generatePagePDF } from '@/lib/pdf-service';
+import { Button } from '@/components/ui/button';
 
 export const metadata = {
   title: 'Placement Overview | AHCT Ranchi',
@@ -10,6 +12,19 @@ export const metadata = {
 };
 
 export default function PlacementOverviewPage() {
+  const handleDownload = () => {
+    generatePagePDF("Placement_Overview", "Professional Placement Records", {
+      headers: ["Metric", "Details"],
+      rows: [
+        ["Placement Rate", "95%"],
+        ["Highest Package", "12 LPA"],
+        ["Average Package", "4.5 LPA"],
+        ["Hiring Partners", "200+ Companies"],
+        ["Students Placed (2025)", "500+ Students"]
+      ]
+    });
+  };
+
   const features = [
     { icon: <Target className="text-hitm-red" />, title: 'Pre-Placement Training', desc: 'Special sessions on aptitude, technical skills, and mock interviews from the 2nd year onwards.' },
     { icon: <Award className="text-hitm-red" />, title: 'Skill Development', desc: 'Regular workshops on emerging technologies like AI/ML, Cloud Computing, and Blockchain.' },
@@ -24,10 +39,15 @@ export default function PlacementOverviewPage() {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
             <div>
-              <Badge variant="gold" className="mb-4">Placement Cell</Badge>
+              <div className="flex items-center justify-between mb-4">
+                <Badge variant="gold">Placement Cell</Badge>
+                <Button variant="ghost" size="sm" onClick={handleDownload} className="text-hitm-red hover:bg-hitm-red/10">
+                  <Download size={16} className="mr-2" /> PDF Brochure
+                </Button>
+              </div>
               <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-6 leading-tight">Empowering Your Professional Journey</h1>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                At AHCT Ranchi, our dedicated Placement Cell acts as a bridge between students & Industry. We don't just provide job opportunities; we build careers through rigorous training and industry exposure.
+                At AHCT Ranchi, our dedicated Placement Cell acts as a bridge between students & Industry. We don&apos;t just provide job opportunities; we build careers through rigorous training and industry exposure.
               </p>
               <div className="flex gap-4">
                 <div className="text-center">
