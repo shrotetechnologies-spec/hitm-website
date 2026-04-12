@@ -5,14 +5,14 @@ import { Separator } from '@/components/ui/separator';
 
 const footerLinks = {
   quickLinks: [
-    { label: 'About AHCT', href: '#' },
+    { label: 'About AHCT', href: '/about/overview' },
     { label: 'All Programs', href: '#' },
     { label: 'Apply Online', href: '/admissions/apply' },
-    { label: 'Academic Calendar', href: '#' },
-    { label: 'Placement', href: '#' },
-    { label: 'Photo Gallery', href: '#' },
-    { label: 'Notice Board', href: '#' },
-    { label: 'Career', href: '#' },
+    { label: 'Academic Calendar', href: '/academics/calendar' },
+    { label: 'Placement', href: '/placement/overview' },
+    { label: 'Photo Gallery', href: '/campus/gallery' },
+    { label: 'Notice Board', href: '/notice' },
+    { label: 'Career', href: '/career' },
   ],
   programs: [
     { label: 'B.Tech (CSE)', href: '#' },

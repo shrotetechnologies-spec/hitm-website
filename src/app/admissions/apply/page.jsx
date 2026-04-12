@@ -5,16 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select } from '@/components/ui/select';
 import { CheckCircle2, ChevronRight, Loader2 } from 'lucide-react';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { useState } from 'react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
 
 export default function AdmissionApplyPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [userIp, setUserIp] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,21 +23,44 @@ export default function AdmissionApplyPage() {
     program: ''
   });
 
-  const steps = [
-    'Register Online and verify your email.',
-    'Fill out the detailed application form.',
-    'Upload required academic documents.',
-    'Pay the application fee securely online.',
-    'Submit & track your application status.'
-  ];
+  useEffect(() => {
+    fetch('https://api.ipify.org?format=json')
+      .then(res => res.json())
+      .then(data => setUserIp(data.ip))
+      .catch(err => console.error("IP Error:", err));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+
     try {
+      // 1. Check for duplicate phone
+      const phoneQuery = query(collection(db, 'enquiries'), where('phone', '==', formData.phone));
+      const phoneSnap = await getDocs(phoneQuery);
+      
+      if (!phoneSnap.empty) {
+        setError("An application with this phone number already exists.");
+        setLoading(false);
+        return;
+      }
+
+      // 2. Check for duplicate IP
+      if (userIp) {
+        const ipQuery = query(collection(db, 'enquiries'), where('ipAddress', '==', userIp));
+        const ipSnap = await getDocs(ipQuery);
+        if (!ipSnap.empty) {
+          setError("You have already submitted an application from this device.");
+          setLoading(false);
+          return;
+        }
+      }
+
       await addDoc(collection(db, 'enquiries'), {
         ...formData,
         status: 'New',
+        ipAddress: userIp,
         date: new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
         createdAt: serverTimestamp()
       });
@@ -44,7 +68,7 @@ export default function AdmissionApplyPage() {
       setFormData({ name: '', email: '', phone: '', program: '' });
     } catch (error) {
       console.error("Error submitting enquiry:", error);
-      alert("Something went wrong. Please try again.");
+      setError("Something went wrong. Please try again.");
     }
     setLoading(false);
   };
@@ -122,26 +146,29 @@ export default function AdmissionApplyPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label>Select Preferred Program</Label>
+                      <Label htmlFor="program-select">Select Preferred Program</Label>
                       <Select 
+                        id="program-select"
                         required 
                         value={formData.program} 
-                        onValueChange={(val) => setFormData({...formData, program: val})}
+                        onChange={(e) => setFormData({...formData, program: e.target.value})}
                       >
-                        <SelectTrigger className="h-12 bg-gray-50 focus:bg-white text-gray-700">
-                          <SelectValue placeholder="Choose a program..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="B.Tech (CSE)">B.Tech CSE</SelectItem>
-                          <SelectItem value="B.Tech (Mech)">B.Tech Mechanical</SelectItem>
-                          <SelectItem value="Diploma">Diploma (Polytechnic)</SelectItem>
-                          <SelectItem value="MBA">MBA Program</SelectItem>
-                          <SelectItem value="MCA">MCA Program</SelectItem>
-                          <SelectItem value="BCA">BCA Program</SelectItem>
-                          <SelectItem value="BBA">BBA Program</SelectItem>
-                        </SelectContent>
+                        <option value="" disabled>Choose a program...</option>
+                        <option value="B.Tech (CSE)">B.Tech CSE</option>
+                        <option value="B.Tech (Mech)">B.Tech Mechanical</option>
+                        <option value="Diploma">Diploma (Polytechnic)</option>
+                        <option value="MBA">MBA Program</option>
+                        <option value="MCA">MCA Program</option>
+                        <option value="BCA">BCA Program</option>
+                        <option value="BBA">BBA Program</option>
                       </Select>
                     </div>
+
+                    {error && (
+                      <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded animate-shake">
+                        <p className="text-sm text-red-700 font-medium">{error}</p>
+                      </div>
+                    )}
 
                     <Button 
                       type="submit" 
@@ -163,12 +190,18 @@ export default function AdmissionApplyPage() {
                 </div>
                 <h3 className="text-xl font-bold text-hitm-navy mb-6">Admission Process</h3>
                 <div className="space-y-5 relative z-10">
-                  {steps.map((step, idx) => (
+                  {[
+                    'Counseling: Contact our advisors for course guidance.',
+                    'Application: Fill the online form with academic details.',
+                    'Review: Our team evaluates your eligibility & merit.',
+                    'Admission Letter: Shortlisted candidates receive admission offers.',
+                    'Final Process: Verification of documents & fee payment.'
+                  ].map((step, idx) => (
                     <div key={idx} className="flex gap-4">
                       <div className="w-8 h-8 rounded-full bg-hitm-navy/10 text-hitm-navy font-bold flex items-center justify-center shrink-0">
                         {idx + 1}
                       </div>
-                      <p className="text-gray-700 font-medium pt-1">{step}</p>
+                      <p className="text-gray-700 font-medium pt-1 leading-tight">{step}</p>
                     </div>
                   ))}
                 </div>
