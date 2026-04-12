@@ -1,8 +1,12 @@
-'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { UserCircle } from 'lucide-react';
+
+export const metadata = {
+  title: 'Our Faculty | AHCT Ranchi',
+  description: 'Meet our esteemed faculty members and academic leaders at AHCT Ranchi.',
+};
 
 export default function FacultyPage() {
   const departments = [

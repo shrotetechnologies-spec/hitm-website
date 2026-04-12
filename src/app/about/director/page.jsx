@@ -1,9 +1,13 @@
-'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Quote, Phone, Mail } from 'lucide-react';
+
+export const metadata = {
+  title: "Director's Desk | AHCT Ranchi",
+  description: 'A message from the Director of AHCT Ranchi, Prof. (Dr.) A. K. Singh.',
+};
 
 export default function DirectorPage() {
   return (
@@ -91,4 +95,4 @@ export default function DirectorPage() {
     </main>
   );
 }
- Broadway
+

@@ -1,9 +1,13 @@
-'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Target, Lightbulb, Rocket, ShieldCheck, Heart, Users } from 'lucide-react';
+
+export const metadata = {
+  title: 'Vision & Mission | AHCT Ranchi',
+  description: 'Our commitment to high-quality technical education and training.',
+};
 
 export default function VisionPage() {
   const values = [
@@ -62,4 +66,4 @@ export default function VisionPage() {
     </main>
   );
 }
- Broadway
+

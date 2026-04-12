@@ -1,9 +1,13 @@
-'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Building2, GraduationCap, CheckCircle, Target, Users, BookOpen } from 'lucide-react';
+
+export const metadata = {
+  title: 'About AHCT Ranchi | Overview',
+  description: 'Learn about the legacy, excellence, and infrastructure of Al Haider College of Technology.',
+};
 
 export default function OverviewPage() {
   const points = [
@@ -81,4 +85,4 @@ export default function OverviewPage() {
     </main>
   );
 }
- Broadway
+

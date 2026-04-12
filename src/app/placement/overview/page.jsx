@@ -1,9 +1,13 @@
-'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Target, Award, Globe, Briefcase, GraduationCap, Users } from 'lucide-react';
+
+export const metadata = {
+  title: 'Placement Overview | AHCT Ranchi',
+  description: 'Empowering your professional journey with industry-leading placement opportunities.',
+};
 
 export default function PlacementOverviewPage() {
   const features = [

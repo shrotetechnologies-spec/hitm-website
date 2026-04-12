@@ -1,8 +1,12 @@
-'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { UserCircle2 } from 'lucide-react';
+
+export const metadata = {
+  title: 'Governing Body | AHCT Ranchi',
+  description: 'Meet the visionaries leading AHCT Ranchi towards excellence.',
+};
 
 export default function GoverningBodyPage() {
   const members = [

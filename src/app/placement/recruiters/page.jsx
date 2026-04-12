@@ -1,8 +1,12 @@
-'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+
+export const metadata = {
+  title: 'Our Top Recruiters | AHCT Ranchi',
+  description: 'Meet our corporate partners and top-tier companies recruiting from AHCT Ranchi.',
+};
 
 export default function RecruitersPage() {
   const recruiters = [
@@ -66,4 +70,4 @@ export default function RecruitersPage() {
     </main>
   );
 }
- Broadway
+
