@@ -12,6 +12,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { db } from '@/lib/firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 // ── Hero Slides ─────────────────────────────────────────────────────────────
 const heroSlides = [
@@ -51,22 +53,7 @@ const programs = [
   { icon: <GraduationCap className="text-white" size={24} />, name: 'BBA Program', desc: '3-Year Bachelor of Business Administration', image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800', courses: ['BBA (6 Semesters)'] },
 ];
 
-const notices = [
-  { day: '11', month: 'Apr', title: 'Admission Notice for B.Tech 2026-27 Batch', dept: 'Admissions', tag: 'Important' },
-  { day: '10', month: 'Apr', title: 'End Semester Exam Schedule - 2025-26', dept: 'Examination', tag: 'Examination' },
-  { day: '09', month: 'Apr', title: 'Campus Placement Drive - Infosys & TCS', dept: 'Placement', tag: 'Placement' },
-  { day: '08', month: 'Apr', title: 'Annual Sports Week Announcement 2026', dept: 'Sports Cell', tag: 'Events' },
-  { day: '07', month: 'Apr', title: 'Scholarship Form Last Date Extended', dept: 'Finance', tag: 'Scholarship' },
-  { day: '05', month: 'Apr', title: 'Anti-Ragging Committee Meeting Minutes', dept: 'Administration', tag: 'Admin' },
-];
-
-const events = [
-  { icon: <GraduationCap size={18} />, name: 'Annual Convocation 2026', date: 'April 20, 2026' },
-  { icon: <Trophy size={18} />, name: 'TechFest HITMX 2026', date: 'May 3–5, 2026' },
-  { icon: <Target size={18} />, name: 'Inter-College Sports Meet', date: 'April 28, 2026' },
-  { icon: <Star size={18} />, name: 'Cultural Fest – Utsav 2026', date: 'May 15–16, 2026' },
-  { icon: <BookOpen size={18} />, name: 'National Seminar on AI & ML', date: 'May 10, 2026' },
-];
+// Notices and Events are now handled dynamically inside HomePage component
 
 const testimonials = [
   {
@@ -175,6 +162,36 @@ function HeroSlider() {
 // ── Main Page ────────────────────────────────────────────────────────────────
 export default function HomePage() {
   const [enquiry, setEnquiry] = useState({ name: '', phone: '', program: '' });
+  const [notices, setNotices] = useState([]);
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    // Real-time Notices
+    const qNotices = query(collection(db, 'notices'), orderBy('createdAt', 'desc'));
+    const unsubNotices = onSnapshot(qNotices, (snapshot) => {
+      setNotices(snapshot.docs.map(doc => {
+        const data = doc.data();
+        const dateObj = data.date ? new Date(data.date) : new Date();
+        return {
+          id: doc.id,
+          ...data,
+          day: dateObj.getDate().toString().padStart(2, '0'),
+          month: dateObj.toLocaleString('default', { month: 'short' })
+        };
+      }));
+    });
+
+    // Real-time Events
+    const qEvents = query(collection(db, 'events'), orderBy('date', 'asc'));
+    const unsubEvents = onSnapshot(qEvents, (snapshot) => {
+      setEvents(snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })));
+    });
+
+    return () => { unsubNotices(); unsubEvents(); };
+  }, []);
 
   const handleEnquiry = async (e) => {
     e.preventDefault();
