@@ -8,7 +8,7 @@ import Link from 'next/link';
 import {
   LayoutDashboard, Bell, CalendarDays, Image as ImageIcon, GraduationCap, Users, Briefcase,
   Globe, LogOut, Menu, X, Plus, Trash2, Pencil, Eye, TrendingUp, CheckCircle,
-  AlertCircle, Clock, ChevronRight
+  AlertCircle, Clock, ChevronRight, FileText
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
