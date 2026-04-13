@@ -15,8 +15,7 @@ const footerLinks = {
     { label: 'Career', href: '/career' },
   ],
   programs: [
-    { label: 'B.Tech (CSE)', href: '/programs/engineering' },
-    { label: 'B.Tech (Mechanical)', href: '/programs/engineering' },
+    { label: 'B.Tech', href: '/programs/engineering' },
     { label: 'BCA', href: '/programs/bca' },
     { label: 'MCA', href: '/programs/mca' },
     { label: 'MBA', href: '/programs/mba' },
@@ -50,7 +49,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Al Haider College of Technology, Ranchi — Jharkhand&apos;s most futuristic institute, 
+              Al Haider College of Technology, Ranchi — Jharkhand&apos;s most futuristic institute,
               dedicated to excellence in innovation and producing industry-ready leaders.
             </p>
             <div className="flex gap-2">

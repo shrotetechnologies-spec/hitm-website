@@ -12,6 +12,12 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState, useEffect } from 'react';
 import imageCompression from 'browser-image-compression';
 
+const branchOptions = {
+  'B.Tech': ['Computer Science & Engineering (CSE)', 'Data Science', 'Artificial Intelligence & ML', 'Electric & Electronics Engineering', 'Mechanical Engineering', 'Civil Engineering'],
+  'Diploma': ['Computer Science & Engineering', 'Data Science', 'Artificial Intelligence', 'Mechanical Engineering', 'Electrical Engineering', 'Civil Engineering', 'Electrical & Electronics Engg.', 'Electronics & Comm. Engg.'],
+  'MBA': ['Finance Management', 'Marketing Management', 'Human Resource Management', 'Information Technology'],
+};
+
 export default function AdmissionApplyPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -20,8 +26,10 @@ export default function AdmissionApplyPage() {
   const [showPayment, setShowPayment] = useState(false);
   
   const [formData, setFormData] = useState({
-    name: '', fatherName: '', email: '', phone: '', program: '', 
-    qualification: '', board: '', percentage: ''
+    name: '', fatherName: '', email: '', phone: '', program: '', branch: '',
+    tenthBoard: '', tenthYear: '', tenthPercentage: '',
+    twelfthBoard: '', twelfthYear: '', twelfthPercentage: '', 
+    pcmPercentage: '', examScore: ''
   });
   const [documentFile, setDocumentFile] = useState(null);
   
@@ -148,23 +156,67 @@ export default function AdmissionApplyPage() {
                     <div className="space-y-2"><Label>Email Address</Label><Input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} /></div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label>Select Preferred Course</Label>
-                    <select className="w-full h-10 border rounded-md px-3 bg-gray-50" required value={formData.program} onChange={e => setFormData({...formData, program: e.target.value})}>
-                      <option value="">Choose Course...</option>
-                      <option value="MBA">MBA</option><option value="BBA">BBA</option>
-                      <option value="MCA">MCA</option><option value="BCA">BCA</option>
-                      <option value="B.Tech (CSE)">Engineering (CSE)</option>
-                      <option value="B.Tech (AI/DS)">Engineering (AI/DS)</option>
-                      <option value="Diploma">Diploma / Polytechnic</option>
-                    </select>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label>Select Preferred Course</Label>
+                      <select className="w-full h-10 border rounded-md px-3 bg-gray-50" required value={formData.program} onChange={e => setFormData({...formData, program: e.target.value, branch: ''})}>
+                        <option value="">Choose Course...</option>
+                        <option value="B.Tech">B.Tech (Bachelor of Technology)</option>
+                        <option value="Diploma">Diploma in Polytechnic</option>
+                        <option value="MBA">MBA</option>
+                        <option value="BBA">BBA</option>
+                        <option value="MCA">MCA</option>
+                        <option value="BCA">BCA</option>
+                      </select>
+                    </div>
+
+                    {branchOptions[formData.program] ? (
+                      <div className="space-y-2 animate-in fade-in zoom-in duration-200">
+                        <Label>Select Specialization / Branch</Label>
+                        <select className="w-full h-10 border rounded-md px-3 bg-white" required value={formData.branch} onChange={e => setFormData({...formData, branch: e.target.value})}>
+                          <option value="">Choose Branch...</option>
+                          {branchOptions[formData.program].map(b => (
+                            <option key={b} value={b}>{b}</option>
+                          ))}
+                        </select>
+                      </div>
+                    ) : (
+                      <div className="hidden md:block"></div>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2"><Label>Last Qualification</Label><Input placeholder="12th / Grad" required value={formData.qualification} onChange={e => setFormData({...formData, qualification: e.target.value})} /></div>
-                    <div className="space-y-2"><Label>Board / University</Label><Input placeholder="JAC / CBSE" required value={formData.board} onChange={e => setFormData({...formData, board: e.target.value})} /></div>
-                    <div className="space-y-2"><Label>Percentage (%)</Label><Input type="number" required value={formData.percentage} onChange={e => setFormData({...formData, percentage: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>10th Board</Label><Input placeholder="CBSE / ICSE / State" required value={formData.tenthBoard} onChange={e => setFormData({...formData, tenthBoard: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>10th Passing Year</Label><Input type="number" placeholder="YYYY" required value={formData.tenthYear} onChange={e => setFormData({...formData, tenthYear: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>10th Percentage (%)</Label><Input type="number" step="0.01" required value={formData.tenthPercentage} onChange={e => setFormData({...formData, tenthPercentage: e.target.value})} /></div>
                   </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-2"><Label>12th / Diploma Board</Label><Input placeholder="CBSE / Board / Univ" required value={formData.twelfthBoard} onChange={e => setFormData({...formData, twelfthBoard: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>12th / Diploma Passing Year</Label><Input type="number" placeholder="YYYY" required value={formData.twelfthYear} onChange={e => setFormData({...formData, twelfthYear: e.target.value})} /></div>
+                    <div className="space-y-2"><Label>12th / Diploma Perc. (%)</Label><Input type="number" step="0.01" required value={formData.twelfthPercentage} onChange={e => setFormData({...formData, twelfthPercentage: e.target.value})} /></div>
+                  </div>
+
+                  {(formData.program === 'B.Tech' || formData.program === 'Diploma' || formData.program === 'MBA' || formData.program === 'MCA') && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-5 rounded-2xl border border-gray-100 animate-in fade-in duration-300">
+                      {formData.program === 'B.Tech' && (
+                         <div className="space-y-2 animate-in slide-in-from-left duration-300">
+                           <Label>PCM Percentage (%)</Label>
+                           <Input type="number" step="0.01" required placeholder="Physics, Chem & Math %" className="bg-white" value={formData.pcmPercentage} onChange={e => setFormData({...formData, pcmPercentage: e.target.value})} />
+                         </div>
+                      )}
+                      
+                      <div className="space-y-2 animate-in slide-in-from-left duration-300">
+                         <Label>
+                            {formData.program === 'B.Tech' ? 'JEE Main / JCECEB Score or Percentile' :
+                             formData.program === 'Diploma' ? 'JCECEB / Entrance Score' :
+                             formData.program === 'MBA' ? 'CAT / MAT / CMAT Score' :
+                             'NIMCET / Entrance Score'}
+                         </Label>
+                         <Input required placeholder="Enter Score (Type NA if none)" className="bg-white" value={formData.examScore} onChange={e => setFormData({...formData, examScore: e.target.value})} />
+                      </div>
+                    </div>
+                  )}
 
                   <div className="space-y-2">
                      <Label>Upload Document (Photo/Marksheet/ID - Max 5MB)</Label>

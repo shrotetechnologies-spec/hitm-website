@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, Clock, Users, BookOpen, ArrowRight, Briefcase, Download } from 'lucide-react';
 import Link from 'next/link';
 import { generatePagePDF } from '@/lib/pdf-service';
+import ApplyModal from '@/components/ApplyModal';
 
 export default function MBAPage() {
   const handleDownload = () => {
@@ -102,9 +103,11 @@ export default function MBAPage() {
               </div>
 
               <div className="space-y-4">
-                <Button asChild className="w-full h-12 bg-hitm-red hover:bg-white hover:text-hitm-red text-white border-none font-bold shadow-lg shadow-hitm-red/20 transition-all">
-                  <Link href="/admissions/apply">Apply Now 2026</Link>
-                </Button>
+                <ApplyModal courseName="Master of Business Administration (MBA)">
+                  <Button className="w-full h-12 bg-hitm-red hover:bg-white hover:text-hitm-red text-white border-none font-bold shadow-lg shadow-hitm-red/20 transition-all">
+                    Apply Now 2026
+                  </Button>
+                </ApplyModal>
                 <Button variant="outline" className="w-full h-12 border-white/20 text-white hover:bg-white/10 hover:text-white">
                   Download MBA Brochure
                 </Button>

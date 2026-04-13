@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,19 +8,38 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export default function SyllabusPage() {
-  const courses = [
-    { name: 'B.Tech - Computer Science & Engineering', code: 'CSE', term: 'Odd Semester 2026', file: '#' },
-    { name: 'B.Tech - Artificial Intelligence (AI)', code: 'AI', term: 'Odd Semester 2026', file: '#' },
-    { name: 'B.Tech - Data Science', code: 'DS', term: 'Odd Semester 2026', file: '#' },
-    { name: 'B.Tech - Electrical & Electronics', code: 'EEE', term: 'Odd Semester 2026', file: '#' },
-    { name: 'B.Tech - Mechanical Engineering', code: 'ME', term: 'Odd Semester 2026', file: '#' },
-    { name: 'B.Tech - Civil Engineering', code: 'CE', term: 'Odd Semester 2026', file: '#' },
-    { name: 'BCA - Bachelor of Computer Application', code: 'BCA', term: 'Approved Intake: 180', file: '#' },
-    { name: 'BBA - Bachelor of Business Administration', code: 'BBA', term: 'Approved Intake: 180', file: '#' },
-    { name: 'MCA - Master of Computer Application', code: 'MCA', term: 'Core PG Syllabus', file: '#' },
-    { name: 'MBA - Master of Business Administration', code: 'MBA', term: 'Dual Specialization', file: '#' },
-    { name: 'Diploma - Engineering (Polytechnic)', code: 'DIP', term: 'All Streams', file: '#' },
-  ];
+  const [selectedCourse, setSelectedCourse] = useState('');
+  const [selectedBranch, setSelectedBranch] = useState('');
+  const [selectedSemester, setSelectedSemester] = useState('');
+
+  const syllabusData = {
+    'B.Tech': {
+      'Computer Science (CSE)': 8,
+      'Data Science': 8,
+      'Artificial Intelligence': 8,
+      'Mechanical Engineering': 8,
+      'Civil Engineering': 8,
+      'Electrical & Electronics': 8,
+    },
+    'Diploma (Polytechnic)': {
+      'Computer Science': 6,
+      'Mechanical Engineering': 6,
+      'Civil Engineering': 6,
+      'Electrical Engineering': 6,
+    },
+    'MBA': {
+      'Core & Specialization': 4,
+    },
+    'MCA': {
+      'Core curriculum': 4,
+    },
+    'BCA': {
+      'Core curriculum': 6,
+    },
+    'BBA': {
+      'Core curriculum': 6,
+    }
+  };
 
   const syllabusPreview = [
     { title: 'Computer Science', subjects: ['Data Structures', 'Operating Systems', 'Cloud Computing', 'Computer Networks'] },
@@ -45,25 +65,80 @@ export default function SyllabusPage() {
               <h2 className="text-xl font-black text-hitm-navy mb-6 flex items-center gap-2">
                 <Download size={20} className="text-hitm-red" /> Download Syllabus PDF
               </h2>
-              <div className="bg-white rounded-[32px] shadow-xl overflow-hidden border border-gray-100 p-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {courses.map((course, idx) => (
-                    <div key={idx} className="flex items-start justify-between p-5 rounded-2xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100 group">
-                      <div className="flex gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-hitm-navy/10 text-hitm-navy flex items-center justify-center shrink-0 group-hover:bg-hitm-red group-hover:text-white transition-colors">
-                          <BookOpen size={18} />
+              <div className="bg-white rounded-[32px] shadow-xl border border-gray-100 p-8 space-y-6">
+                 {/* Course Dropdown */}
+                 <div className="space-y-2">
+                   <label className="text-sm font-bold text-gray-700">Select Course</label>
+                   <select 
+                     className="w-full h-12 border rounded-xl px-4 bg-gray-50 focus:ring-2 focus:ring-hitm-red focus:outline-none"
+                     value={selectedCourse} 
+                     onChange={e => {
+                       setSelectedCourse(e.target.value);
+                       setSelectedBranch('');
+                       setSelectedSemester('');
+                     }}
+                   >
+                     <option value="">-- Choose Course --</option>
+                     {Object.keys(syllabusData).map(course => (
+                       <option key={course} value={course}>{course}</option>
+                     ))}
+                   </select>
+                 </div>
+
+                 {/* Branch Dropdown */}
+                 <div className="space-y-2">
+                   <label className="text-sm font-bold text-gray-700">Select Branch / Specialization</label>
+                   <select 
+                     className="w-full h-12 border rounded-xl px-4 bg-gray-50 disabled:opacity-50 focus:ring-2 focus:ring-hitm-red focus:outline-none"
+                     disabled={!selectedCourse}
+                     value={selectedBranch} 
+                     onChange={e => {
+                       setSelectedBranch(e.target.value);
+                       setSelectedSemester('');
+                     }}
+                   >
+                     <option value="">-- Choose Branch --</option>
+                     {selectedCourse && Object.keys(syllabusData[selectedCourse]).map(branch => (
+                       <option key={branch} value={branch}>{branch}</option>
+                     ))}
+                   </select>
+                 </div>
+
+                 {/* Semester Dropdown */}
+                 <div className="space-y-2">
+                   <label className="text-sm font-bold text-gray-700">Select Semester</label>
+                   <select 
+                     className="w-full h-12 border rounded-xl px-4 bg-gray-50 disabled:opacity-50 focus:ring-2 focus:ring-hitm-red focus:outline-none"
+                     disabled={!selectedBranch}
+                     value={selectedSemester} 
+                     onChange={e => setSelectedSemester(e.target.value)}
+                   >
+                     <option value="">-- Choose Semester --</option>
+                     {selectedBranch && [...Array(syllabusData[selectedCourse][selectedBranch])].map((_, i) => (
+                       <option key={i} value={i + 1}>Semester {i + 1}</option>
+                     ))}
+                   </select>
+                 </div>
+
+                 {/* Download Button Rendering */}
+                 {selectedSemester && (
+                    <div className="pt-6 border-t border-gray-100 mt-6 animate-in slide-in-from-bottom-2 fade-in duration-300">
+                      <div className="flex flex-col xl:flex-row items-center justify-between p-4 bg-hitm-navy/5 rounded-2xl border border-hitm-red/10 gap-4">
+                        <div className="flex gap-4 items-center">
+                          <div className="w-12 h-12 rounded-xl bg-white shadow-sm text-hitm-red flex items-center justify-center shrink-0">
+                            <BookOpen size={24} />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-hitm-navy leading-tight">{selectedCourse} - {selectedBranch}</h3>
+                            <p className="text-xs font-bold text-gray-400 mt-1 uppercase tracking-widest">Semester {selectedSemester} Syllabus</p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-bold text-sm text-gray-900 leading-tight">{course.name}</h3>
-                          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">{course.term}</p>
-                        </div>
+                        <Link href={`#`} className="shrink-0 px-6 py-3 bg-hitm-red text-white font-bold rounded-xl hover:bg-hitm-navy transition-all shadow-lg flex items-center gap-2 w-full xl:w-auto justify-center">
+                          <Download size={18} /> View PDF
+                        </Link>
                       </div>
-                      <Link href={course.file} className="shrink-0 p-2 rounded-full hover:bg-hitm-navy hover:text-white text-gray-300 transition-all">
-                        <Download size={16} />
-                      </Link>
                     </div>
-                  ))}
-                </div>
+                 )}
               </div>
             </div>
 

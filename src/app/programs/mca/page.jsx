@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, Clock, Users, BookOpen, ArrowRight, Code, Download } from 'lucide-react';
 import Link from 'next/link';
 import { generatePagePDF } from '@/lib/pdf-service';
+import ApplyModal from '@/components/ApplyModal';
 
 export default function MCAPage() {
   const handleDownload = () => {
@@ -100,9 +101,11 @@ export default function MCAPage() {
         <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-black font-serif text-gray-950 mb-4">Admissions Open for batch 2026-28</h2>
             <p className="text-gray-500 mb-8">Secure your seat in Jharkhand&apos;s most sought-after tech program.</p>
-            <Button asChild size="lg" className="bg-hitm-red h-14 px-12 shadow-xl hover:scale-105 transition-transform">
-              <Link href="/admissions/apply">Apply Now <ArrowRight className="ml-2" /></Link>
-            </Button>
+            <ApplyModal courseName="Master of Computer Applications (MCA)">
+              <Button size="lg" className="bg-hitm-red h-14 px-12 shadow-xl hover:scale-105 transition-transform">
+                Apply Now <ArrowRight className="ml-2" />
+              </Button>
+            </ApplyModal>
         </div>
       </section>
 

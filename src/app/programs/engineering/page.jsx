@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, Clock, Users, BookOpen, ArrowRight, Award, Download } from 'lucide-react';
 import Link from 'next/link';
 import { generatePagePDF } from '@/lib/pdf-service';
+import ApplyModal from '@/components/ApplyModal';
 
 export default function EngineeringPage() {
   const handleDownload = () => {
@@ -117,9 +118,11 @@ export default function EngineeringPage() {
                 <p className="text-3xl font-black text-hitm-navy">₹ 45,000 <span className="text-sm font-normal text-gray-400">/ Semester</span></p>
               </div>
 
-              <Button asChild className="w-full bg-hitm-red hover:bg-hitm-navy h-14 shadow-xl text-lg font-bold" size="lg">
-                <Link href="/admissions/apply">Apply for B.Tech Admission <ArrowRight className="ml-2" /></Link>
-              </Button>
+              <ApplyModal courseName="Bachelor of Technology (B.Tech)">
+                <Button className="w-full bg-hitm-red hover:bg-hitm-navy h-14 shadow-xl text-lg font-bold" size="lg">
+                  Apply for B.Tech Admission <ArrowRight className="ml-2" />
+                </Button>
+              </ApplyModal>
             </div>
           </div>
         </div>

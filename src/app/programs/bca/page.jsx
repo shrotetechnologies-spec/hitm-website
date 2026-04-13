@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, Clock, Users, BookOpen, ArrowRight, Monitor, Download } from 'lucide-react';
 import Link from 'next/link';
 import { generatePagePDF } from '@/lib/pdf-service';
+import ApplyModal from '@/components/ApplyModal';
 
 export default function BCAPage() {
   const handleDownload = () => {
@@ -87,9 +88,11 @@ export default function BCAPage() {
                   </div>
                 ))}
               </div>
-              <Button asChild className="w-full bg-hitm-red h-14 shadow-lg text-lg font-black" size="lg">
-                <Link href="/admissions/apply">Join BCA Now <ArrowRight className="ml-2" size={18} /></Link>
-              </Button>
+              <ApplyModal courseName="Bachelor of Computer Applications (BCA)">
+                <Button className="w-full bg-hitm-red h-14 shadow-lg text-lg font-black" size="lg">
+                  Join BCA Now <ArrowRight className="ml-2" size={18} />
+                </Button>
+              </ApplyModal>
             </div>
 
           </div>

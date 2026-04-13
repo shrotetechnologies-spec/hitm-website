@@ -4,13 +4,18 @@ import Link from 'next/link';
 import {
   Phone, Mail, Calendar, Image as ImageIcon, MapPin, ChevronDown, Menu, X,
   BookOpen, GraduationCap, Users, Building2, Trophy, Briefcase,
-  Bell, ArrowRight, CreditCard
+  Bell, ArrowRight, CreditCard, Home
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 
 const navItems = [
+  {
+    label: 'Home', icon: <Home size={16} />,
+    href: '/',
+    isHome: true,
+  },
   {
     label: 'Courses', icon: <BookOpen size={16} />,
     children: [
@@ -78,19 +83,19 @@ export default function Navbar() {
         "bg-white w-full z-50 transition-all duration-300",
         scrolled ? "fixed top-0 shadow-2xl" : "relative"
       )}>
-        <div className="flex flex-col lg:flex-row items-stretch">
+        <div className="flex flex-wrap justify-between items-center lg:flex-nowrap lg:items-stretch w-full">
           
           {/* Left: Logo Area (Aligned to standard container) */}
-          <div className="flex items-center py-4 lg:py-6 pl-[max(1rem,calc((100vw-1400px)/2+1rem))] lg:pr-10 shrink-0">
-            <Link href="/" className="flex items-center gap-4 group">
-              <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative">
+          <div className="flex items-center py-3 lg:py-6 pl-[max(1rem,calc((100vw-1400px)/2+1rem))] lg:pr-10 shrink-0">
+            <Link href="/" className="flex items-center gap-2.5 sm:gap-4 group">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center relative shrink-0">
                  <img src="https://ahctranchi.com/wp-content/uploads/2025/06/cropped-Haidar-1-180x180.jpg" alt="AHCT Logo" className="w-full h-full object-contain" />
               </div>
               <div className="flex flex-col">
-                <h1 className="text-2xl md:text-3xl font-black text-hitm-navy tracking-tighter leading-none border-b-2 border-hitm-navy/10 pb-1">
+                <h1 className="text-[1.1rem] sm:text-2xl md:text-3xl font-black text-hitm-navy tracking-tighter leading-none border-b-2 border-hitm-navy/10 pb-1">
                   AHCT <span className="text-hitm-red">RANCHI</span>
                 </h1>
-                <p className="text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-tight">
+                <p className="text-[7.5px] sm:text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-[1.2]">
                   Approved by AICTE, New Delhi <br/>
                   <span className="text-hitm-navy">Affiliated to Jharkhand University of Technology</span>
                 </p>
@@ -149,6 +154,10 @@ export default function Navbar() {
                             </div>
                           </div>
                         </>
+                      ) : item.isHome ? (
+                        <Link href={item.href} title="Home" className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
+                          <Home size={18} />
+                        </Link>
                       ) : (
                         <Link href={item.href} className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
                           {item.label}

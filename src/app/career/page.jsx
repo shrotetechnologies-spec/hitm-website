@@ -19,11 +19,48 @@ export default function CareerPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', exp: '', coverLetter: '' });
   const [resume, setResume] = useState(null);
 
-  const jobs = [
-    { id: 'ap-cse', title: 'Assistant Professor - CSE', type: 'Full Time', dept: 'Engineering', location: 'Ranchi Campus', exp: '3-5 Years' },
-    { id: 'tpo', title: 'Training & Placement Officer', type: 'Full Time', dept: 'Administration', location: 'Ranchi Campus', exp: '5+ Years' },
-    { id: 'la-mech', title: 'Lab Assistant - Mechanical', type: 'Full Time', dept: 'Engineering', location: 'Ranchi Campus', exp: '0-2 Years' },
-    { id: 'fd-it', title: 'Frontend Developer', type: 'Full Time', dept: 'IT Services', location: 'Remote/In-office', exp: '2+ Years' },
+  const categorizedJobs = [
+    {
+      category: "Engineering (B.Tech)",
+      jobs: [
+        { id: 'hod-cse', title: 'Head of Department (HOD) - CSE', type: 'Full Time', location: 'Ranchi Campus', exp: '10+ Years' },
+        { id: 'ap-civil', title: 'Assistant Professor - Civil', type: 'Full Time', location: 'Ranchi Campus', exp: '3-5 Years' },
+        { id: 'lec-mech', title: 'Lecturer - Mechanical', type: 'Full Time', location: 'Ranchi Campus', exp: '1-3 Years' },
+        { id: 'la-aids', title: 'Lab Assistant - AI & Data Science', type: 'Full Time', location: 'Ranchi Campus', exp: '0-2 Years' },
+      ]
+    },
+    {
+      category: "Management (MBA & BBA)",
+      jobs: [
+        { id: 'prof-fin', title: 'Professor - Finance', type: 'Full Time', location: 'Ranchi Campus', exp: '8+ Years' },
+        { id: 'ap-hr', title: 'Assistant Professor - Human Resource', type: 'Full Time', location: 'Ranchi Campus', exp: '3-5 Years' },
+        { id: 'lec-mktg', title: 'Lecturer - Marketing', type: 'Full Time', location: 'Ranchi Campus', exp: '1-3 Years' },
+      ]
+    },
+    {
+      category: "Computer Applications (MCA & BCA)",
+      jobs: [
+        { id: 'hod-ca', title: 'Head of Department - Computer Applications', type: 'Full Time', location: 'Ranchi Campus', exp: '10+ Years' },
+        { id: 'ap-java', title: 'Assistant Professor - Java & Web Tech', type: 'Full Time', location: 'Ranchi Campus', exp: '4-6 Years' },
+        { id: 'lec-dbms', title: 'Lecturer - Database Management', type: 'Full Time', location: 'Ranchi Campus', exp: '2-4 Years' },
+      ]
+    },
+    {
+      category: "Diploma / Polytechnic",
+      jobs: [
+        { id: 'hod-dip-elec', title: 'HOD - Electrical Engineering', type: 'Full Time', location: 'Ranchi Campus', exp: '8+ Years' },
+        { id: 'lec-dip-civil', title: 'Lecturer - Civil Engineering', type: 'Full Time', location: 'Ranchi Campus', exp: '1-5 Years' },
+        { id: 'la-dip-mech', title: 'Workshop Assistant - Mechanical', type: 'Full Time', location: 'Ranchi Campus', exp: '0-3 Years' },
+      ]
+    },
+    {
+      category: "Administration & IT Services",
+      jobs: [
+        { id: 'tpo', title: 'Training & Placement Officer', type: 'Full Time', location: 'Ranchi Campus', exp: '5+ Years' },
+        { id: 'fd-it', title: 'Frontend Developer', type: 'Full Time', location: 'Remote/In-office', exp: '2+ Years' },
+        { id: 'admin', title: 'Admission Counselor', type: 'Full Time', location: 'Ranchi Campus', exp: '2-5 Years' }
+      ]
+    }
   ];
 
   const handleApply = async (e) => {
@@ -105,30 +142,40 @@ export default function CareerPage() {
             <p className="text-gray-500 mt-4">We are always looking for exceptional talent. Join our journey.</p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-4">
-            {jobs.map((j, i) => (
-              <Card key={i} className="group hover:shadow-xl transition-all border-gray-100 overflow-hidden">
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="secondary" className="bg-hitm-red/10 text-hitm-red border-none">{j.dept}</Badge>
-                        <span className="text-[10px] uppercase font-bold text-gray-400 flex items-center gap-1">
-                          <MapPin size={10} /> {j.location}
-                        </span>
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 group-hover:text-hitm-red transition-colors">{j.title}</h3>
-                      <div className="flex gap-4 mt-2">
-                        <span className="text-xs text-gray-500 flex items-center gap-1"><Briefcase size={12} /> {j.type}</span>
-                        <span className="text-xs text-gray-500 flex items-center gap-1"><CheckCircle size={12} /> {j.exp} EXP</span>
-                      </div>
-                    </div>
-                    <Button onClick={() => setApplyModal(j)} variant="default" className="bg-hitm-navy hover:bg-hitm-red shadow-lg">
-                      Apply Now <ArrowRight size={16} className="ml-2" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+          <div className="max-w-4xl mx-auto space-y-12">
+            {categorizedJobs.map((cat, idx) => (
+              <div key={idx} className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <h3 className="text-2xl font-black font-serif text-hitm-navy">{cat.category}</h3>
+                  <div className="h-px flex-1 bg-gray-200"></div>
+                </div>
+                <div className="space-y-4">
+                  {cat.jobs.map((j, i) => (
+                    <Card key={i} className="group hover:shadow-xl transition-all border-gray-100 overflow-hidden">
+                      <CardContent className="p-6">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                          <div>
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge variant="secondary" className="bg-hitm-red/10 text-hitm-red border-none">{cat.category.split(' ')[0]}</Badge>
+                              <span className="text-[10px] uppercase font-bold text-gray-400 flex items-center gap-1">
+                                <MapPin size={10} /> {j.location}
+                              </span>
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 group-hover:text-hitm-red transition-colors">{j.title}</h3>
+                            <div className="flex gap-4 mt-2">
+                              <span className="text-xs text-gray-500 flex items-center gap-1"><Briefcase size={12} /> {j.type}</span>
+                              <span className="text-xs text-gray-500 flex items-center gap-1"><CheckCircle size={12} /> {j.exp} EXP</span>
+                            </div>
+                          </div>
+                          <Button onClick={() => setApplyModal(j)} variant="default" className="bg-hitm-navy hover:bg-hitm-red shadow-lg">
+                            Apply Now <ArrowRight size={16} className="ml-2" />
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
 
@@ -159,6 +206,10 @@ export default function CareerPage() {
             <CardContent className="p-8 overflow-y-auto custom-scrollbar">
               <form onSubmit={handleApply} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2 md:col-span-2">
+                    <Label>Applying for Role</Label>
+                    <Input disabled value={applyModal.title} className="bg-gray-50 font-bold text-hitm-navy border-gray-200 cursor-not-allowed opacity-80" />
+                  </div>
                   <div className="space-y-2">
                     <Label>Full Name *</Label>
                     <Input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="John Doe" />

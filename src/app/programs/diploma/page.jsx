@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, Clock, Users, BookOpen, ArrowRight, Settings, Download } from 'lucide-react';
 import Link from 'next/link';
 import { generatePagePDF } from '@/lib/pdf-service';
+import ApplyModal from '@/components/ApplyModal';
 
 export default function DiplomaPage() {
   const handleDownload = () => {
@@ -92,9 +93,11 @@ export default function DiplomaPage() {
                      <p className="flex justify-between border-b pb-2"><span>Min Qual.</span> <span className="font-bold text-gray-900">10th Std</span></p>
                      <p className="flex justify-between border-b pb-2"><span>Min. Marks</span> <span className="font-bold text-gray-900">35% Avg</span></p>
                   </div>
-                  <Button asChild className="w-full bg-hitm-navy hover:bg-hitm-red h-14" size="lg">
-                    <Link href="/admissions/apply">Apply Now 2026</Link>
-                  </Button>
+                  <ApplyModal courseName="Diploma in Polytechnic">
+                    <Button className="w-full bg-hitm-navy hover:bg-hitm-red h-14" size="lg">
+                      Apply Now 2026
+                    </Button>
+                  </ApplyModal>
                 </CardContent>
               </Card>
 

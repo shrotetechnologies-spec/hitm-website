@@ -11,55 +11,64 @@ export default function FeeStructurePage() {
   const fees = [
     { 
       course: 'B.Tech Program', 
-      specialization: 'CSE | EEE | AI | DS | Mechanical | Civil',
+      specialization: 'Computer Science | Civil | Mechanical | EEE | AI & DS',
       level: 'Undergraduate',
       duration: '4 Years (8 Semesters)', 
-      breakup: [
-        { label: 'Tuition Fee (Per Year)', value: '65,000' },
-        { label: 'Development Fee', value: '10,000' },
-        { label: 'Lab & Library Fee', value: '5,000' },
-        { label: 'Examination Fee', value: '2,000' },
-      ],
-      total: '82,000'
+      admissionRegistration: '10,000',
+      admissionFee: '30,000',
+      semesters: 8,
+      perSemesterFee: '55,000',
+      total: '4,80,000'
+    },
+    { 
+      course: 'BCA Program', 
+      specialization: 'Software Development',
+      level: 'Undergraduate',
+      duration: '3 Years (6 Semesters)', 
+      admissionFee: '10,000',
+      semesters: 6,
+      perSemesterFee: '35,000',
+      total: '2,20,000'
+    },
+    { 
+      course: 'MCA Program', 
+      specialization: 'Advanced IT Technologies',
+      level: 'Postgraduate',
+      duration: '2 Years (4 Semesters)', 
+      admissionFee: '10,000',
+      semesters: 4,
+      perSemesterFee: '65,000',
+      total: '2,70,000'
     },
     { 
       course: 'Diploma (Polytechnic)', 
-      specialization: 'CSE | EEE | AI | DS | Civil | Mechanical',
+      specialization: 'Civil | Mechanical | Electrical | CSE',
       level: 'Diploma',
       duration: '3 Years (6 Semesters)', 
-      breakup: [
-        { label: 'Tuition Fee (Per Year)', value: '35,000' },
-        { label: 'Development Fee', value: '8,000' },
-        { label: 'Workshop & Practical Fee', value: '5,000' },
-        { label: 'Examination Fee', value: '2,000' },
-      ],
-      total: '50,000'
+      admissionFee: '10,000',
+      semesters: 6,
+      perSemesterFee: '35,000',
+      total: '2,20,000'
     },
     { 
-      course: 'MBA / MCA Program', 
-      specialization: 'Postgraduate Proficiency',
+      course: 'MBA Program', 
+      specialization: 'Finance | Marketing | HR | IT',
       level: 'Postgraduate',
       duration: '2 Years (4 Semesters)', 
-      breakup: [
-        { label: 'Tuition Fee (Per Year)', value: '75,000' },
-        { label: 'Industry Visit & Skill Up', value: '10,000' },
-        { label: 'Library & Online Access', value: '5,000' },
-        { label: 'Examination Fee', value: '5,000' },
-      ],
-      total: '95,000'
+      admissionFee: '10,000',
+      semesters: 4,
+      perSemesterFee: '75,000',
+      total: '3,10,000'
     },
     { 
-      course: 'BCA / BBA Program', 
-      specialization: 'Undergraduate Excellence',
+      course: 'BBA Program', 
+      specialization: 'Management Essentials',
       level: 'Undergraduate',
       duration: '3 Years (6 Semesters)', 
-      breakup: [
-        { label: 'Tuition Fee (Per Year)', value: '45,000' },
-        { label: 'Skill Development', value: '8,000' },
-        { label: 'Project & Lab Fee', value: '5,000' },
-        { label: 'Examination Fee', value: '2,000' },
-      ],
-      total: '60,000'
+      admissionFee: '10,000',
+      semesters: 6,
+      perSemesterFee: '35,000',
+      total: '2,20,000'
     }
   ];
 
@@ -112,14 +121,41 @@ export default function FeeStructurePage() {
       doc.text(`${index + 1}. ${fee.course} (${fee.duration})`, 14, currentY);
       currentY += 5;
 
+      // First Table: One-time Fees
+      let oneTimeBody = [];
+      if (fee.admissionRegistration) {
+        oneTimeBody.push(['Admission Registration', `Rs. ${fee.admissionRegistration}`]);
+      }
+      oneTimeBody.push(['Admission Fee', `Rs. ${fee.admissionFee}`]);
+
       autoTable(doc, {
         startY: currentY,
-        head: [['Fee Particulars', 'Amount (INR)']],
-        body: [
-          ...fee.breakup.map(b => [b.label, b.value]),
-          [{ content: 'Total Annual Fee', styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }, 
-           { content: `Rs. ${fee.total}`, styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }]
-        ],
+        head: [['One-Time Payments', 'Amount (INR)']],
+        body: oneTimeBody,
+        theme: 'striped',
+        headStyles: { fillColor: [200, 200, 200], textColor: [0,0,0] },
+        margin: { left: 14, right: 14 },
+        didDrawPage: addHeaderFooter
+      });
+
+      currentY = doc.lastAutoTable.finalY + 5;
+
+      // Second Table: Semester Fees
+      let semesterBody = [];
+      for (let i = 1; i <= fee.semesters; i++) {
+        semesterBody.push([`Semester ${i}`, `Rs. ${fee.perSemesterFee}`]);
+      }
+      semesterBody.push([
+        { content: 'Total Course Fee', styles: { fontStyle: 'bold', fillColor: [230, 230, 230] } },
+        { content: `Rs. ${fee.total}`, styles: { fontStyle: 'bold', fillColor: [230, 230, 230] } }
+      ]);
+
+      if (currentY > 240) { doc.addPage(); currentY = 35; }
+
+      autoTable(doc, {
+        startY: currentY,
+        head: [['Semester Timeline', 'Tuition Fee (INR)']],
+        body: semesterBody,
         theme: 'striped',
         headStyles: { fillColor: [180, 20, 20] },
         margin: { left: 14, right: 14 },
@@ -180,22 +216,63 @@ export default function FeeStructurePage() {
                   {/* Middle Column: Fee Breakup */}
                   <div className="p-8 lg:p-10 lg:col-span-2">
                     <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 flex items-center">
-                      Annual Fee Breakdown <ChevronRight size={14} className="ml-1" />
+                      Detailed Fee Breakdown <ChevronRight size={14} className="ml-1" />
                     </h3>
-                    <div className="space-y-4">
-                      {fee.breakup.map((item, i) => (
-                        <div key={i} className="flex justify-between items-center pb-3 border-b border-gray-50">
-                          <span className="text-gray-600 font-medium">{item.label}</span>
-                          <span className="text-hitm-navy font-bold">{item.value}</span>
-                        </div>
-                      ))}
-                      <div className="flex justify-between items-center pt-4">
-                        <span className="text-lg font-black text-hitm-navy">Total Yearly Fee</span>
+                    
+                    <div className="space-y-6">
+                      {/* One Time Fees Table */}
+                      <div className="overflow-hidden border border-gray-200 rounded-xl">
+                        <table className="w-full text-sm text-left">
+                          <thead className="bg-gray-50 text-hitm-navy font-bold">
+                            <tr>
+                              <th className="px-6 py-3">One-Time Dues</th>
+                              <th className="px-6 py-3 text-right">Amount (INR)</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-100">
+                            {fee.admissionRegistration && (
+                              <tr className="hover:bg-gray-50 transition-colors">
+                                <td className="px-6 py-3 text-gray-600">Admission Registration</td>
+                                <td className="px-6 py-3 font-bold text-hitm-navy text-right">₹ {fee.admissionRegistration}</td>
+                              </tr>
+                            )}
+                            <tr className="hover:bg-gray-50 transition-colors">
+                              <td className="px-6 py-3 text-gray-600">Admission Fee</td>
+                              <td className="px-6 py-3 font-bold text-hitm-navy text-right">₹ {fee.admissionFee}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Semester Fees Table */}
+                      <div className="overflow-hidden border border-gray-200 rounded-xl">
+                        <table className="w-full text-sm text-left">
+                          <thead className="bg-hitm-navy text-white font-bold">
+                            <tr>
+                              <th className="px-6 py-3">Semester Timeline</th>
+                              <th className="px-6 py-3 text-right">Tuition Fee (INR)</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-100">
+                            {[...Array(fee.semesters)].map((_, i) => (
+                              <tr key={i} className="hover:bg-gray-50 transition-colors">
+                                <td className="px-6 py-3 text-gray-600">Semester {i + 1}</td>
+                                <td className="px-6 py-3 font-bold text-hitm-navy text-right">
+                                  ₹ {fee.perSemesterFee}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div className="flex justify-between items-center pt-6 mt-4 border-t-2 border-gray-100">
+                        <span className="text-xl md:text-2xl font-black text-hitm-navy uppercase tracking-tighter">Total Course Fee</span>
                         <div className="text-right">
-                          <p className="text-3xl font-black text-hitm-red flex items-center justify-end">
-                            <IndianRupee size={24} className="mr-1" /> {fee.total}
+                          <p className="text-3xl md:text-4xl font-black text-hitm-red flex items-center justify-end">
+                            <IndianRupee size={28} className="mr-1" /> {fee.total}
                           </p>
-                          <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-tighter">Exclusive of Hostel & Transport</p>
+                          <p className="text-[10px] text-gray-400 mt-1 uppercase tracking-widest font-bold">Hostel & Transport Extra</p>
                         </div>
                       </div>
                     </div>
