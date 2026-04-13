@@ -59,6 +59,7 @@ function DashboardView() {
   const [recentEvents, setRecentEvents] = useState([]);
 
   useEffect(() => {
+    if (!db) return;
     // Stats and Real-time data
     const qNotices = query(collection(db, 'notices'), orderBy('createdAt', 'desc'));
     const unsubNotices = onSnapshot(qNotices, (snapshot) => {
@@ -193,6 +194,7 @@ function NoticesManager() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, 'notices'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setNotices(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
@@ -334,6 +336,7 @@ function EventsManager() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setEvents(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
@@ -463,6 +466,7 @@ function EnquiriesManager() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, 'enquiries'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setEnquiries(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
@@ -593,6 +597,7 @@ function CareerManager() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
+    if (!db) return;
     const q = query(collection(db, 'career_enquiries'), orderBy('createdAt', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setApps(snapshot.docs.map(d => ({ id: d.id, ...d.data() })));
@@ -671,6 +676,7 @@ export default function AdminDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
+    if (!auth || !db) return;
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
       if (u) {
         try {

@@ -148,15 +148,15 @@ export default function CareerPage() {
       {/* Application Modal */}
       {applyModal && (
         <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <Card className="w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl animate-fade-in">
-            <div className="bg-hitm-navy p-6 text-white flex justify-between items-center">
+          <Card className="w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl animate-fade-in flex flex-col max-h-[90vh]">
+            <div className="bg-hitm-navy p-6 text-white flex justify-between items-center shrink-0">
               <div>
                 <h3 className="text-xl font-bold font-serif text-hitm-gold">Join our Team</h3>
                 <p className="text-xs text-white/60">Applying for: {applyModal.title}</p>
               </div>
-              <button onClick={() => setApplyModal(null)} className="text-white/50 hover:text-white transition-colors"><X/></button>
+              <button onClick={() => setApplyModal(null)} className="text-white/50 hover:text-white transition-colors bg-white/10 p-2 rounded-full"><X/></button>
             </div>
-            <CardContent className="p-8">
+            <CardContent className="p-8 overflow-y-auto custom-scrollbar">
               <form onSubmit={handleApply} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
@@ -203,7 +203,7 @@ export default function CareerPage() {
                   </div>
                 </div>
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex gap-4 pt-4 sticky bottom-0 bg-white">
                   <Button type="button" variant="outline" className="flex-1" onClick={() => setApplyModal(null)}>Cancel</Button>
                   <Button type="submit" disabled={submitting} className="flex-1 bg-hitm-red hover:bg-hitm-navy font-bold h-12">
                     {submitting ? (

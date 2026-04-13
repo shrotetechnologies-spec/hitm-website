@@ -1,8 +1,9 @@
 import './globals.css';
+import FloatingApply from '@/components/FloatingApply';
 
 export const metadata = {
   title: 'Al Haider College of Technology | Admissions Open 2026 - AHCT',
-  description: 'Al Haider College of Technology (AHCT) — Premier institution in Jharkhand for Engineering, Management & Technology. NAAC Accredited. Apply for 2026 admissions.',
+  description: 'Al Haider College of Technology (AHCT) — Premier institution in Jharkhand for Engineering, Management & Technology. Apply for 2026 admissions.',
   keywords: 'AHCT Ranchi, Al Haider College of Technology, engineering college Jharkhand, management institute Ranchi, BCA BTech MBA admissions 2026',
   icons: {
     icon: 'https://ahctranchi.com/wp-content/uploads/2025/06/cropped-Haidar-1-32x32.jpg',
@@ -16,7 +17,10 @@ export default function RootLayout({ children }) {
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <FloatingApply />
+      </body>
     </html>
   );
 }

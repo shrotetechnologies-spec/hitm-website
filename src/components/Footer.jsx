@@ -46,12 +46,12 @@ export default function Footer() {
               </div>
               <div>
                 <h3 className="text-white font-bold font-serif text-base leading-tight">AHCT Ranchi</h3>
-                <p className="text-gray-500 text-[10px]">Est. 2008</p>
+                <p className="text-gray-500 text-[10px]">Opening 20 April 2026</p>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Al Haider College of Technology, Ranchi — committed to excellence in 
-              education, innovation, and producing industry-ready graduates who make a difference.
+              Al Haider College of Technology, Ranchi — Jharkhand&apos;s most futuristic institute, 
+              dedicated to excellence in innovation and producing industry-ready leaders.
             </p>
             <div className="flex gap-2">
               {socialLinks.map((s) => (

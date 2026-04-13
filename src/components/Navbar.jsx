@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {
   Phone, Mail, Calendar, Image as ImageIcon, MapPin, ChevronDown, Menu, X,
   BookOpen, GraduationCap, Users, Building2, Trophy, Briefcase,
-  Bell, ArrowRight
+  Bell, ArrowRight, CreditCard
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -56,9 +56,7 @@ const navItems = [
   },
   {
     label: 'Contact', icon: <Phone size={16} />,
-    children: [
-      { label: 'Address', href: '/contact' }
-    ],
+    href: '/contact',
   },
 ];
 
@@ -75,102 +73,102 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Sleek Top Banner */}
-      <div className="bg-hitm-navy text-gray-300 text-[10px] uppercase tracking-widest py-1.5 border-b border-white/10 hidden md:block">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="flex items-center gap-6 font-semibold">
-            <a href="tel:0001119889" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <Phone size={12} className="text-hitm-gold" /> Admissions: 000-111-9889
-            </a>
-            <a href="mailto:support@ahctranchi.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <Mail size={12} className="text-hitm-gold" /> support@ahctranchi.com
-            </a>
-          </div>
-          <div className="flex items-center gap-6 font-semibold">
-            <Link href="/notice" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <Bell size={12} className="text-hitm-gold" /> Notice Board
-            </Link>
-            <Link href="/academics/calendar" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <Calendar size={12} className="text-hitm-gold" /> Calendar
-            </Link>
-            <Link href="/campus/gallery" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <ImageIcon size={12} className="text-hitm-gold" /> Gallery
-            </Link>
-            <Link href="/contact" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-              <MapPin size={12} className="text-hitm-gold" /> Contact
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Navbar */}
-      <nav className={cn(
-        "bg-white sticky top-0 z-50 transition-all duration-300",
-        scrolled ? "shadow-xl py-1" : "shadow-md py-3 md:py-4"
+      {/* Premium Header Container */}
+      <header className={cn(
+        "bg-white w-full z-50 transition-all duration-300",
+        scrolled ? "fixed top-0 shadow-2xl" : "relative"
       )}>
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-
-            {/* Premium Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 md:w-14 md:h-14 rounded-lg bg-hitm-navy flex items-center justify-center text-white font-black text-xl md:text-2xl font-serif shadow-inner border-[3px] border-hitm-gold overflow-hidden relative">
-                <span className="relative z-10 transition-transform duration-500 group-hover:scale-110">A</span>
-                <div className="absolute inset-0 bg-hitm-red translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+        <div className="flex flex-col lg:flex-row items-stretch">
+          
+          {/* Left: Logo Area (Aligned to standard container) */}
+          <div className="flex items-center py-4 lg:py-6 pl-[max(1rem,calc((100vw-1400px)/2+1rem))] lg:pr-10 shrink-0">
+            <Link href="/" className="flex items-center gap-4 group">
+              <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center relative">
+                 <img src="https://ahctranchi.com/wp-content/uploads/2025/06/cropped-Haidar-1-180x180.jpg" alt="AHCT Logo" className="w-full h-full object-contain" />
               </div>
-              <div className="flex flex-col justify-center">
-                <h2 className="text-xl md:text-2xl font-black text-hitm-navy uppercase tracking-tighter leading-none group-hover:text-hitm-red transition-colors flex items-center gap-1">
-                  AHCT <span className="font-light text-gray-400">Ranchi</span>
-                </h2>
-                <span className="text-[8px] md:text-[10px] font-bold text-hitm-gold uppercase mt-1" style={{ letterSpacing: '0.1em' }}>Al Haider College of Technology</span>
+              <div className="flex flex-col">
+                <h1 className="text-2xl md:text-3xl font-black text-hitm-navy tracking-tighter leading-none border-b-2 border-hitm-navy/10 pb-1">
+                  AHCT <span className="text-hitm-red">RANCHI</span>
+                </h1>
+                <p className="text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-tight">
+                  Approved by AICTE, New Delhi <br/>
+                  <span className="text-hitm-navy">Affiliated to Jharkhand University of Technology</span>
+                </p>
               </div>
             </Link>
+          </div>
 
-            {/* Desktop Navigation - Premium Underline Style */}
-            <ul className="hidden xl:flex items-center gap-2 mt-1">
-              {navItems.map((item) => (
-                <li key={item.label} className="relative group">
-                  <span className="flex items-center gap-1.5 px-3 py-6 text-[13px] font-bold text-hitm-navy uppercase tracking-wide cursor-pointer transition-colors group-hover:text-hitm-red">
-                    {item.label}
-                    <ChevronDown size={14} className="transition-transform duration-300 group-hover:-rotate-180 text-hitm-gold" />
-                    {/* Animated bottom border */}
-                    <span className="absolute bottom-0 left-0 w-full h-[4px] bg-hitm-red rounded-t-md opacity-0 group-hover:opacity-100 transition-all scale-x-0 group-hover:scale-x-100 origin-center" />
-                  </span>
+          {/* Right: Dual Bar Area (Spans to right edge) */}
+          <div className="flex-1 flex flex-col justify-between relative">
+            
+            {/* Top Bar (Dark Blue) - Right Full Width */}
+            <div className="bg-hitm-navy text-white text-[10px] font-bold uppercase tracking-wider pl-8 pr-[max(1rem,calc((100vw-1400px)/2+1rem))] py-2.5 rounded-bl-[40px] hidden lg:flex items-center justify-between shadow-lg ml-[-20px] relative z-10">
+              <div className="flex items-center gap-6">
+                <a href="mailto:support@ahctranchi.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
+                  <Mail size={12} className="text-hitm-gold" /> support@ahctranchi.com
+                </a>
+                <a href="tel:9935345441" className="flex items-center gap-2 hover:text-hitm-gold transition-colors border-l border-white/20 pl-6">
+                  <Phone size={12} className="text-hitm-gold" /> Admission Cell: (+91) 9935345441
+                </a>
+              </div>
+              <div className="flex items-center gap-4 xl:gap-6">
+                <Link href="/admissions/apply" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6 underline decoration-hitm-gold decoration-2 underline-offset-4">APPLY NOW - 2026</Link>
+                <Link href="/aicte" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">AICTE</Link>
+                <Link href="/incubation" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">Incubation Center</Link>
+                <Link href="/career" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">Careers</Link>
+                <Link href="/payment" className="hover:text-hitm-gold transition-colors flex items-center gap-2">
+                  <CreditCard size={12} className="text-hitm-gold" /> Online Fee Payment
+                </Link>
+              </div>
+            </div>
 
-                  {/* Elegant Dropdown */}
-                  <div className="absolute top-[100%] left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                    <div className="bg-white rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-gray-100 p-3 min-w-[260px] overflow-hidden relative">
-                      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-hitm-gold to-hitm-red" />
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.label}
-                          href={child.href}
-                          className="group/link flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-gray-600 hover:text-hitm-navy hover:bg-gray-50 rounded-lg transition-all"
-                        >
-                          <div className="w-1.5 h-1.5 rounded-full bg-gray-300 group-hover/link:bg-hitm-red group-hover/link:scale-150 transition-all" />
-                          <span className="group-hover/link:translate-x-1 transition-transform">{child.label}</span>
+            {/* Bottom Bar (Navbar) - Aligned to standard container */}
+            <div className="flex items-center justify-end flex-1 py-1 pr-[max(1rem,calc((100vw-1400px)/2+1rem))]">
+                <ul className="hidden xl:flex items-center gap-1">
+                  {navItems.map((item) => (
+                    <li key={item.label} className="relative group">
+                      {item.children ? (
+                        <>
+                          <span className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight cursor-pointer transition-colors group-hover:text-hitm-red">
+                            {item.label}
+                            <ChevronDown size={14} className="transition-transform duration-300 group-hover:-rotate-180 text-hitm-red" />
+                          </span>
+
+                          <div className="absolute top-full left-0 pt-2 opacity-0 invisible translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <div className="bg-white rounded-xl shadow-2xl border border-gray-100 p-2 min-w-[220px] overflow-hidden">
+                              <div className="h-1 w-full bg-hitm-red mb-2 rounded-full" />
+                              {item.children.map((child) => (
+                                <Link
+                                  key={child.label}
+                                  href={child.href}
+                                  className="group/link flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 hover:text-hitm-red hover:bg-gray-50 rounded-lg transition-all"
+                                >
+                                  <span className="group-hover/link:translate-x-1 transition-transform">{child.label}</span>
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        <Link href={item.href} className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
+                          {item.label}
                         </Link>
-                      ))}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="flex items-center gap-4">
-              <Button asChild variant="default" size="default" className="hidden md:flex bg-hitm-navy hover:bg-hitm-red text-white uppercase tracking-widest text-xs font-bold rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all">
-                <Link href="/admissions/apply" className="flex items-center gap-2">Apply 2026 <ArrowRight size={14} /></Link>
-              </Button>
-              <button
-                id="hamburger-btn"
-                className="xl:hidden p-2 rounded-lg bg-gray-100 hover:bg-hitm-red hover:text-white transition-colors"
-                onClick={() => setMobileOpen(true)}
-                aria-label="Open menu"
-              >
-                <Menu size={24} />
-              </button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Mobile Menu Toggle */}
+                <button
+                  className="xl:hidden p-3 rounded-xl bg-gray-100 text-hitm-navy hover:bg-hitm-red hover:text-white transition-all shadow-sm"
+                  onClick={() => setMobileOpen(true)}
+                >
+                  <Menu size={24} />
+                </button>
             </div>
           </div>
         </div>
-      </nav>
+      </header>
 
       {/* Mobile Overlay */}
       {mobileOpen && (
@@ -201,24 +199,36 @@ export default function Navbar() {
         <ul className="py-4 flex-1">
           {navItems.map((item) => (
             <li key={item.label} className="border-b border-gray-100 px-4">
-              <button
-                className="w-full flex justify-between items-center py-4 text-sm font-bold text-hitm-navy uppercase tracking-wide hover:text-hitm-red transition-colors"
-                onClick={() => setOpenMobileItem(openMobileItem === item.label ? null : item.label)}
-              >
-                <span className="flex items-center gap-3"><span className="text-hitm-gold">{item.icon}</span>{item.label}</span>
-                <ChevronDown size={16} className={cn("transition-transform text-gray-400", openMobileItem === item.label && "rotate-180 text-hitm-red")} />
-              </button>
-              <div className={cn("overflow-hidden transition-all duration-300 ease-in-out", openMobileItem === item.label ? "max-h-[800px] opacity-100 mb-4" : "max-h-0 opacity-0")}>
-                <div className="bg-gray-50 rounded-xl p-2 border border-gray-100 space-y-1">
-                  {item.children.map((child) => (
-                    <Link key={child.label} href={child.href} onClick={() => setMobileOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-gray-600 hover:text-hitm-red hover:bg-white rounded-lg transition-colors shadow-sm">
-                      <div className="w-1.5 h-1.5 rounded-full bg-hitm-gold" />
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              {item.children ? (
+                <>
+                  <button
+                    className="w-full flex justify-between items-center py-4 text-sm font-bold text-hitm-navy uppercase tracking-wide hover:text-hitm-red transition-colors"
+                    onClick={() => setOpenMobileItem(openMobileItem === item.label ? null : item.label)}
+                  >
+                    <span className="flex items-center gap-3"><span className="text-hitm-gold">{item.icon}</span>{item.label}</span>
+                    <ChevronDown size={16} className={cn("transition-transform text-gray-400", openMobileItem === item.label && "rotate-180 text-hitm-red")} />
+                  </button>
+                  <div className={cn("overflow-hidden transition-all duration-300 ease-in-out", openMobileItem === item.label ? "max-h-[800px] opacity-100 mb-4" : "max-h-0 opacity-0")}>
+                    <div className="bg-gray-50 rounded-xl p-2 border border-gray-100 space-y-1">
+                      {item.children.map((child) => (
+                        <Link key={child.label} href={child.href} onClick={() => setMobileOpen(false)}
+                          className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-gray-600 hover:text-hitm-red hover:bg-white rounded-lg transition-colors shadow-sm">
+                          <div className="w-1.5 h-1.5 rounded-full bg-hitm-gold" />
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Link 
+                  href={item.href} 
+                  onClick={() => setMobileOpen(false)}
+                  className="w-full flex items-center py-4 text-sm font-bold text-hitm-navy uppercase tracking-wide hover:text-hitm-red transition-colors"
+                >
+                  <span className="flex items-center gap-3"><span className="text-hitm-gold">{item.icon}</span>{item.label}</span>
+                </Link>
+              )}
             </li>
           ))}
         </ul>

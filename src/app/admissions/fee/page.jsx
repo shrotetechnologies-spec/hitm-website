@@ -10,8 +10,8 @@ import autoTable from 'jspdf-autotable';
 export default function FeeStructurePage() {
   const fees = [
     { 
-      course: 'B.Tech Programs', 
-      specialization: 'ME / CSE / EEE / ECE / AI / DS / Civil',
+      course: 'B.Tech Program', 
+      specialization: 'CSE | EEE | AI | DS | Mechanical | Civil',
       level: 'Undergraduate',
       duration: '4 Years (8 Semesters)', 
       breakup: [
@@ -23,9 +23,9 @@ export default function FeeStructurePage() {
       total: '82,000'
     },
     { 
-      course: 'Diploma in Engineering', 
-      specialization: 'ME / CSE / EEE / AI / DS / Civil / ECE',
-      level: 'Polytechnic',
+      course: 'Diploma (Polytechnic)', 
+      specialization: 'CSE | EEE | AI | DS | Civil | Mechanical',
+      level: 'Diploma',
       duration: '3 Years (6 Semesters)', 
       breakup: [
         { label: 'Tuition Fee (Per Year)', value: '35,000' },
@@ -36,21 +36,21 @@ export default function FeeStructurePage() {
       total: '50,000'
     },
     { 
-      course: 'MBA Program', 
-      specialization: 'Marketing / Finance / HR / IT',
+      course: 'MBA / MCA Program', 
+      specialization: 'Postgraduate Proficiency',
       level: 'Postgraduate',
       duration: '2 Years (4 Semesters)', 
       breakup: [
-        { label: 'Tuition Fee (Per Year)', value: '70,000' },
-        { label: 'Industry Visit & Seminar', value: '10,000' },
-        { label: 'Library & Online Resources', value: '5,000' },
+        { label: 'Tuition Fee (Per Year)', value: '75,000' },
+        { label: 'Industry Visit & Skill Up', value: '10,000' },
+        { label: 'Library & Online Access', value: '5,000' },
         { label: 'Examination Fee', value: '5,000' },
       ],
-      total: '90,000'
+      total: '95,000'
     },
     { 
       course: 'BCA / BBA Program', 
-      specialization: 'Professional Degree',
+      specialization: 'Undergraduate Excellence',
       level: 'Undergraduate',
       duration: '3 Years (6 Semesters)', 
       breakup: [

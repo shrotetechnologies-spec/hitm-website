@@ -65,16 +65,16 @@ export default function DirectorPage() {
 
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                  <p>
-                    I welcome you all to Al Haider College of Technology (AHCT), a hub of learning and innovation in Ranchi. Since its inception, our focus has been on providing a transformative educational experience that empowers students to compete on a global scale.
+                    I welcome you all to Al Haider College of Technology (AHCT), a hub of learning and innovation in Ranchi. As we prepare to open our doors for the first time on April 20, 2026, our focus is on providing a transformative educational experience that empowers the next generation of pioneers.
                  </p>
                  <p>
-                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At AHCT, we constantly update our curriculum and infrastructure to keep pace with these changes. Our sprawling 50-acre campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
+                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At AHCT, we have built our curriculum and infrastructure from the ground up to lead these changes. Our sprawling 50-acre futuristic campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
                  </p>
                  <p>
-                    We believe in holistic development. Beyond academics, our students are encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and our alumni who are making their mark in top-tier organizations worldwide.
+                    We believe in holistic development. Beyond academics, our students will be encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and we are excited to see our first batch of students make their mark on the world.
                  </p>
                  <p>
-                    I invite you to be a part of this journey towards excellence. Together, let us shape a brighter future.
+                    I invite you to be a part of this historic first journey towards excellence. Together, let us shape a brighter future from day one.
                  </p>
               </div>
 

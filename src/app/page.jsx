@@ -20,58 +20,55 @@ const heroSlides = [
   {
     image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1600',
     badge: 'Admissions Open 2026',
-    title: 'Shaping Future Leaders Through Quality Education',
-    subtitle: "AHCT Ranchi — Where Innovation Meets Excellence. Join Jharkhand's most dynamic institute for Engineering, Management & Technology.",
+    title: 'Launching a New Era of Excellence in Ranchi',
+    subtitle: "AHCT Ranchi — Opening Doors on April 20, 2026. Join Jharkhand's most futuristic institute for Engineering, Management & Technology.",
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1600',
+    badge: 'Opening April 20, 2026',
+    title: 'World-Class Infrastructure & Expert Faculty',
+    subtitle: 'Designed for the future, AHCT Ranchi provides an environment where innovation meets ambition. Be the first to join our pioneer batch.',
   },
   {
     image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1600',
-    badge: 'NAAC Accredited Institution',
-    title: 'Excellence in Technology & Management Education',
-    subtitle: 'With state-of-the-art infrastructure and experienced faculty, AHCT Ranchi provides industry-focused education that prepares you for tomorrow.',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&q=80&w=1600',
-    badge: '100% Placement Assistance',
-    title: 'Your Career Begins Here at AHCT Ranchi',
-    subtitle: 'Partnered with 200+ leading companies, our dedicated placement cell ensures every student gets the right opportunity.',
+    badge: 'Premier Campus in Jharkhand',
+    title: 'Your Future Begins at AHCT Ranchi',
+    subtitle: 'With 200+ global industry tie-ups, we ensure our students are ready for the global stage from day one.',
   },
 ];
 
 const stats = [
-  { icon: <Clock size={24} />, number: '15+', label: 'Years of Excellence' },
-  { icon: <Users size={24} />, number: '8,500+', label: 'Alumni Worldwide' },
-  { icon: <BookOpen size={24} />, number: '50+', label: 'Programs Offered' },
-  { icon: <Building2 size={24} />, number: '200+', label: 'Placement Partners' },
+  { icon: <Calendar size={24} />, number: 'April 20', label: 'Grand Opening' },
+  { icon: <Users size={24} />, number: '1440+', label: 'Seat Capacity' },
+  { icon: <BookOpen size={24} />, number: '16+', label: 'Approved Courses' },
+  { icon: <Building2 size={24} />, number: '2.48', label: 'Acres Campus' },
 ];
 
 const programs = [
-  { icon: <BookOpen className="text-white" size={24} />, name: 'B.Tech Programs', desc: '4-Year Undergraduate Engineering Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', courses: ['CSE', 'AI', 'Data Science', 'Electrical', 'EEE', 'ECE', 'Mechanical', 'Civil'] },
-  { icon: <Briefcase className="text-white" size={24} />, name: 'Diploma (Polytechnic)', desc: '3-Year Diploma Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800', courses: ['CSE', 'Data Science', 'AI', 'Mechanical', 'Civil', 'Electrical', 'EEE', 'ECE'] },
-  { icon: <Award className="text-white" size={24} />, name: 'MBA Program', desc: '2-Year Master of Business Administration (60 Seats)', image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800', courses: ['The Master of Business'] },
-  { icon: <Globe className="text-white" size={24} />, name: 'MCA Program', desc: '2-Year Master of Computer Applications', image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', courses: ['MCA (4 Semesters)'] },
-  { icon: <Target className="text-white" size={24} />, name: 'BCA Program', desc: '3-Year Bachelor of Computer Applications', image: 'https://images.unsplash.com/photo-1455390582262-044cdead27d8?auto=format&fit=crop&q=80&w=800', courses: ['BCA (6 Semesters)'] },
-  { icon: <GraduationCap className="text-white" size={24} />, name: 'BBA Program', desc: '3-Year Bachelor of Business Administration', image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800', courses: ['BBA (6 Semesters)'] },
+  { icon: <BookOpen className="text-white" size={24} />, name: 'B.Tech Programs', desc: '4-Year Undergraduate Engineering (360 Seats)', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', courses: ['CSE (120)', 'EEE (60)', 'Civil (60)', 'Mechanical (60)', 'AI (30)', 'Data Science (30)'] },
+  { icon: <Briefcase className="text-white" size={24} />, name: 'Diploma Programs', desc: '3-Year Polytechnic Diploma (360 Seats)', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800', courses: ['CSE (120)', 'EEE (60)', 'Civil (60)', 'Mechanical (60)', 'AI (30)', 'Data Science (30)'] },
+  { icon: <GraduationCap className="text-white" size={24} />, name: 'Computer Applications', desc: 'UG & PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', courses: ['BCA (180)', 'MCA (180)'] },
+  { icon: <Award className="text-white" size={24} />, name: 'Management Studies', desc: 'UG & PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800', courses: ['BBA (180)', 'MBA (180)'] },
 ];
 
 // Notices and Events are now handled dynamically inside HomePage component
 
 const testimonials = [
   {
-    text: 'AHCT Ranchi gave me the technical foundation and soft skills to land my dream job at Wipro. The faculty are incredibly supportive and industry-connected.',
-    name: 'Rahul Kumar Singh', role: 'B.Tech CSE 2024 | SDE at Wipro', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
+    text: 'AHCT Ranchi is exactly what Jharkhand needed — a forward-thinking institute with world-class facilities and a curriculum designed for the 2026 industry standards.',
+    name: 'Dr. Ramesh Singh', role: 'Education Consultant', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
   },
   {
-    text: "The MBA program at HITM is outstanding. The case-study approach and industry visits gave me a real-world perspective. I'm now consulting at Deloitte.",
-    name: 'Priya Sharma', role: 'MBA 2023 | Business Analyst at Deloitte', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm2',
+    text: "The commitment to innovation and student-centric learning is evident in every aspect of AHCT. Im excited to see the first batch of pioneers graduate.",
+    name: 'Sonal Verma', role: 'Industry Expert', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm2',
   },
   {
-    text: 'From Day 1, HITM focused on our overall development. The campus life, clubs, and events made my 4 years truly memorable.',
-    name: 'Ankit Mishra', role: 'B.Tech Mechanical 2025 | Engineer at SAIL', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm3',
+    text: 'A campus that rivals the best in the country. AHCT is set to redefine technical and management education in the region.',
+    name: 'Amit Kumar', role: 'Tech Visionary', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm3',
   },
 ];
 
 const recruiters = [
-  { name: 'Infosys', logo: 'https://logo.clearbit.com/infosys.com' },
   { name: 'TCS', logo: 'https://logo.clearbit.com/tcs.com' },
   { name: 'Wipro', logo: 'https://logo.clearbit.com/wipro.com' },
   { name: 'HCL', logo: 'https://logo.clearbit.com/hcltech.com' },
@@ -166,6 +163,7 @@ export default function HomePage() {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    if (!db) return;
     // Real-time Notices
     const qNotices = query(collection(db, 'notices'), orderBy('createdAt', 'desc'));
     const unsubNotices = onSnapshot(qNotices, (snapshot) => {
@@ -217,15 +215,15 @@ export default function HomePage() {
         <div className="marquee-track">
           {[...Array(2)].flatMap(() => [
             '📣 Admissions Open for 2026-27 Academic Year',
-            '🏆 AHCT Ranchi achieves record 95% placement rate',
-            '💼 Campus drive by Infosys & TCS - April 25, 2026',
+            '🏆 AHCT Ranchi is set to achieve record placement rates',
+            '💼 Campus drive registrations starting soon',
             '🎉 TechFest HITMX 2026 registrations open',
             '🎓 Apply now for Scholarship 2026 – Last date: April 30',
             '🛡️ Anti-ragging helpline: 1800-180-5522',
-            '🚀 New B.Tech in AI & ML starting 2026',
+            '🚀 New B.Tech in AI & ML starting April 2026',
           ]).map((text, i) => (
             <span key={i} className="inline-block px-12 text-white/90 text-sm font-medium">
-              {text.replace('–', '&ndash;').replace('—', '&mdash;')}
+              {text}
             </span>
           ))}
         </div>
@@ -260,23 +258,21 @@ export default function HomePage() {
               </div>
               <Card className="absolute -bottom-5 -right-5 shadow-xl bg-hitm-red text-white border-none">
                 <CardContent className="p-4 text-center">
-                  <div className="text-3xl font-black font-serif">2008</div>
-                  <div className="text-xs text-white/75 mt-1">Established</div>
+                  <div className="text-3xl font-black font-serif">2026</div>
+                  <div className="text-xs text-white/75 mt-1">Founding Year</div>
                 </CardContent>
               </Card>
             </div>
 
             <div>
-              <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">About AHCT Ranchi</p>
-              <h2 className="text-4xl font-black font-serif text-gray-900 mb-5 leading-tight">A Legacy of Excellence in Education</h2>
+              <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">Welcome to AHCT Ranchi</p>
+              <h2 className="text-4xl font-black font-serif text-gray-900 mb-5 leading-tight">A New Landmark in Higher Education</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Al Haider College of Technology (AHCT Ranchi) has been a beacon of quality education in Jharkhand since 2008.
-                Situated in the heart of Ranchi, we have grown into one of the region&apos;s most respected institutions, offering a wide range of 
-                undergraduate, postgraduate, and doctoral programs.
+                Al Haider College of Technology (AHCT Ranchi) is set to redefine the educational landscape of Jharkhand.
+                Opening on April 20, 2026, we are a futuristic institution dedicated to excellence in Engineering, Management, and Technology.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                Our commitment to academic rigor, cutting-edge research, industry collaboration, and holistic student development has produced 
-                thousands of successful alumni now leading in India&apos;s top corporations, government organizations, and startups.
+                Our mission is to empower the first generation of AHCT pioneers with cutting-edge skills, global industry exposure, and a spirit of innovation that prepares them for the challenges of tomorrow.
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -316,10 +312,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: <Clock size={28} />, number: '15+', label: 'Years of Excellence' },
-              { icon: <Users size={28} />, number: '8,500+', label: 'Alumni Worldwide' },
-              { icon: <BookOpen size={28} />, number: '50+', label: 'Programs Offered' },
-              { icon: <Building2 size={28} />, number: '200+', label: 'Placement Partners' },
+              { icon: <Calendar size={28} />, number: '20 April', label: 'Inauguration' },
+              { icon: <Users size={28} />, number: '500+', label: 'Expected First Batch' },
+              { icon: <BookOpen size={28} />, number: '50+', label: 'Modern Programs' },
+              { icon: <Building2 size={28} />, number: '200+', label: 'Industry Alliances' },
             ].map((s) => (
               <div key={s.label} className="text-center text-white">
                 <div className="text-hitm-gold mb-2 flex justify-center">{s.icon}</div>
@@ -338,10 +334,10 @@ export default function HomePage() {
             <h2>Programs Offered</h2>
             <p className="text-gray-500 mt-4 max-w-xl mx-auto">Explore our diverse range of diploma, undergraduate, and postgraduate programs designed for the future.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {programs.map((p, i) => (
               <Card key={i} className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border-gray-200 hover:border-hitm-red/30 overflow-hidden flex flex-col">
-                <div className="h-48 w-full relative overflow-hidden">
+                <div className="h-64 w-full relative overflow-hidden">
                   <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
                   <div className="absolute bottom-4 left-5 w-12 h-12 rounded-xl bg-gradient-to-br from-hitm-red to-hitm-navy flex items-center justify-center shadow-lg border border-hitm-red/20 group-hover:-translate-y-1 transition-transform duration-300 z-10">
@@ -475,8 +471,8 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="section-title">
-            <h2>What Our Alumni Say</h2>
-            <p className="text-gray-500 mt-4">Hear from the achievers who started their journey at AHCT Ranchi.</p>
+            <h2>Voices of Vision</h2>
+            <p className="text-gray-500 mt-4">Hear from the experts and visionaries behind AHCT Ranchi.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
