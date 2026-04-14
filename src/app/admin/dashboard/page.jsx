@@ -106,7 +106,7 @@ export default function AdminDashboard() {
       )}>
         <div className="bg-hitm-red/80 px-4 py-5 text-center shrink-0">
           <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white font-black text-xl font-serif mx-auto mb-2">A</div>
-          <h2 className="text-white font-bold font-serif text-sm">AHCT Admin</h2>
+          <h2 className="text-white font-bold font-serif text-sm">HITM Admin</h2>
           <p className="text-white/60 text-[11px] mt-0.5">Management Portal</p>
         </div>
 

@@ -9,13 +9,13 @@ import { generatePagePDF } from '@/lib/pdf-service';
 export default function BrochuresPage() { 
   const handleDownload = () => {
     generatePagePDF(
-      'AHCT_University_Prospectus_2026',
-      'AL HAIDER COLLEGE OF TECHNOLOGY - UNIVERSITY PROSPECTUS 2026-27',
+      'HITM_University_Prospectus_2026',
+      'Haidar Institute of Technology and Management - UNIVERSITY PROSPECTUS 2026-27',
       {
         sections: [
           { 
-            title: "About AHCT", 
-            content: "Al Haider College of Technology (AHCT) is a premier institution in Ranchi, Jharkhand, approved by AICTE and affiliated to JUT. We focus on modern education, industry excellence, and holistic student growth." 
+            title: "About HITM", 
+            content: "Haidar Institute of Technology and Management (HITM) is a premier institution in Ranchi, Jharkhand, approved by AICTE and affiliated to JUT. We focus on modern education, industry excellence, and holistic student growth." 
           },
           {
             title: "Our Programs",

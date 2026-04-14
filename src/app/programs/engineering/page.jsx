@@ -44,7 +44,7 @@ export default function EngineeringPage() {
           </div>
           <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6">Bachelor of Technology (B.Tech)</h1>
           <p className="text-gray-300 max-w-2xl text-lg leading-relaxed">
-            Empowering the next generation of engineers with innovation, practical skills, and technical excellence at AHCT Ranchi.
+            Empowering the next generation of engineers with innovation, practical skills, and technical excellence at HITM Ranchi.
           </p>
         </div>
       </section>
@@ -113,9 +113,26 @@ export default function EngineeringPage() {
                 ))}
               </ul>
 
-              <div className="bg-hitm-red/5 p-6 rounded-2xl mb-8 border border-hitm-red/10 text-center">
-                <p className="text-xs font-bold text-hitm-red uppercase tracking-widest mb-2 font-serif">Fees Starts From</p>
-                <p className="text-3xl font-black text-hitm-navy">₹ 45,000 <span className="text-sm font-normal text-gray-400">/ Semester</span></p>
+              <div className="bg-hitm-red/5 p-6 rounded-2xl mb-8 border border-hitm-red/10">
+                <h4 className="text-sm font-bold text-hitm-navy uppercase tracking-widest mb-4 font-serif text-center">Fee Structure</h4>
+                <div className="space-y-3 mb-2">
+                  <div className="flex justify-between items-center border-b border-hitm-red/10 pb-2">
+                    <span className="text-xs font-semibold text-gray-600">Admission Registration</span>
+                    <span className="text-sm font-black text-gray-900">₹ 10,000</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-hitm-red/10 pb-2">
+                    <span className="text-xs font-semibold text-gray-600">Admission Fee (One-time)</span>
+                    <span className="text-sm font-black text-gray-900">₹ 30,000</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-hitm-red/10 pb-2">
+                    <span className="text-xs font-semibold text-gray-600">Per Semester Fee</span>
+                    <span className="text-sm font-black text-hitm-red">₹ 55,000</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-1">
+                    <span className="text-xs font-black text-hitm-navy">Total Course Fee</span>
+                    <span className="text-sm font-black text-hitm-navy">₹ 4,80,000</span>
+                  </div>
+                </div>
               </div>
 
               <ApplyModal courseName="Bachelor of Technology (B.Tech)">

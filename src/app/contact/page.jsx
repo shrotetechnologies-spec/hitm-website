@@ -17,7 +17,7 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
             <Badge variant="gold" className="mb-4">Get In Touch</Badge>
-            <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Contact AHCT Ranchi</h1>
+            <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Contact HITM Ranchi</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
               Have questions about admissions, courses, or campus life? We&apos;re here to help. 
               Reach out to us through any of the channels below.
@@ -36,7 +36,7 @@ export default function ContactPage() {
                         <MapPin className="text-hitm-gold" size={20} />
                       </div>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        AHCT Campus, Piska More, Ranchi, Jharkhand 834005
+                        Haider Institute of Technology and Management, Okhargarha, Pithoriya, Ranchi -834006
                       </p>
                     </div>
                     <div className="flex gap-4">
@@ -53,8 +53,8 @@ export default function ContactPage() {
                         <Mail className="text-hitm-gold" size={20} />
                       </div>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        info@ahctranchi.com<br />
-                        admissions@ahctranchi.com
+                        hitmranchi@gmail.com<br />
+                        hitmranchi@gmail.com
                       </p>
                     </div>
                     <div className="flex gap-4">

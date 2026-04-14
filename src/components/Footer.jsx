@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 
 const footerLinks = {
   quickLinks: [
-    { label: 'About AHCT', href: '/about/overview' },
+    { label: 'About HITM', href: '/about' },
     { label: 'All Programs', href: '/programs' },
     { label: 'Apply Online', href: '/admissions/apply' },
     { label: 'Academic Calendar', href: '/academics/calendar' },
@@ -41,15 +41,15 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-hitm-red to-hitm-navy flex items-center justify-center text-white font-black text-xl font-serif shadow-lg">
-                A
+                <img src="/images/logo/ahct-logo.jpg" alt="HITM Logo" className="w-full h-full object-cover" />
               </div>
               <div>
-                <h3 className="text-white font-bold font-serif text-base leading-tight">AHCT Ranchi</h3>
-                <p className="text-gray-500 text-[10px]">Opening 20 April 2026</p>
+                <h3 className="text-white font-bold font-serif text-base leading-tight">HITM Ranchi</h3>
+                {/* <p className="text-gray-500 text-[10px]">Opening 20 April 2026</p> */}
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Al Haider College of Technology, Ranchi — Jharkhand&apos;s most futuristic institute,
+              Haidar Institute of Technology and Management, Ranchi — Jharkhand&apos;s most futuristic institute,
               dedicated to excellence in innovation and producing industry-ready leaders.
             </p>
             <div className="flex gap-2">
@@ -96,7 +96,7 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex gap-3">
                 <MapPin size={16} className="text-hitm-gold shrink-0 mt-0.5" />
-                <p className="text-gray-400 text-sm">Ranchi 834006 Jharkhand, India</p>
+                <p className="text-gray-400 text-sm">Haider Institute of Technology and Management, Okhargarha, Pithoriya, Ranchi -834006</p>
               </div>
               <div className="flex gap-3">
                 <Phone size={16} className="text-hitm-gold shrink-0" />
@@ -104,7 +104,7 @@ export default function Footer() {
               </div>
               <div className="flex gap-3">
                 <Mail size={16} className="text-hitm-gold shrink-0" />
-                <p className="text-gray-400 text-sm">support@ahctranchi.com</p>
+                <p className="text-gray-400 text-sm">hitmranchi@gmail.com</p>
               </div>
               <div className="flex gap-3">
                 <Clock size={16} className="text-hitm-gold shrink-0" />
@@ -119,10 +119,10 @@ export default function Footer() {
 
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
         <div className="flex flex-col md:flex-row items-center gap-1 md:gap-4">
-          <p className="text-gray-500 text-xs">© {new Date().getFullYear()} AHCT Ranchi. All rights reserved.</p>
+          <p className="text-gray-500 text-xs">© {new Date().getFullYear()} HITM Ranchi. All rights reserved.</p>
           <span className="hidden md:inline text-gray-700 text-xs">|</span>
-          <p className="text-gray-500 text-xs">
-            Managed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>
+          <p className="text-gray-500 text-[10px] sm:text-xs">
+            Run and Managed by AL ALMAAS HAIDER CHARITABLE TRUST | Developed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>
           </p>
         </div>
         <div className="flex gap-4">

@@ -38,7 +38,7 @@ export default function PhotoGalleryPage() {
           <Badge variant="gold" className="mb-4">Campus Life</Badge>
           <h1 className="text-4xl md:text-5xl font-black font-serif text-white mb-6 uppercase tracking-tight">Photo Gallery</h1>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Glimpse into the vibrant life at AHCT Ranchi. From high-tech labs to cultural celebrations and sporting triumphs.
+            Glimpse into the vibrant life at HITM Ranchi. From high-tech labs to cultural celebrations and sporting triumphs.
           </p>
         </div>
       </section>

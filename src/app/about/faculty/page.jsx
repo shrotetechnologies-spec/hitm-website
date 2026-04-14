@@ -4,8 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { UserCircle } from 'lucide-react';
 
 export const metadata = {
-  title: 'Our Faculty | AHCT Ranchi',
-  description: 'Meet our esteemed faculty members and academic leaders at AHCT Ranchi.',
+  title: 'Our Faculty | HITM Ranchi',
+  description: 'Meet our esteemed faculty members and academic leaders at HITM Ranchi.',
 };
 
 export default function FacultyPage() {

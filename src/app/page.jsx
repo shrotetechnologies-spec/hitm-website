@@ -18,21 +18,21 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 // ── Hero Slides ─────────────────────────────────────────────────────────────
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1600',
+    image: '/images/carousel/slide1.jpg',
     badge: 'Admissions Open 2026',
     title: 'Launching a New Era of Excellence in Ranchi',
-    subtitle: "AHCT Ranchi — Opening Doors on April 20, 2026. Join Jharkhand's most futuristic institute for Engineering, Management &amp; Technology.",
+    subtitle: "HITM Ranchi — Opening Doors on April 20, 2026. Join Jharkhand's most futuristic institute for Engineering, Management &amp; Technology.",
   },
   {
-    image: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1600',
+    image: '/images/carousel/slide2.jpg',
     badge: 'Opening April 20, 2026',
     title: 'World-Class Infrastructure & Expert Faculty',
-    subtitle: 'Designed for the future, AHCT Ranchi provides an environment where innovation meets ambition. Be the first to join our pioneer batch.',
+    subtitle: 'Designed for the future, HITM Ranchi provides an environment where innovation meets ambition. Be the first to join our pioneer batch.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1600',
+    image: '/images/carousel/slide3.jpg',
     badge: 'Premier Campus in Jharkhand',
-    title: 'Your Future Begins at AHCT Ranchi',
+    title: 'Your Future Begins at HITM Ranchi',
     subtitle: 'With 200+ global industry tie-ups, we ensure our students are ready for the global stage from day one.',
   },
 ];
@@ -55,15 +55,15 @@ const programs = [
 
 const testimonials = [
   {
-    text: 'AHCT Ranchi is exactly what Jharkhand needed — a forward-thinking institute with world-class facilities and a curriculum designed for the 2026 industry standards.',
+    text: 'HITM Ranchi is exactly what Jharkhand needed — a forward-thinking institute with world-class facilities and a curriculum designed for the 2026 industry standards.',
     name: 'Dr. Ramesh Singh', role: 'Education Consultant', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
   },
   {
-    text: "The commitment to innovation and student-centric learning is evident in every aspect of AHCT. Im excited to see the first batch of pioneers graduate.",
+    text: "The commitment to innovation and student-centric learning is evident in every aspect of HITM. Im excited to see the first batch of pioneers graduate.",
     name: 'Sonal Verma', role: 'Industry Expert', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm2',
   },
   {
-    text: 'A campus that rivals the best in the country. AHCT is set to redefine technical and management education in the region.',
+    text: 'A campus that rivals the best in the country. HITM is set to redefine technical and management education in the region.',
     name: 'Amit Kumar', role: 'Tech Visionary', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm3',
   },
 ];
@@ -213,6 +213,11 @@ export default function HomePage() {
     }
   };
 
+  const activeNotices = notices.filter(n => n.active !== false).map(n => `📣 ${n.title}`);
+  const marqueeItems = activeNotices.length > 0 ? activeNotices : [
+    '📣 Admissions Open for 2026-27 Academic Year',
+  ];
+
   return (
     <main>
       <Navbar />
@@ -220,15 +225,7 @@ export default function HomePage() {
       {/* Marquee */}
       <div className="bg-hitm-red py-2.5 overflow-hidden">
         <div className="marquee-track">
-          {[...Array(2)].flatMap(() => [
-            '📣 Admissions Open for 2026-27 Academic Year',
-            '🏆 AHCT Ranchi is set to achieve record placement rates',
-            '💼 Campus drive registrations starting soon',
-            '🎉 TechFest HITMX 2026 registrations open',
-            '🎓 Apply now for Scholarship 2026 – Last date: April 30',
-            '🛡️ Anti-ragging helpline: 1800-180-5522',
-            '🚀 New B.Tech in AI & ML starting April 2026',
-          ]).map((text, i) => (
+          {[...Array(2)].flatMap(() => marqueeItems).map((text, i) => (
             <span key={i} className="inline-block px-12 text-white/90 text-sm font-medium">
               {text}
             </span>
@@ -260,7 +257,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="w-full h-[480px] bg-gray-100 rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
-                <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800" alt="HITM Campus" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="images/carousel/slide1.jpg" alt="HITM Campus" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/60 to-transparent" />
               </div>
               <Card className="absolute -bottom-5 -right-5 shadow-xl bg-hitm-red text-white border-none">
@@ -272,14 +269,14 @@ export default function HomePage() {
             </div>
 
             <div>
-              <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">Welcome to AHCT Ranchi</p>
+              <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">Welcome to HITM Ranchi</p>
               <h2 className="text-4xl font-black font-serif text-gray-900 mb-5 leading-tight">A New Landmark in Higher Education</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Al Haider College of Technology (AHCT Ranchi) is set to redefine the educational landscape of Jharkhand.
+                Haidar Institute of Technology and Management (HITM Ranchi) is set to redefine the educational landscape of Jharkhand.
                 Opening on April 20, 2026, we are a futuristic institution dedicated to excellence in Engineering, Management, and Technology.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                Our mission is to empower the first generation of AHCT pioneers with cutting-edge skills, global industry exposure, and a spirit of innovation that prepares them for the challenges of tomorrow.
+                Our mission is to empower the first generation of HITM pioneers with cutting-edge skills, global industry exposure, and a spirit of innovation that prepares them for the challenges of tomorrow.
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -479,7 +476,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="section-title">
             <h2>Voices of Vision</h2>
-            <p className="text-gray-500 mt-4">Hear from the experts and visionaries behind AHCT Ranchi.</p>
+            <p className="text-gray-500 mt-4">Hear from the experts and visionaries behind HITM Ranchi.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
@@ -557,16 +554,16 @@ export default function HomePage() {
             {recruiters.map((r) => (
               <div key={r.name} className="group relative flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:-translate-y-1">
                 <div className="h-12 w-32 md:w-40 flex items-center justify-center p-2">
-                   <img 
-                     src={r.logo} 
-                     alt={r.name} 
-                     className="max-h-full max-w-full object-contain drop-shadow-sm group-hover:drop-shadow-md transition-all" 
-                     onError={(e) => {
-                       e.target.style.display = 'none';
-                       e.target.nextSibling.style.display = 'block';
-                     }}
-                   />
-                   <span className="hidden text-[10px] font-black text-gray-400 uppercase tracking-tighter text-center leading-tight">{r.name}</span>
+                  <img
+                    src={r.logo}
+                    alt={r.name}
+                    className="max-h-full max-w-full object-contain drop-shadow-sm group-hover:drop-shadow-md transition-all"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'block';
+                    }}
+                  />
+                  <span className="hidden text-[10px] font-black text-gray-400 uppercase tracking-tighter text-center leading-tight">{r.name}</span>
                 </div>
               </div>
             ))}

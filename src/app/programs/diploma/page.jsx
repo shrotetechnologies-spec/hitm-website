@@ -73,7 +73,7 @@ export default function DiplomaPage() {
               <div className="mt-12 bg-hitm-red/5 rounded-3xl p-8 border border-hitm-red/10">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Lateral Entry Benefits</h3>
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
-                  Diploma graduates from AHCT Ranchi are eligible for Direct Admission into the 2nd Year (3rd Semester) 
+                  Diploma graduates from HITM Ranchi are eligible for Direct Admission into the 2nd Year (3rd Semester) 
                   of our B.Tech programs. This provides a clear pathway from vocational to degree education.
                 </p>
                 <div className="flex gap-4">
@@ -102,9 +102,21 @@ export default function DiplomaPage() {
               </Card>
 
               <div className="bg-gray-950 rounded-[40px] p-8 text-white relative overflow-hidden">
-                <h4 className="text-lg font-bold mb-3 relative z-10">Fee Structure</h4>
-                <p className="text-3xl font-black text-hitm-gold mb-1 relative z-10">₹ 22,500 <span className="text-xs font-normal text-white/50">/ Sem</span></p>
-                <p className="text-[10px] text-white/40 mb-6 relative z-10">Excluding Exam & Registration Fee</p>
+                <h4 className="text-lg font-bold mb-5 relative z-10 font-serif">Fee Structure</h4>
+                <div className="space-y-4 relative z-10 mb-8">
+                  <div className="flex justify-between border-b border-white/10 pb-3">
+                    <span className="text-xs text-white/70 font-bold uppercase tracking-wider">Admission Fee</span>
+                    <span className="text-sm font-black">₹ 10,000</span>
+                  </div>
+                  <div className="flex justify-between border-b border-white/10 pb-3">
+                    <span className="text-xs text-white/70 font-bold uppercase tracking-wider">Semester Fee</span>
+                    <span className="text-sm font-black text-hitm-gold">₹ 35,000</span>
+                  </div>
+                  <div className="flex justify-between pt-1">
+                    <span className="text-xs text-white font-black uppercase tracking-wider">Total Fee</span>
+                    <span className="text-sm font-black">₹ 2,20,000</span>
+                  </div>
+                </div>
                 <Link href="/admissions/fee" className="text-xs font-bold text-white hover:text-hitm-gold flex items-center gap-2 relative z-10">View Installment Plans <ArrowRight size={14}/></Link>
               </div>
             </div>

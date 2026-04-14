@@ -38,7 +38,7 @@ export default function NoticePage() {
           <Badge variant="gold" className="mb-4">Information Center</Badge>
           <h1 className="text-4xl md:text-5xl font-black font-serif text-white mb-6">Notice Board</h1>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Stay updated with the latest announcements, examination schedules, and campus news from AHCT Ranchi.
+            Stay updated with the latest announcements, examination schedules, and campus news from HITM Ranchi.
           </p>
         </div>
       </div>

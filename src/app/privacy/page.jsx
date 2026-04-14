@@ -8,7 +8,7 @@ export default function PrivacyPage() {
       <div className="container mx-auto px-4 py-32 max-w-4xl">
         <h1 className="text-4xl font-black font-serif text-hitm-navy mb-8">Privacy Policy</h1>
         <div className="prose prose-slate max-w-none text-gray-600 space-y-6">
-          <p className="text-lg">At AHCT Ranchi, we value your privacy. This policy outlines how we handle your personal data.</p>
+          <p className="text-lg">At HITM Ranchi, we value your privacy. This policy outlines how we handle your personal data.</p>
           
           <h2 className="text-2xl font-bold text-gray-900 mt-10">1. Information We Collect</h2>
           <p>We collect information you provide directly to us through forms, such as your name, email address, and phone number when you apply or enquire.</p>

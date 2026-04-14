@@ -4,8 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 export const metadata = {
-  title: 'Our Top Recruiters | AHCT Ranchi',
-  description: 'Meet our corporate partners and top-tier companies recruiting from AHCT Ranchi.',
+  title: 'Our Top Recruiters | HITM Ranchi',
+  description: 'Meet our corporate partners and top-tier companies recruiting from HITM Ranchi.',
 };
 
 export default function RecruitersPage() {
@@ -56,11 +56,11 @@ export default function RecruitersPage() {
           
           <div className="mt-20 p-8 rounded-3xl bg-gradient-to-br from-hitm-navy to-gray-950 text-white text-center shadow-2xl">
             <h3 className="text-2xl font-bold mb-4 font-serif">HR & Recruiting Teams</h3>
-            <p className="text-gray-400 mb-8 max-w-2xl mx-auto uppercase tracking-widest text-xs font-semibold">Invite AHCT for campus placement drives</p>
+            <p className="text-gray-400 mb-8 max-w-2xl mx-auto uppercase tracking-widest text-xs font-semibold">Invite HITM for campus placement drives</p>
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
               <div>
                 <p className="text-hitm-gold font-bold">Training & Placement Officer</p>
-                <p>000-111-9889 | tpo@ahctranchi.com</p>
+                <p>000-111-9889 | hitmranchi@gmail.com</p>
               </div>
             </div>
           </div>

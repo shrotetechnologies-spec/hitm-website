@@ -12,9 +12,9 @@ import 'jspdf-autotable';
 export default function AcademicCalendarPage() {
   const generatePDF = () => {
     const doc = new jsPDF();
-    const collegeName = "AL HAIDER COLLEGE OF TECHNOLOGY (AHCT)";
-    const address = "Ranchi 834006 Jharkhand, India";
-    const contact = "Phone: 000-111-9889 | Email: support@ahctranchi.com";
+    const collegeName = "Haidar Institute of Technology and Management (HITM)";
+    const address = "Haider Institute of Technology and Management, Okhargarha, Pithoriya, Ranchi -834006";
+    const contact = "Phone: 000-111-9889 | Email: hitmranchi@gmail.com";
 
     // Header
     doc.setFont("playfair", "bold");
@@ -57,11 +57,11 @@ export default function AcademicCalendarPage() {
         doc.setPage(i);
         doc.setFontSize(8);
         doc.setTextColor(150);
-        doc.text("AL HAIDER COLLEGE OF TECHNOLOGY - Ranchi, Jharkhand - 834006", 20, doc.internal.pageSize.getHeight() - 10);
+        doc.text("Haidar Institute of Technology and Management - Ranchi, Jharkhand - 834006", 20, doc.internal.pageSize.getHeight() - 10);
         doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.getWidth() - 30, doc.internal.pageSize.getHeight() - 10);
     }
 
-    doc.save("AHCT_Academic_Calendar_2026.pdf");
+    doc.save("HITM_Academic_Calendar_2026.pdf");
   };
 
   const events = [

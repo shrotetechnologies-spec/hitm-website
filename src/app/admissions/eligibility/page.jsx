@@ -60,7 +60,7 @@ export default function EligibilityPage() {
           <Badge variant="gold" className="mb-4">Admissions 2026</Badge>
           <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6 uppercase tracking-tighter">Eligibility Criteria</h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-            Ensure you meet the academic requirements for your desired program before starting your application journey at AHCT Ranchi.
+            Ensure you meet the academic requirements for your desired program before starting your application journey at HITM Ranchi.
           </p>
         </div>
       </section>
@@ -106,7 +106,7 @@ export default function EligibilityPage() {
                 <a href="tel:9935345441" className="bg-hitm-red hover:bg-white hover:text-hitm-red text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all shadow-xl">
                   Call: +91 9935345441
                 </a>
-                <a href="mailto:support@ahctranchi.com" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all border border-white/20 backdrop-blur-md">
+                <a href="mailto:hitmranchi@gmail.com" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all border border-white/20 backdrop-blur-md">
                   Email Support
                 </a>
               </div>

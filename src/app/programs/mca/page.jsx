@@ -39,7 +39,7 @@ export default function MCAPage() {
           </div>
           <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6 uppercase tracking-tight">Master of Computer Applications</h1>
           <p className="text-gray-300 max-w-2xl text-lg leading-relaxed font-medium">
-            Master the art of software development, data science, and web technologies. AHCT Ranchi is the premier hub for tech leaders in Jharkhand.
+            Master the art of software development, data science, and web technologies. HITM Ranchi is the premier hub for tech leaders in Jharkhand.
           </p>
         </div>
       </section>
@@ -78,6 +78,22 @@ export default function MCAPage() {
                     </li>
                   ))}
                 </ul>
+                
+                <h3 className="text-xl font-bold mb-4 mt-8 font-serif text-hitm-gold border-t border-white/10 pt-8">Fee Structure</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                    <span className="text-sm text-white/80 font-medium">Admission Fee (One-time)</span>
+                    <span className="text-sm font-bold text-white">₹ 10,000</span>
+                  </div>
+                  <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                    <span className="text-sm text-white/80 font-medium">Per Semester Fee</span>
+                    <span className="text-sm font-bold text-hitm-gold">₹ 65,000</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-1">
+                    <span className="text-sm text-white font-bold">Total Course Fee</span>
+                    <span className="text-sm font-black text-white">₹ 2,70,000</span>
+                  </div>
+                </div>
               </div>
             </div>
 

@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Quote, Phone, Mail } from 'lucide-react';
 
 export const metadata = {
-  title: "Director's Desk | AHCT Ranchi",
-  description: 'A message from the Director of AHCT Ranchi, Prof. (Dr.) A. K. Singh.',
+  title: "Director's Desk | HITM Ranchi",
+  description: 'A message from the Director of HITM Ranchi, Prof. (Dr.) A. K. Singh.',
 };
 
 export default function DirectorPage() {
@@ -21,12 +21,12 @@ export default function DirectorPage() {
             <div className="lg:col-span-2 space-y-8">
                <div className="relative group">
                   <div className="w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl relative">
-                     <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" alt="Director AHCT" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                     <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" alt="Director HITM" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                      <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/90 via-transparent to-transparent opacity-60" />
                   </div>
                   <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white px-8 py-5 rounded-2xl shadow-xl border border-gray-100 w-[90%] text-center">
                      <h2 className="text-xl font-bold text-hitm-navy font-serif uppercase tracking-tighter">Prof. (Dr.) A. K. Singh</h2>
-                     <p className="text-hitm-red font-black text-xs uppercase tracking-widest mt-1">Director, AHCT Ranchi</p>
+                     <p className="text-hitm-red font-black text-xs uppercase tracking-widest mt-1">Director, HITM Ranchi</p>
                   </div>
                </div>
 
@@ -65,10 +65,10 @@ export default function DirectorPage() {
 
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                  <p>
-                    I welcome you all to Al Haider College of Technology (AHCT), a hub of learning and innovation in Ranchi. As we prepare to open our doors for the first time on April 20, 2026, our focus is on providing a transformative educational experience that empowers the next generation of pioneers.
+                    I welcome you all to Haidar Institute of Technology and Management (HITM), a hub of learning and innovation in Ranchi. As we prepare to open our doors for the first time on April 20, 2026, our focus is on providing a transformative educational experience that empowers the next generation of pioneers.
                  </p>
                  <p>
-                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At AHCT, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic 2.48 acre campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
+                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At HITM, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic 2.48 acre campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
                  </p>
                  <p>
                     We believe in holistic development. Beyond academics, our students will be encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and we are excited to see our first batch of students make their mark on the world.
@@ -83,7 +83,7 @@ export default function DirectorPage() {
                     <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-hitm-red">
                        <Mail size={18} />
                     </div>
-                    <p className="text-sm font-bold text-hitm-navy">director@ahctranchi.com</p>
+                    <p className="text-sm font-bold text-hitm-navy">hitmranchi@gmail.com</p>
                  </div>
               </div>
             </div>

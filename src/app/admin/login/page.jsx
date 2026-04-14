@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-hitm-red to-hitm-navy flex items-center justify-center text-white font-black text-2xl font-serif mx-auto mb-4 shadow-lg">
             A
           </div>
-          <CardTitle className="text-2xl">AHCT Ranchi</CardTitle>
+          <CardTitle className="text-2xl">HITM Ranchi</CardTitle>
           <CardDescription>Admin Portal — Secure Login</CardDescription>
         </CardHeader>
         <CardContent className="pt-4">

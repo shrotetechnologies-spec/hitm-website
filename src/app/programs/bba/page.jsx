@@ -51,7 +51,7 @@ export default function BBAPage() {
             
             <div className="lg:col-span-2 space-y-12">
                <div>
-                  <h2 className="text-3xl font-black font-serif text-gray-950 mb-6">Why BBA at AHCT Ranchi?</h2>
+                  <h2 className="text-3xl font-black font-serif text-gray-950 mb-6">Why BBA at HITM Ranchi?</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {[
                       { icon: <Target className="text-hitm-red" />, title: 'Industry Focused', desc: 'Curriculum designed in collabration with industry leaders.' },
@@ -81,16 +81,17 @@ export default function BBAPage() {
               <Card className="shadow-2xl border-none p-6 bg-hitm-navy text-white rounded-[40px]">
                 <CardContent className="pt-6">
                   <h3 className="text-xl font-bold mb-6 font-serif text-hitm-gold">Quick Admission</h3>
-                  <div className="space-y-4 mb-8">
+                  <div className="space-y-3 mb-8">
                     {[
                       { label: 'Seats', value: '120' },
                       { label: 'Duration', value: '3 Years / 6 Sem' },
                       { label: 'Eligibility', value: '10+2 with 45% Avg' },
-                      { label: 'Course Fee', value: '₹ 35,000 / Sem' }
+                      { label: 'Admission Fee', value: '₹ 10,000' },
+                      { label: 'Semester Fee', value: '₹ 35,000' },
                     ].map((item, i) => (
                       <div key={i} className="flex justify-between items-center border-b border-white/10 pb-2">
                         <span className="text-xs text-white/50">{item.label}</span>
-                        <span className="text-sm font-bold">{item.value}</span>
+                        <span className="text-sm font-bold text-right">{item.value}</span>
                       </div>
                     ))}
                   </div>

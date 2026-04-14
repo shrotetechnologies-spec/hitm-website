@@ -31,7 +31,7 @@ const navItems = [
     label: 'Management', icon: <Building2 size={16} />,
     children: [
       { label: 'Governing Body', href: '/about/governing-body' },
-      { label: 'Vision &amp; Mission', href: '/about/vision' },
+      { label: 'Vision & Mission', href: '/about/vision' },
       { label: "Director's Message", href: '/about/director' },
     ],
   },
@@ -69,8 +69,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMobileItem, setOpenMobileItem] = useState(null);
+  const [academicYear, setAcademicYear] = useState('');
 
   useEffect(() => {
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+    const isNew = currentMonth >= 2; // March onwards
+    setAcademicYear(isNew ? `${currentYear}-${currentYear + 1}` : `${currentYear - 1}-${currentYear}`);
+
     const handler = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handler);
     return () => window.removeEventListener('scroll', handler);
@@ -84,19 +90,19 @@ export default function Navbar() {
         scrolled ? "fixed top-0 shadow-2xl" : "relative"
       )}>
         <div className="flex flex-wrap justify-between items-center lg:flex-nowrap lg:items-stretch w-full">
-          
+
           {/* Left: Logo Area (Aligned to standard container) */}
           <div className="flex items-center py-3 lg:py-6 pl-[max(1rem,calc((100vw-1400px)/2+1rem))] lg:pr-10 shrink-0">
             <Link href="/" className="flex items-center gap-2.5 sm:gap-4 group">
               <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center relative shrink-0">
-                 <img src="https://ahctranchi.com/wp-content/uploads/2025/06/cropped-Haidar-1-180x180.jpg" alt="AHCT Logo" className="w-full h-full object-contain" />
+                <img src="/images/logo/ahct-logo.jpg" alt="HITM Logo" className="w-full h-full object-contain rounded-full" />
               </div>
               <div className="flex flex-col">
                 <h1 className="text-[1.1rem] sm:text-2xl md:text-3xl font-black text-hitm-navy tracking-tighter leading-none border-b-2 border-hitm-navy/10 pb-1">
-                  AHCT <span className="text-hitm-red">RANCHI</span>
+                  HITM <span className="text-hitm-red">RANCHI</span>
                 </h1>
                 <p className="text-[7.5px] sm:text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-[1.2]">
-                  Approved by AICTE, New Delhi <br/>
+                  Approved by AICTE, New Delhi <br />
                   <span className="text-hitm-navy">Affiliated to Jharkhand University of Technology</span>
                 </p>
               </div>
@@ -105,20 +111,22 @@ export default function Navbar() {
 
           {/* Right: Dual Bar Area (Spans to right edge) */}
           <div className="flex-1 flex flex-col justify-between relative">
-            
+
             {/* Top Bar (Dark Blue) - Right Full Width */}
             <div className="bg-hitm-navy text-white text-[10px] font-bold uppercase tracking-wider pl-8 pr-[max(1rem,calc((100vw-1400px)/2+1rem))] py-2.5 rounded-bl-[40px] hidden lg:flex items-center justify-between shadow-lg ml-[-20px] relative z-10">
               <div className="flex items-center gap-6">
-                <a href="mailto:support@ahctranchi.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-                  <Mail size={12} className="text-hitm-gold" /> support@ahctranchi.com
+                <a href="mailto:hitmranchi@gmail.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
+                  <Mail size={12} className="text-hitm-gold" /> hitmranchi@gmail.com
                 </a>
                 <a href="tel:9935345441" className="flex items-center gap-2 hover:text-hitm-gold transition-colors border-l border-white/20 pl-6">
                   <Phone size={12} className="text-hitm-gold" /> Admission Cell: (+91) 9935345441
                 </a>
               </div>
               <div className="flex items-center gap-4 xl:gap-6">
-                <Link href="/admissions/apply" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6 underline decoration-hitm-gold decoration-2 underline-offset-4">APPLY NOW - 2026</Link>
-                <Link href="/aicte" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">AICTE</Link>
+                <Link href="/admissions/apply" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6 underline decoration-hitm-gold decoration-2 underline-offset-4">
+                  APPLY NOW {academicYear && `- ${academicYear}`}
+                </Link>
+                <Link href="https://www.aicte.gov.in/" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">AICTE</Link>
                 <Link href="/incubation" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">Incubation Center</Link>
                 <Link href="/career" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">Careers</Link>
                 <Link href="/payment" className="hover:text-hitm-gold transition-colors flex items-center gap-2">
@@ -129,51 +137,51 @@ export default function Navbar() {
 
             {/* Bottom Bar (Navbar) - Aligned to standard container */}
             <div className="flex items-center justify-end flex-1 py-1 pr-[max(1rem,calc((100vw-1400px)/2+1rem))]">
-                <ul className="hidden xl:flex items-center gap-1">
-                  {navItems.map((item) => (
-                    <li key={item.label} className="relative group">
-                      {item.children ? (
-                        <>
-                          <span className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight cursor-pointer transition-colors group-hover:text-hitm-red">
-                            {item.label}
-                            <ChevronDown size={14} className="transition-transform duration-300 group-hover:-rotate-180 text-hitm-red" />
-                          </span>
-
-                          <div className="absolute top-full left-0 pt-2 opacity-0 invisible translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                            <div className="bg-white rounded-xl shadow-2xl border border-gray-100 p-2 min-w-[220px] overflow-hidden">
-                              <div className="h-1 w-full bg-hitm-red mb-2 rounded-full" />
-                              {item.children.map((child) => (
-                                <Link
-                                  key={child.label}
-                                  href={child.href}
-                                  className="group/link flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 hover:text-hitm-red hover:bg-gray-50 rounded-lg transition-all"
-                                >
-                                  <span className="group-hover/link:translate-x-1 transition-transform">{child.label}</span>
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        </>
-                      ) : item.isHome ? (
-                        <Link href={item.href} title="Home" className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
-                          Home
-                        </Link>
-                      ) : (
-                        <Link href={item.href} className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
+              <ul className="hidden xl:flex items-center gap-1">
+                {navItems.map((item) => (
+                  <li key={item.label} className="relative group">
+                    {item.children ? (
+                      <>
+                        <span className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight cursor-pointer transition-colors group-hover:text-hitm-red">
                           {item.label}
-                        </Link>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+                          <ChevronDown size={14} className="transition-transform duration-300 group-hover:-rotate-180 text-hitm-red" />
+                        </span>
 
-                {/* Mobile Menu Toggle */}
-                <button
-                  className="xl:hidden p-3 rounded-xl bg-gray-100 text-hitm-navy hover:bg-hitm-red hover:text-white transition-all shadow-sm"
-                  onClick={() => setMobileOpen(true)}
-                >
-                  <Menu size={24} />
-                </button>
+                        <div className="absolute top-full left-0 pt-2 opacity-0 invisible translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                          <div className="bg-white rounded-xl shadow-2xl border border-gray-100 p-2 min-w-[220px] overflow-hidden">
+                            <div className="h-1 w-full bg-hitm-red mb-2 rounded-full" />
+                            {item.children.map((child) => (
+                              <Link
+                                key={child.label}
+                                href={child.href}
+                                className="group/link flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-gray-600 hover:text-hitm-red hover:bg-gray-50 rounded-lg transition-all"
+                              >
+                                <span className="group-hover/link:translate-x-1 transition-transform">{child.label}</span>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </>
+                    ) : item.isHome ? (
+                      <Link href={item.href} title="Home" className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
+                        Home
+                      </Link>
+                    ) : (
+                      <Link href={item.href} className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
+                        {item.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Mobile Menu Toggle */}
+              <button
+                className="xl:hidden p-3 rounded-xl bg-gray-100 text-hitm-navy hover:bg-hitm-red hover:text-white transition-all shadow-sm"
+                onClick={() => setMobileOpen(true)}
+              >
+                <Menu size={24} />
+              </button>
             </div>
           </div>
         </div>
@@ -197,8 +205,8 @@ export default function Navbar() {
             <Building2 size={150} />
           </div>
           <div className="relative z-10">
-            <h3 className="text-white font-black font-serif text-2xl tracking-tight">AHCT RANCHI</h3>
-            <p className="text-hitm-gold font-bold text-[10px] uppercase tracking-widest mt-1">Al Haider College of Technology</p>
+            <h3 className="text-white font-black font-serif text-2xl tracking-tight">HITM RANCHI</h3>
+            <p className="text-hitm-gold font-bold text-[10px] uppercase tracking-widest mt-1">Haidar Institute of Technology and Management</p>
           </div>
           <button onClick={() => setMobileOpen(false)} className="absolute top-4 right-4 text-white/50 hover:text-white bg-white/10 hover:bg-hitm-red rounded-full p-2 transition-colors z-20">
             <X size={20} />
@@ -230,8 +238,8 @@ export default function Navbar() {
                   </div>
                 </>
               ) : (
-                <Link 
-                  href={item.href} 
+                <Link
+                  href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className="w-full flex items-center py-4 text-sm font-bold text-hitm-navy uppercase tracking-wide hover:text-hitm-red transition-colors"
                 >
@@ -244,7 +252,7 @@ export default function Navbar() {
 
         <div className="p-6 border-t bg-gray-50 mt-auto shadow-inner">
           <Button asChild variant="default" className="w-full bg-hitm-red hover:bg-hitm-navy text-white h-12 uppercase tracking-widest text-sm font-bold shadow-xl" onClick={() => setMobileOpen(false)}>
-            <Link href="/admissions/apply">Apply Now 2026</Link>
+            <Link href="/admissions/apply">Apply Now {academicYear}</Link>
           </Button>
           <div className="mt-4 text-center pb-2">
             <p className="text-xs font-semibold text-gray-400">Call Admissions: 000-111-9889</p>

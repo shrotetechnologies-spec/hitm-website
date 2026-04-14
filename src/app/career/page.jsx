@@ -9,8 +9,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Briefcase, ArrowRight, CheckCircle, Users, GraduationCap, MapPin, X, Upload, FileText, Loader2 } from 'lucide-react';
 import { db, storage } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useEffect } from 'react';
 import imageCompression from 'browser-image-compression';
 
 export default function CareerPage() {
@@ -19,49 +20,26 @@ export default function CareerPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', exp: '', coverLetter: '' });
   const [resume, setResume] = useState(null);
 
-  const categorizedJobs = [
-    {
-      category: "Engineering (B.Tech)",
-      jobs: [
-        { id: 'hod-cse', title: 'Head of Department (HOD) - CSE', type: 'Full Time', location: 'Ranchi Campus', exp: '10+ Years' },
-        { id: 'ap-civil', title: 'Assistant Professor - Civil', type: 'Full Time', location: 'Ranchi Campus', exp: '3-5 Years' },
-        { id: 'lec-mech', title: 'Lecturer - Mechanical', type: 'Full Time', location: 'Ranchi Campus', exp: '1-3 Years' },
-        { id: 'la-aids', title: 'Lab Assistant - AI & Data Science', type: 'Full Time', location: 'Ranchi Campus', exp: '0-2 Years' },
-      ]
-    },
-    {
-      category: "Management (MBA & BBA)",
-      jobs: [
-        { id: 'prof-fin', title: 'Professor - Finance', type: 'Full Time', location: 'Ranchi Campus', exp: '8+ Years' },
-        { id: 'ap-hr', title: 'Assistant Professor - Human Resource', type: 'Full Time', location: 'Ranchi Campus', exp: '3-5 Years' },
-        { id: 'lec-mktg', title: 'Lecturer - Marketing', type: 'Full Time', location: 'Ranchi Campus', exp: '1-3 Years' },
-      ]
-    },
-    {
-      category: "Computer Applications (MCA & BCA)",
-      jobs: [
-        { id: 'hod-ca', title: 'Head of Department - Computer Applications', type: 'Full Time', location: 'Ranchi Campus', exp: '10+ Years' },
-        { id: 'ap-java', title: 'Assistant Professor - Java & Web Tech', type: 'Full Time', location: 'Ranchi Campus', exp: '4-6 Years' },
-        { id: 'lec-dbms', title: 'Lecturer - Database Management', type: 'Full Time', location: 'Ranchi Campus', exp: '2-4 Years' },
-      ]
-    },
-    {
-      category: "Diploma / Polytechnic",
-      jobs: [
-        { id: 'hod-dip-elec', title: 'HOD - Electrical Engineering', type: 'Full Time', location: 'Ranchi Campus', exp: '8+ Years' },
-        { id: 'lec-dip-civil', title: 'Lecturer - Civil Engineering', type: 'Full Time', location: 'Ranchi Campus', exp: '1-5 Years' },
-        { id: 'la-dip-mech', title: 'Workshop Assistant - Mechanical', type: 'Full Time', location: 'Ranchi Campus', exp: '0-3 Years' },
-      ]
-    },
-    {
-      category: "Administration & IT Services",
-      jobs: [
-        { id: 'tpo', title: 'Training & Placement Officer', type: 'Full Time', location: 'Ranchi Campus', exp: '5+ Years' },
-        { id: 'fd-it', title: 'Frontend Developer', type: 'Full Time', location: 'Remote/In-office', exp: '2+ Years' },
-        { id: 'admin', title: 'Admission Counselor', type: 'Full Time', location: 'Ranchi Campus', exp: '2-5 Years' }
-      ]
+  const [jobsData, setJobsData] = useState([]);
+
+  useEffect(() => {
+    if (!db) return;
+    const qJobs = query(collection(db, 'careers'), orderBy('createdAt', 'desc'));
+    const unsub = onSnapshot(qJobs, (snapshot) => {
+      setJobsData(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    });
+    return () => unsub();
+  }, []);
+
+  const categorizedJobs = jobsData.reduce((acc, job) => {
+    const existing = acc.find(c => c.category === job.category);
+    if (existing) {
+      existing.jobs.push(job);
+    } else {
+      acc.push({ category: job.category, jobs: [job] });
     }
-  ];
+    return acc;
+  }, []);
 
   const handleApply = async (e) => {
     e.preventDefault();
@@ -110,7 +88,7 @@ export default function CareerPage() {
       <section className="bg-hitm-navy pt-32 pb-20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-hitm-red/5 skew-x-12 translate-x-1/4" />
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <Badge variant="gold" className="mb-4">Work at AHCT</Badge>
+          <Badge variant="gold" className="mb-4">Work at HITM</Badge>
           <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6">Build the Future of Education</h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
             Join a vibrant community of educators, researchers, and innovators dedicated to shaping the leaders of tomorrow.
@@ -143,7 +121,15 @@ export default function CareerPage() {
           </div>
 
           <div className="max-w-4xl mx-auto space-y-12">
-            {categorizedJobs.map((cat, idx) => (
+            {categorizedJobs.length === 0 ? (
+              <div className="text-center py-12 bg-gray-50 rounded-3xl border border-gray-100">
+                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 text-gray-300">
+                  <Briefcase size={28} />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">No Openings Currently</h3>
+                <p className="text-sm text-gray-500">We are not actively hiring at this moment, but you can always drop a general application.</p>
+              </div>
+            ) : categorizedJobs.map((cat, idx) => (
               <div key={idx} className="space-y-6">
                 <div className="flex items-center gap-4">
                   <h3 className="text-2xl font-black font-serif text-hitm-navy">{cat.category}</h3>
@@ -183,7 +169,7 @@ export default function CareerPage() {
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-hitm-red/20 blur-[100px]" />
             <h2 className="text-3xl md:text-4xl font-black font-serif mb-6 relative z-10">Don&apos;t see a matching role?</h2>
             <p className="text-white/60 mb-8 max-w-xl mx-auto relative z-10">
-              Send your resume to <span className="text-hitm-gold font-bold">careers@ahctranchi.com</span>. We&apos;ll keep you in our talent pool for future opportunities.
+              Send your resume to <span className="text-hitm-gold font-bold">hitmranchi@gmail.com</span>. We&apos;ll keep you in our talent pool for future opportunities.
             </p>
             <Button variant="gold" size="lg" className="relative z-10 shadow-2xl" onClick={() => setApplyModal({ id: 'general', title: 'General Application' })}>
                General Interest Application
@@ -229,7 +215,7 @@ export default function CareerPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Brief Cover Note / Why AHCT? (Optional)</Label>
+                  <Label>Brief Cover Note / Why HITM? (Optional)</Label>
                   <textarea 
                     className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hitm-red"
                     value={formData.coverLetter}

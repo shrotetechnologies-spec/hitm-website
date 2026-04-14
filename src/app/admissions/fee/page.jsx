@@ -74,14 +74,14 @@ export default function FeeStructurePage() {
 
   const downloadPDF = () => {
     const doc = new jsPDF();
-    const collegeName = "AL-HAIDER COLLEGE OF TECHNOLOGY (AHCT)";
-    const contactInfo = "Phone: +91 0000-111-988 | Email: admissions@ahctranchi.com";
+    const collegeName = "AL-HAIDER COLLEGE OF TECHNOLOGY (HITM)";
+    const contactInfo = "Phone: +91 0000-111-988 | Email: hitmranchi@gmail.com";
     const address = "Hensal, Ormanjhi, Ranchi, Jharkhand - 835219";
 
     const addHeaderFooter = (data) => {
       // Header
       doc.setFontSize(18);
-      doc.setTextColor(180, 20, 20); // AHCT Red
+      doc.setTextColor(180, 20, 20); // HITM Red
       doc.setFont("helvetica", "bold");
       doc.text(collegeName, 105, 15, { align: "center" });
       
@@ -117,7 +117,7 @@ export default function FeeStructurePage() {
 
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
-      doc.setTextColor(0, 48, 96); // AHCT Navy
+      doc.setTextColor(0, 48, 96); // HITM Navy
       doc.text(`${index + 1}. ${fee.course} (${fee.duration})`, 14, currentY);
       currentY += 5;
 
@@ -177,7 +177,7 @@ export default function FeeStructurePage() {
        // Actually autoTable didDrawPage handles it, but let's be safe.
     }
 
-    doc.save("AHCT_Fee_Structure_2026.pdf");
+    doc.save("HITM_Fee_Structure_2026.pdf");
   };
 
   return (

@@ -39,7 +39,7 @@ export default function BCAPage() {
           </div>
           <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6 uppercase tracking-tight">Bachelor of Computer Applications</h1>
           <p className="text-gray-300 max-w-2xl text-lg leading-relaxed font-medium">
-            Jumpstart your software career. Learn web development, mobile apps, and database management with AHCT Ranchi&apos;s most popular undergraduate tech degree.
+            Jumpstart your software career. Learn web development, mobile apps, and database management with HITM Ranchi&apos;s most popular undergraduate tech degree.
           </p>
         </div>
       </section>
@@ -53,7 +53,7 @@ export default function BCAPage() {
               <h2 className="text-3xl font-black font-serif text-gray-900 mb-8">Ready to Code for the Future?</h2>
               <div className="prose prose-slate max-w-none text-gray-600 mb-12">
                 <p className="text-lg">
-                  BCA remains the backbone of the IT industry. At AHCT Ranchi, we don&apos;t just teach programming; we teach problem-solving using modern technology stacks including React, Node.js, and Java.
+                  BCA remains the backbone of the IT industry. At HITM Ranchi, we don&apos;t just teach programming; we teach problem-solving using modern technology stacks including React, Node.js, and Java.
                 </p>
               </div>
 
@@ -74,17 +74,18 @@ export default function BCAPage() {
 
             <div className="bg-gray-50 rounded-3xl p-8 md:p-10 border border-gray-100 h-fit">
               <h3 className="text-2xl font-black font-serif text-hitm-navy mb-6">Program Snapshot</h3>
-              <div className="space-y-4 mb-10">
+              <div className="space-y-3 mb-10">
                 {[
-                  { label: 'Seats Available', value: '120' },
-                  { label: 'Duration', value: '3 Years' },
-                  { label: 'Exam Pattern', value: 'Semester Based' },
+                  { label: 'Seats', value: '120' },
+                  { label: 'Duration', value: '3 Years / 6 Sem' },
                   { label: 'Eligibility', value: '10+2 with 45%' },
-                  { label: 'Core Language', value: 'C++, Java, Python' }
+                  { label: 'Core Language', value: 'C++, Java, Python' },
+                  { label: 'Admission Fee', value: '₹ 10,000 (One-time)' },
+                  { label: 'Semester Fee', value: '₹ 35,000' },
                 ].map((s, i) => (
-                  <div key={i} className="flex justify-between items-center py-3 border-b border-gray-200">
+                  <div key={i} className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">{s.label}</span>
-                    <span className="text-sm font-black text-gray-900">{s.value}</span>
+                    <span className="text-sm font-black text-gray-900 text-right">{s.value}</span>
                   </div>
                 ))}
               </div>

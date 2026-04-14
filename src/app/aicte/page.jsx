@@ -17,7 +17,7 @@ export default function AICTEPage() {
           <Badge variant="gold" className="mb-4">Compliance & Approvals</Badge>
           <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6 uppercase tracking-tighter">AICTE Approval</h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
-            AHCT Ranchi is proudly approved by the All India Council for Technical Education (AICTE), New Delhi, ensuring the highest standards of technical education.
+            HITM Ranchi is proudly approved by the All India Council for Technical Education (AICTE), New Delhi, ensuring the highest standards of technical education.
           </p>
         </div>
       </section>

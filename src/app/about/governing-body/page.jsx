@@ -4,8 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { UserCircle2 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Governing Body | AHCT Ranchi',
-  description: 'Meet the visionaries leading AHCT Ranchi towards excellence.',
+  title: 'Governing Body | HITM Ranchi',
+  description: 'Meet the visionaries leading HITM Ranchi towards excellence.',
 };
 
 export default function GoverningBodyPage() {
@@ -26,7 +26,7 @@ export default function GoverningBodyPage() {
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Governing Body</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              The steering force behind Al Haider College of Technology. Our governing body consists of 
+              The steering force behind Haidar Institute of Technology and Management. Our governing body consists of 
               eminent academicians, industry leaders, and administrators dedicated to institutional excellence.
             </p>
           </div>

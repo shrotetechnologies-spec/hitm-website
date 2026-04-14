@@ -92,7 +92,7 @@ export default function PaymentPage() {
                     <Input 
                       id="regNum" 
                       required 
-                      placeholder="e.g. AHCT/2026/001" 
+                      placeholder="e.g. HITM/2026/001" 
                       value={formData.regNum}
                       onChange={(e) => setFormData({ ...formData, regNum: e.target.value })}
                     />

@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Building2, GraduationCap, CheckCircle, Target, Users, BookOpen } from 'lucide-react';
 
 export const metadata = {
-  title: 'About AHCT Ranchi | Overview',
-  description: 'Learn about the legacy, excellence, and infrastructure of Al Haider College of Technology.',
+  title: 'About HITM Ranchi | Overview',
+  description: 'Learn about the legacy, excellence, and infrastructure of Haidar Institute of Technology and Management.',
 };
 
 export default function OverviewPage() {
@@ -25,7 +25,7 @@ export default function OverviewPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
             <div className="relative">
                <div className="w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl relative">
-                  <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800" alt="AHCT Campus" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800" alt="HITM Campus" className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/80 via-transparent to-transparent" />
                </div>
                <div className="absolute -bottom-8 -right-8 bg-hitm-red text-white p-8 rounded-3xl shadow-2xl transform rotate-3">
@@ -36,9 +36,9 @@ export default function OverviewPage() {
             
             <div>
               <Badge variant="gold" className="mb-4">Institution Profile</Badge>
-              <h1 className="text-4xl md:text-6xl font-black font-serif text-hitm-navy mb-6 leading-tight uppercase tracking-tighter italic">About AHCT Ranchi</h1>
+              <h1 className="text-4xl md:text-6xl font-black font-serif text-hitm-navy mb-6 leading-tight uppercase tracking-tighter italic">About HITM Ranchi</h1>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Established as Al Haider College of Technology in 2008, our institution has emerged as a premier destination for technical &amp; management education in Jharkhand. 
+                Established as Haidar Institute of Technology and Management in 2008, our institution has emerged as a premier destination for technical &amp; management education in Jharkhand. 
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 We are committed to fostering academic excellence, research innovation, and holistic development. With a focus on state-of-the-art facilities and industry-aligned programs, we prepare our students to excel in the global professional landscape.

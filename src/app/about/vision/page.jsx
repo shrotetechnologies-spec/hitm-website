@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Target, Lightbulb, Rocket, ShieldCheck, Heart, Users } from 'lucide-react';
 
 export const metadata = {
-  title: 'Vision & Mission | AHCT Ranchi',
+  title: 'Vision & Mission | HITM Ranchi',
   description: 'Our commitment to high-quality technical education and training.',
 };
 
@@ -26,7 +26,7 @@ export default function VisionPage() {
             <Badge variant="gold" className="mb-4">Our Foundation</Badge>
             <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4 uppercase tracking-tighter">Vision & Mission</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              At AHCT Ranchi, we are driven by a singular purpose: to empower our students with the skills and 
+              At HITM Ranchi, we are driven by a singular purpose: to empower our students with the skills and 
               mindset needed to lead in a technology-driven world.
             </p>
           </div>

@@ -2,12 +2,12 @@ import './globals.css';
 import FloatingApply from '@/components/FloatingApply';
 
 export const metadata = {
-  title: 'Al Haider College of Technology | Admissions Open 2026 - AHCT',
-  description: 'Al Haider College of Technology (AHCT) — Premier institution in Jharkhand for Engineering, Management & Technology. Apply for 2026 admissions.',
-  keywords: 'AHCT Ranchi, Al Haider College of Technology, engineering college Jharkhand, management institute Ranchi, BCA BTech MBA admissions 2026',
+  title: 'Haidar Institute of Technology and Management | Admissions Open 2026 - HITM',
+  description: 'Haidar Institute of Technology and Management (HITM) — Premier institution in Jharkhand for Engineering, Management & Technology. Apply for 2026 admissions.',
+  keywords: 'HITM Ranchi, Haidar Institute of Technology and Management, engineering college Jharkhand, management institute Ranchi, BCA BTech MBA admissions 2026',
   icons: {
-    icon: 'https://ahctranchi.com/wp-content/uploads/2025/06/cropped-Haidar-1-32x32.jpg',
-    apple: 'https://ahctranchi.com/wp-content/uploads/2025/06/cropped-Haidar-1-180x180.jpg',
+    icon: '/images/logo/ahct-logo.jpg',
+    apple: '/images/logo/ahct-logo.jpg',
   }
 };
 

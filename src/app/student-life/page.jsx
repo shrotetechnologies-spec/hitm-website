@@ -24,7 +24,7 @@ export default function StudentLifePage() {
             <Badge variant="gold" className="mb-4">Beyond Academics</Badge>
             <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Student Life & Facilities</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              At AHCT Ranchi, we believe in providing an environment that fosters holistic growth. Explore our premium facilities designed for your comfort and success.
+              At HITM Ranchi, we believe in providing an environment that fosters holistic growth. Explore our premium facilities designed for your comfort and success.
             </p>
           </div>
 
@@ -47,7 +47,7 @@ export default function StudentLifePage() {
              <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy via-transparent to-transparent flex items-end p-12">
                 <div className="text-white max-w-xl">
                    <h2 className="text-3xl font-black font-serif italic mb-2 uppercase">Vibrant Campus Culture</h2>
-                   <p className="text-gray-300 font-medium">Join a diverse community of learners and participate in over 20+ clubs, annual fests, and sports meets that define the AHCT experience.</p>
+                   <p className="text-gray-300 font-medium">Join a diverse community of learners and participate in over 20+ clubs, annual fests, and sports meets that define the HITM experience.</p>
                 </div>
              </div>
           </div>

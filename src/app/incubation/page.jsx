@@ -22,7 +22,7 @@ export default function IncubationPage() {
         <div className="absolute top-0 right-0 w-1/2 h-full bg-hitm-red/5 skew-x-12 translate-x-1/4" />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <Badge variant="gold" className="mb-4">Innovation Hub</Badge>
-          <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6 uppercase tracking-tighter italic">AHCT Incubation Center</h1>
+          <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6 uppercase tracking-tighter italic">HITM Incubation Center</h1>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
             Empowering the entrepreneurs of tomorrow. We provide the space, mentorship, and resources to transform your vision into a successful startup.
           </p>
@@ -59,7 +59,7 @@ export default function IncubationPage() {
               <div>
                 <h2 className="text-4xl font-black font-serif text-hitm-navy mb-6">Our Vision for Startups</h2>
                 <p className="text-gray-600 text-lg leading-relaxed">
-                  The AHCT Incubation Center (AIC) is designed to be the heartbeat of innovation in Jharkhand. We don&apos;t just provide office space; we build an ecosystem where students can experiment, fail fast, and succeed bigger.
+                  The HITM Incubation Center (AIC) is designed to be the heartbeat of innovation in Jharkhand. We don&apos;t just provide office space; we build an ecosystem where students can experiment, fail fast, and succeed bigger.
                 </p>
               </div>
 

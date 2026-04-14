@@ -30,7 +30,7 @@ export default function CampusEventsPage() {
             <Badge variant="gold" className="mb-4">Campus Life</Badge>
             <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4 italic uppercase tracking-tighter">Events & Fests</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              Explore the vibrant culture and technical brilliance at AHCT Ranchi through our year-round events.
+              Explore the vibrant culture and technical brilliance at HITM Ranchi through our year-round events.
             </p>
           </div>
 
@@ -63,7 +63,7 @@ export default function CampusEventsPage() {
                        </div>
                        <div className="flex items-center gap-3 text-xs text-gray-500">
                           <MapPin size={16} />
-                          Main Auditorium, AHCT Campus
+                          Main Auditorium, HITM Campus
                        </div>
                     </div>
                   </CardContent>
