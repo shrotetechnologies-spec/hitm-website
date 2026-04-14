@@ -10,6 +10,7 @@ import { db, storage } from '@/lib/firebase';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import imageCompression from 'browser-image-compression';
 
 const branchOptions = {
@@ -18,7 +19,9 @@ const branchOptions = {
   'MBA': ['Finance Management', 'Marketing Management', 'Human Resource Management', 'Information Technology'],
 };
 
-export default function AdmissionApplyPage() {
+import { Suspense } from 'react';
+
+function AdmissionApplyPageContent() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -37,12 +40,22 @@ export default function AdmissionApplyPage() {
     transactionId: '', receiptFile: null
   });
 
+  const searchParams = useSearchParams();
+
   useEffect(() => {
     fetch('https://api.ipify.org?format=json')
       .then(res => res.json())
       .then(data => setUserIp(data.ip))
       .catch(err => console.error("IP Error:", err));
   }, []);
+
+  // Auto-select course from floating button query param
+  useEffect(() => {
+    const course = searchParams.get('course');
+    if (course) {
+      setFormData(prev => ({ ...prev, program: course, branch: '' }));
+    }
+  }, [searchParams]);
 
   const handleInitialSubmit = async (e) => {
     e.preventDefault();
@@ -296,5 +309,13 @@ export default function AdmissionApplyPage() {
       </div>
       <Footer />
     </main>
+  );
+}
+
+export default function AdmissionApplyPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <AdmissionApplyPageContent />
+    </Suspense>
   );
 }

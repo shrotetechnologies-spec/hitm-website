@@ -44,7 +44,7 @@ export default function DirectorPage() {
                         </li>
                         <li className="flex gap-3">
                            <span className="w-1.5 h-1.5 bg-hitm-red rounded-full mt-1.5 shrink-0" />
-                           Ph.D. in Robotics & AI
+                           Ph.D. in Robotics &amp; AI
                         </li>
                      </ul>
                   </CardContent>
@@ -68,7 +68,7 @@ export default function DirectorPage() {
                     I welcome you all to Al Haider College of Technology (AHCT), a hub of learning and innovation in Ranchi. As we prepare to open our doors for the first time on April 20, 2026, our focus is on providing a transformative educational experience that empowers the next generation of pioneers.
                  </p>
                  <p>
-                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At AHCT, we have built our curriculum and infrastructure from the ground up to lead these changes. Our sprawling 50-acre futuristic campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
+                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At AHCT, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic 2.48 acre campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
                  </p>
                  <p>
                     We believe in holistic development. Beyond academics, our students will be encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and we are excited to see our first batch of students make their mark on the world.

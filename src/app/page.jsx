@@ -21,7 +21,7 @@ const heroSlides = [
     image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1600',
     badge: 'Admissions Open 2026',
     title: 'Launching a New Era of Excellence in Ranchi',
-    subtitle: "AHCT Ranchi — Opening Doors on April 20, 2026. Join Jharkhand's most futuristic institute for Engineering, Management & Technology.",
+    subtitle: "AHCT Ranchi — Opening Doors on April 20, 2026. Join Jharkhand's most futuristic institute for Engineering, Management &amp; Technology.",
   },
   {
     image: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1600',
@@ -47,8 +47,8 @@ const stats = [
 const programs = [
   { icon: <BookOpen className="text-white" size={24} />, name: 'B.Tech Programs', desc: '4-Year Undergraduate Engineering (360 Seats)', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', courses: ['CSE (120)', 'EEE (60)', 'Civil (60)', 'Mechanical (60)', 'AI (30)', 'Data Science (30)'] },
   { icon: <Briefcase className="text-white" size={24} />, name: 'Diploma Programs', desc: '3-Year Polytechnic Diploma (360 Seats)', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800', courses: ['CSE (120)', 'EEE (60)', 'Civil (60)', 'Mechanical (60)', 'AI (30)', 'Data Science (30)'] },
-  { icon: <GraduationCap className="text-white" size={24} />, name: 'Computer Applications', desc: 'UG & PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', courses: ['BCA (180)', 'MCA (180)'] },
-  { icon: <Award className="text-white" size={24} />, name: 'Management Studies', desc: 'UG & PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800', courses: ['BBA (180)', 'MBA (180)'] },
+  { icon: <GraduationCap className="text-white" size={24} />, name: 'Computer Applications', desc: 'UG &amp; PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', courses: ['BCA (180)', 'MCA (180)'] },
+  { icon: <Award className="text-white" size={24} />, name: 'Management Studies', desc: 'UG &amp; PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800', courses: ['BBA (180)', 'MBA (180)'] },
 ];
 
 // Notices and Events are now handled dynamically inside HomePage component
@@ -69,17 +69,24 @@ const testimonials = [
 ];
 
 const recruiters = [
+  // IT & Tech
   { name: 'TCS', logo: 'https://logo.clearbit.com/tcs.com' },
+  { name: 'Infosys', logo: 'https://logo.clearbit.com/infosys.com' },
   { name: 'Wipro', logo: 'https://logo.clearbit.com/wipro.com' },
-  { name: 'HCL', logo: 'https://logo.clearbit.com/hcltech.com' },
-  { name: 'Cognizant', logo: 'https://logo.clearbit.com/cognizant.com' },
-  { name: 'Capgemini', logo: 'https://logo.clearbit.com/capgemini.com' },
-  { name: 'Deloitte', logo: 'https://logo.clearbit.com/deloitte.com' },
-  { name: 'Accenture', logo: 'https://logo.clearbit.com/accenture.com' },
+  { name: 'Microsoft', logo: 'https://logo.clearbit.com/microsoft.com' },
   { name: 'Amazon', logo: 'https://logo.clearbit.com/amazon.com' },
-  { name: 'Flipkart', logo: 'https://logo.clearbit.com/flipkart.com' },
-  { name: 'IBM', logo: 'https://logo.clearbit.com/ibm.com' },
-  { name: 'Microsoft', logo: 'https://logo.clearbit.com/microsoft.com' }
+  // Core Engineering (ME/CE/EE)
+  { name: 'L&T', logo: 'https://logo.clearbit.com/larsentoubro.com' },
+  { name: 'Tata Motors', logo: 'https://logo.clearbit.com/tatamotors.com' },
+  { name: 'Siemens', logo: 'https://logo.clearbit.com/siemens.com' },
+  { name: 'Bosch', logo: 'https://logo.clearbit.com/bosch.com' },
+  { name: 'Ashoka Buildcon', logo: 'https://logo.clearbit.com/ashokabuildcon.com' },
+  // Management & Finance
+  { name: 'Deloitte', logo: 'https://logo.clearbit.com/deloitte.com' },
+  { name: 'ICICI Bank', logo: 'https://logo.clearbit.com/icicibank.com' },
+  { name: 'HDFC Bank', logo: 'https://logo.clearbit.com/hdfcbank.com' },
+  { name: 'KPMG', logo: 'https://logo.clearbit.com/kpmg.com' },
+  { name: 'EY', logo: 'https://logo.clearbit.com/ey.com' },
 ];
 
 const quickLinks = [
@@ -279,7 +286,7 @@ export default function HomePage() {
                 {[
                   { icon: <Trophy size={20} />, title: 'NAAC Accredited', desc: 'Grade A+ Institution' },
                   { icon: <Users size={20} />, title: '200+ Expert Faculty', desc: 'Industry veterans' },
-                  { icon: <Building2 size={20} />, title: '50-Acre Campus', desc: 'Modern infrastructure' },
+                  { icon: <Building2 size={20} />, title: '2.48 Acre Campus', desc: 'Modern infrastructure' },
                   { icon: <Globe size={20} />, title: '200+ Industry Tie-ups', desc: 'Global partnerships' },
                 ].map((f) => (
                   <div key={f.title} className="flex items-start gap-3 p-3 rounded-xl bg-hitm-red/5 border border-hitm-red/10">
@@ -545,11 +552,22 @@ export default function HomePage() {
       {/* Our Recruiters */}
       <section className="py-12 border-t border-gray-100">
         <div className="container mx-auto px-4">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">Our Placement Partners & Top Recruiters</p>
-          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">Our Placement Partners &amp; Top Recruiters</p>
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
             {recruiters.map((r) => (
-              <div key={r.name} className="flex items-center justify-center w-32 md:w-40 h-16 bg-white border border-gray-200 rounded-lg shadow-sm text-gray-400 font-bold uppercase tracking-wider text-sm md:text-base hover:text-hitm-red hover:border-hitm-red/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-pointer select-none">
-                {r.name}
+              <div key={r.name} className="group relative flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:-translate-y-1">
+                <div className="h-12 w-32 md:w-40 flex items-center justify-center p-2">
+                   <img 
+                     src={r.logo} 
+                     alt={r.name} 
+                     className="max-h-full max-w-full object-contain drop-shadow-sm group-hover:drop-shadow-md transition-all" 
+                     onError={(e) => {
+                       e.target.style.display = 'none';
+                       e.target.nextSibling.style.display = 'block';
+                     }}
+                   />
+                   <span className="hidden text-[10px] font-black text-gray-400 uppercase tracking-tighter text-center leading-tight">{r.name}</span>
+                </div>
               </div>
             ))}
           </div>

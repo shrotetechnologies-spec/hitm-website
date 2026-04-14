@@ -31,7 +31,7 @@ const navItems = [
     label: 'Management', icon: <Building2 size={16} />,
     children: [
       { label: 'Governing Body', href: '/about/governing-body' },
-      { label: 'Vision & Mission', href: '/about/vision' },
+      { label: 'Vision &amp; Mission', href: '/about/vision' },
       { label: "Director's Message", href: '/about/director' },
     ],
   },
@@ -156,7 +156,7 @@ export default function Navbar() {
                         </>
                       ) : item.isHome ? (
                         <Link href={item.href} title="Home" className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">
-                          <Home size={18} />
+                          Home
                         </Link>
                       ) : (
                         <Link href={item.href} className="flex items-center gap-1.5 px-4 py-3 text-[13px] font-black text-hitm-navy uppercase tracking-tight transition-colors hover:text-hitm-red">

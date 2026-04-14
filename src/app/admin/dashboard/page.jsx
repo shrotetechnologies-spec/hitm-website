@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import {
   LayoutDashboard, Bell, CalendarDays, Users, Briefcase,
-  Globe, LogOut, Menu, Clock, GraduationCap
+  Globe, LogOut, Menu, Clock, GraduationCap, Sparkles
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +16,7 @@ import NoticesManager from '@/components/admin/NoticesManager';
 import EventsManager from '@/components/admin/EventsManager';
 import EnquiriesManager from '@/components/admin/EnquiriesManager';
 import CareerManager from '@/components/admin/CareerManager';
+import PopupManager from '@/components/admin/PopupManager';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={16} /> },
@@ -23,6 +24,7 @@ const navItems = [
   { id: 'events', label: 'Events', icon: <CalendarDays size={16} /> },
   { id: 'enquiries', label: 'Enquiries', icon: <Users size={16} /> },
   { id: 'careers', label: 'Careers', icon: <Briefcase size={16} /> },
+  { id: 'popup', label: 'Popup Leads', icon: <Sparkles size={16} /> },
 ];
 
 export default function AdminDashboard() {
@@ -79,6 +81,7 @@ export default function AdminDashboard() {
       case 'events': return <EventsManager />;
       case 'enquiries': return <EnquiriesManager />;
       case 'careers': return <CareerManager />;
+      case 'popup': return <PopupManager />;
       default: return (
         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
           <Clock size={48} className="mb-4 opacity-40" />

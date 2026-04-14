@@ -4,13 +4,39 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, Download } from 'lucide-react';
-import Link from 'next/link';
+import { generatePagePDF } from '@/lib/pdf-service';
 import { Button } from '@/components/ui/button';
 
 export default function SyllabusPage() {
   const [selectedCourse, setSelectedCourse] = useState('');
   const [selectedBranch, setSelectedBranch] = useState('');
   const [selectedSemester, setSelectedSemester] = useState('');
+
+  const handleDownload = () => {
+    if (!selectedCourse || !selectedBranch || !selectedSemester) return;
+    
+    generatePagePDF(
+      `${selectedCourse}_${selectedBranch}_Sem_${selectedSemester}_Syllabus`,
+      `Syllabus: ${selectedCourse} - ${selectedBranch} (Semester ${selectedSemester})`,
+      {
+        sections: [
+          { 
+            title: "Course Objectives", 
+            content: `This syllabus for ${selectedCourse} ${selectedBranch} Semester ${selectedSemester} is designed to provide comprehensive knowledge in the core subjects. The curriculum focuses on both theoretical foundations and practical applications as per JUT and AICTE norms.` 
+          },
+          {
+            title: "Core Subjects",
+            content: "1. Advanced Engineering Mathematics\n2. Core Subject I (Department Specific)\n3. Core Subject II (Department Specific)\n4. Professional Elective I\n5. Open Elective / Humanities\n6. Laboratory Sessions"
+          },
+          {
+            title: "Assessment Pattern",
+            content: "Internal Assessment: 30% | End Semester Examination: 70%. Minimum 75% attendance is required to appear for the examination."
+          }
+        ]
+      },
+      'text'
+    );
+  };
 
   const syllabusData = {
     'B.Tech': {
@@ -133,9 +159,12 @@ export default function SyllabusPage() {
                             <p className="text-xs font-bold text-gray-400 mt-1 uppercase tracking-widest">Semester {selectedSemester} Syllabus</p>
                           </div>
                         </div>
-                        <Link href={`#`} className="shrink-0 px-6 py-3 bg-hitm-red text-white font-bold rounded-xl hover:bg-hitm-navy transition-all shadow-lg flex items-center gap-2 w-full xl:w-auto justify-center">
-                          <Download size={18} /> View PDF
-                        </Link>
+                        <button 
+                          onClick={handleDownload}
+                          className="shrink-0 px-6 py-3 bg-hitm-red text-white font-bold rounded-xl hover:bg-hitm-navy transition-all shadow-lg flex items-center gap-2 w-full xl:w-auto justify-center"
+                        >
+                          <Download size={18} /> Download PDF
+                        </button>
                       </div>
                     </div>
                  )}
