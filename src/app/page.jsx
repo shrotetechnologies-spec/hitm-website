@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils';
 import { db } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
-// â”€â”€ Hero Slides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+//  Hero Slides 
 const heroSlides = [
   {
     image: '/images/carousel/slide1.jpg',
@@ -52,20 +52,6 @@ const programs = [
 ];
 
 const MONTHS_SHORT_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-const DEFAULT_NOTICES = [
-  { id: 'default-1', title: 'Admissions Open for 2026-27 Academic Year', dept: 'Admissions Cell', tag: 'Important', day: '20', month: 'Apr', active: true },
-  { id: 'default-2', title: 'Download Prospectus / Brochure', dept: 'Administration', tag: 'Info', day: '15', month: 'Apr', active: true },
-  { id: 'default-3', title: 'Campus Visit & Counselling Schedule', dept: 'Student Desk', tag: 'Update', day: '10', month: 'Apr', active: true },
-];
-
-const DEFAULT_EVENTS = [
-  { id: 'default-e1', name: 'Orientation Program', date: 'April 22, 2026', iconName: 'trophy' },
-  { id: 'default-e2', name: 'Freshers Orientation', date: 'May 05, 2026', iconName: 'users' },
-  { id: 'default-e3', name: 'Tech Quest 2026', date: 'June 15, 2026', iconName: 'book' },
-  { id: 'default-e4', name: 'Industry Connect', date: 'July 10, 2026', iconName: 'briefcase' },
-  { id: 'default-e5', name: 'Sports Meet', date: 'August 12, 2026', iconName: 'trophy' },
-];
 
 function eventIcon(iconName) {
   switch (iconName) {
@@ -105,7 +91,7 @@ const quickLinks = [
   { icon: <Calendar size={18} />, label: 'Download Brochure', href: '/admissions/brochures' },
 ];
 
-// â”€â”€ Hero Slider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+//  Hero Slider 
 function HeroSlider() {
   const [current, setCurrent] = useState(0);
   useEffect(() => {
@@ -168,11 +154,11 @@ function HeroSlider() {
   );
 }
 
-// â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Main Page
 export default function HomePage() {
   const [enquiry, setEnquiry] = useState({ name: '', phone: '', program: '' });
-  const [notices, setNotices] = useState(DEFAULT_NOTICES);
-  const [events, setEvents] = useState(DEFAULT_EVENTS);
+  const [notices, setNotices] = useState([]);
+  const [events, setEvents] = useState([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -191,7 +177,7 @@ export default function HomePage() {
           id: doc.id,
           ...data,
           day: dateObj.getDate().toString().padStart(2, '0'),
-          month: MONTHS_SHORT_EN[dateObj.getMonth()] || 'â€”',
+          month: MONTHS_SHORT_EN[dateObj.getMonth()] || '—',
         };
       }));
     });
@@ -224,12 +210,10 @@ export default function HomePage() {
     }
   };
 
-  // Prevent hydration mismatch by keeping server+initial client render identical.
-  const marqueeItems = mounted
-    ? ((notices.filter(n => n.active !== false).map(n => `ðŸ“£ ${n.title}`)).length > 0
-      ? notices.filter(n => n.active !== false).map(n => `ðŸ“£ ${n.title}`)
-      : ['ðŸ“£ Admissions Open for 2026-27 Academic Year'])
-    : ['ðŸ“£ Admissions Open for 2026-27 Academic Year'];
+  const activeNotices = notices.filter(n => n.active !== false).map(n => `📣 ${n.title}`);
+  const marqueeItems = activeNotices.length > 0 ? activeNotices : [
+    '📣 Admissions Open for 2026-27 Academic Year'
+  ];
 
   return (
     <main>
@@ -348,9 +332,9 @@ export default function HomePage() {
       <section id="programs" className="py-24 bg-gray-50/50">
         <div className="container mx-auto px-4">
           <div className="section-title mb-16">
-            <Badge variant="outline" className="mb-4 border-hitm-red text-hitm-red font-bold px-4 py-1">Academic Programs</Badge>
             <h2 className="text-4xl md:text-5xl">Programs Offered</h2>
             <p className="text-gray-500 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">Choose from our industry-aligned technical and management programs designed to launch your global career.</p>
+            <Badge variant="outline" className="mt-2 border-hitm-red text-hitm-red font-bold px-4 py-1">Academic Programs</Badge>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
             {programs.map((p, i) => (
@@ -391,9 +375,9 @@ export default function HomePage() {
               <h2 className="text-2xl font-bold font-serif mb-5 flex items-center gap-2">
                 <Bell className="text-hitm-red" size={22} /> Notice Board
               </h2>
-              <Card className="relative h-[420px] overflow-hidden bg-white group">
-                <div className="absolute w-full animate-marquee-vertical group-hover:[animation-play-state:paused] flex flex-col">
-                  {[...notices, ...notices].map((n, i) => (
+              <Card className="h-[420px] overflow-y-auto bg-white group custom-scrollbar">
+                <div className="w-full flex flex-col">
+                  {notices.map((n, i) => (
                     <div key={i} className="flex gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100">
                       <div className="bg-hitm-red text-white rounded-lg p-2.5 text-center min-w-[52px] shrink-0 h-fit shadow-sm">
                         <div className="text-xl font-black leading-none">{n.day}</div>
@@ -401,8 +385,8 @@ export default function HomePage() {
                       </div>
                       <div className="flex-1">
                         <p className="font-semibold text-sm text-gray-800 group-hover:text-hitm-red transition-colors">{n.title}</p>
-                        <p className="text-xs text-gray-500 mt-0.5">{n.dept}</p>
-                        <Badge variant="gold" className="mt-1.5 text-[10px]">{n.tag}</Badge>
+                        <p className="text-xs text-gray-500 mt-0.5">{n.content}</p>
+                        <Badge variant="gold" className="mt-1.5 text-[10px]">{n.category}</Badge>
                       </div>
                       <ChevronRight size={16} className="text-gray-300 group-hover:text-hitm-red shrink-0 mt-1 transition-colors" />
                     </div>
@@ -416,22 +400,38 @@ export default function HomePage() {
               <h2 className="text-2xl font-bold font-serif mb-5 flex items-center gap-2">
                 <Calendar className="text-hitm-navy" size={22} /> Upcoming Events
               </h2>
-              <Card className="relative h-[280px] overflow-hidden bg-white shadow-lg mb-5 group">
-                <div className="absolute w-full animate-marquee-vertical group-hover:[animation-play-state:paused] flex flex-col">
-                  {[...events, ...events].map((e, i) => (
-                    <div key={i} className="flex items-start gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100">
+              <Card className="h-[280px] overflow-y-auto bg-white shadow-lg mb-5 group custom-scrollbar">
+                <div className="w-full flex flex-col">
+
+                  {events.map((e, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100"
+                    >
                       <div className="w-10 h-10 rounded-xl bg-hitm-navy/10 flex items-center justify-center text-hitm-navy shrink-0 shadow-inner">
                         {e.icon ? e.icon : eventIcon(e.iconName)}
                       </div>
-                      <div className="flex-1">
-                        <p className="font-bold text-sm text-gray-800 leading-tight group-hover:text-hitm-navy">{e.name}</p>
+                      <div className="flex-1 flex flex-col">
+                        <p className="font-bold text-sm text-gray-800 leading-tight group-hover:text-hitm-navy">
+                          {e.name}
+                        </p>
                         <p className="text-[11px] text-gray-500 mt-1 flex items-center gap-1.5 font-medium">
                           <Clock size={12} className="text-hitm-red" /> {e.date}
                         </p>
+                        <p className="text-[11px] text-gray-600 mt-1 leading-snug">
+                          {e.title}
+                        </p>
                       </div>
-                      <Badge variant="secondary" className="text-[9px] bg-hitm-navy/5 text-hitm-navy">Join</Badge>
+                      <Badge
+                        variant="secondary"
+                        className="text-[9px] bg-hitm-navy/5 text-hitm-navy self-start"
+                      >
+                        Join
+                      </Badge>
+
                     </div>
                   ))}
+
                 </div>
               </Card>
 

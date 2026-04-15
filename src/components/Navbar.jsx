@@ -38,8 +38,8 @@ const navItems = [
   {
     label: 'Admissions', icon: <Users size={16} />,
     children: [
-      { label: 'Admission Process', href: '/admissions/apply' },
       { label: 'Eligibility', href: '/admissions/eligibility' },
+      { label: 'Admission Process', href: '/admissions/apply' },
       { label: 'Fee Structure', href: '/admissions/fee' },
     ],
   },
