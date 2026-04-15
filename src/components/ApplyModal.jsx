@@ -52,7 +52,7 @@ export default function ApplyModal({ courseName, children }) {
                 <Button variant="outline" className="flex-1 h-12 uppercase tracking-wider text-xs font-bold border-gray-200 text-gray-500 hover:bg-gray-50" onClick={() => setIsOpen(false)}>
                   Cancel
                 </Button>
-                <Button className="flex-1 h-12 bg-hitm-red hover:bg-hitm-navy uppercase tracking-wider text-xs font-bold text-white shadow-lg shadow-hitm-red/20" onClick={() => router.push('/admissions/apply')}>
+                <Button className="flex-1 h-12 bg-hitm-red hover:bg-hitm-navy uppercase tracking-wider text-xs font-bold text-white shadow-lg shadow-hitm-red/20" onClick={() => router.push('/admissions/apply?form=1')}>
                   Yes, Apply Now
                 </Button>
               </div>

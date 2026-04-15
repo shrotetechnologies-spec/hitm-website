@@ -15,22 +15,22 @@ import { cn } from '@/lib/utils';
 import { db } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 
-// ── Hero Slides ─────────────────────────────────────────────────────────────
+// â”€â”€ Hero Slides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const heroSlides = [
   {
     image: '/images/carousel/slide1.jpg',
     badge: 'Admissions Open 2026',
     title: 'Launching a New Era of Excellence in Ranchi',
-    subtitle: "HITM Ranchi — Opening Doors on April 20, 2026. Join Jharkhand's most futuristic institute for Engineering, Management &amp; Technology.",
+    subtitle: 'HITM Ranchi is shaping a strong future in Engineering, Management, and Technology with industry-focused learning and modern academic excellence.',
   },
   {
     image: '/images/carousel/slide2.jpg',
-    badge: 'Opening April 20, 2026',
+    badge: 'Future-Ready Learning',
     title: 'World-Class Infrastructure & Expert Faculty',
-    subtitle: 'Designed for the future, HITM Ranchi provides an environment where innovation meets ambition. Be the first to join our pioneer batch.',
+    subtitle: 'Designed for the future, HITM Ranchi provides an environment where innovation meets ambition, practical exposure, and academic growth.',
   },
   {
-    image: '/images/carousel/slide3.jpg',
+    image: '/images/carousel/slide1.jpg',
     badge: 'Premier Campus in Jharkhand',
     title: 'Your Future Begins at HITM Ranchi',
     subtitle: 'With 200+ global industry tie-ups, we ensure our students are ready for the global stage from day one.',
@@ -38,7 +38,7 @@ const heroSlides = [
 ];
 
 const stats = [
-  { icon: <Calendar size={24} />, number: 'April 20', label: 'Grand Opening' },
+  { icon: <Calendar size={24} />, number: '2026', label: 'Admissions Session' },
   { icon: <Users size={24} />, number: '1440+', label: 'Seat Capacity' },
   { icon: <BookOpen size={24} />, number: '16+', label: 'Approved Courses' },
   { icon: <Building2 size={24} />, number: '2.48', label: 'Acres Campus' },
@@ -46,16 +46,42 @@ const stats = [
 
 const programs = [
   { icon: <BookOpen className="text-white" size={24} />, name: 'B.Tech Programs', desc: '4-Year Undergraduate Engineering (360 Seats)', image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800', courses: ['CSE (120)', 'EEE (60)', 'Civil (60)', 'Mechanical (60)', 'AI (30)', 'Data Science (30)'] },
-  { icon: <Briefcase className="text-white" size={24} />, name: 'Diploma Programs', desc: '3-Year Polytechnic Diploma (360 Seats)', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800', courses: ['CSE (120)', 'EEE (60)', 'Civil (60)', 'Mechanical (60)', 'AI (30)', 'Data Science (30)'] },
-  { icon: <GraduationCap className="text-white" size={24} />, name: 'Computer Applications', desc: 'UG &amp; PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', courses: ['BCA (180)', 'MCA (180)'] },
-  { icon: <Award className="text-white" size={24} />, name: 'Management Studies', desc: 'UG &amp; PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&q=80&w=800', courses: ['BBA (180)', 'MBA (180)'] },
+  { icon: <Award className="text-white" size={24} />, name: 'Management Studies', desc: 'UG & PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=800', courses: ['BBA (180)', 'MBA (180)'] },
+  { icon: <Briefcase className="text-white" size={24} />, name: 'Diploma Programs', desc: '3-Year Polytechnic Diploma (360 Seats)', image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800', courses: ['CSE (120)', 'EEE (60)', 'Civil (60)', 'Mechanical (60)', 'AI (30)', 'Data Science (30)'] },
+  { icon: <GraduationCap className="text-white" size={24} />, name: 'Computer Applications', desc: 'UG & PG Programs (360 Seats)', image: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&q=80&w=800', courses: ['BCA (180)', 'MCA (180)'] },
 ];
+
+const MONTHS_SHORT_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const DEFAULT_NOTICES = [
+  { id: 'default-1', title: 'Admissions Open for 2026-27 Academic Year', dept: 'Admissions Cell', tag: 'Important', day: '20', month: 'Apr', active: true },
+  { id: 'default-2', title: 'Download Prospectus / Brochure', dept: 'Administration', tag: 'Info', day: '15', month: 'Apr', active: true },
+  { id: 'default-3', title: 'Campus Visit & Counselling Schedule', dept: 'Student Desk', tag: 'Update', day: '10', month: 'Apr', active: true },
+];
+
+const DEFAULT_EVENTS = [
+  { id: 'default-e1', name: 'Orientation Program', date: 'April 22, 2026', iconName: 'trophy' },
+  { id: 'default-e2', name: 'Freshers Orientation', date: 'May 05, 2026', iconName: 'users' },
+  { id: 'default-e3', name: 'Tech Quest 2026', date: 'June 15, 2026', iconName: 'book' },
+  { id: 'default-e4', name: 'Industry Connect', date: 'July 10, 2026', iconName: 'briefcase' },
+  { id: 'default-e5', name: 'Sports Meet', date: 'August 12, 2026', iconName: 'trophy' },
+];
+
+function eventIcon(iconName) {
+  switch (iconName) {
+    case 'users': return <Users size={16} />;
+    case 'book': return <BookOpen size={16} />;
+    case 'briefcase': return <Briefcase size={16} />;
+    case 'trophy':
+    default: return <Trophy size={16} />;
+  }
+}
 
 // Notices and Events are now handled dynamically inside HomePage component
 
 const testimonials = [
   {
-    text: 'HITM Ranchi is exactly what Jharkhand needed — a forward-thinking institute with world-class facilities and a curriculum designed for the 2026 industry standards.',
+    text: 'HITM Ranchi is exactly what Jharkhand needed â€” a forward-thinking institute with world-class facilities and a curriculum designed for the 2026 industry standards.',
     name: 'Dr. Ramesh Singh', role: 'Education Consultant', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
   },
   {
@@ -68,29 +94,8 @@ const testimonials = [
   },
 ];
 
-const recruiters = [
-  // IT & Tech
-  { name: 'TCS', logo: 'https://logo.clearbit.com/tcs.com' },
-  { name: 'Infosys', logo: 'https://logo.clearbit.com/infosys.com' },
-  { name: 'Wipro', logo: 'https://logo.clearbit.com/wipro.com' },
-  { name: 'Microsoft', logo: 'https://logo.clearbit.com/microsoft.com' },
-  { name: 'Amazon', logo: 'https://logo.clearbit.com/amazon.com' },
-  // Core Engineering (ME/CE/EE)
-  { name: 'L&T', logo: 'https://logo.clearbit.com/larsentoubro.com' },
-  { name: 'Tata Motors', logo: 'https://logo.clearbit.com/tatamotors.com' },
-  { name: 'Siemens', logo: 'https://logo.clearbit.com/siemens.com' },
-  { name: 'Bosch', logo: 'https://logo.clearbit.com/bosch.com' },
-  { name: 'Ashoka Buildcon', logo: 'https://logo.clearbit.com/ashokabuildcon.com' },
-  // Management & Finance
-  { name: 'Deloitte', logo: 'https://logo.clearbit.com/deloitte.com' },
-  { name: 'ICICI Bank', logo: 'https://logo.clearbit.com/icicibank.com' },
-  { name: 'HDFC Bank', logo: 'https://logo.clearbit.com/hdfcbank.com' },
-  { name: 'KPMG', logo: 'https://logo.clearbit.com/kpmg.com' },
-  { name: 'EY', logo: 'https://logo.clearbit.com/ey.com' },
-];
-
 const quickLinks = [
-  { icon: <Bell size={18} />, label: 'Apply Online', href: '/admissions/apply' },
+  { icon: <Bell size={18} />, label: 'Apply Online', href: '/admissions/apply?form=1' },
   { icon: <BookOpen size={18} />, label: 'Notice Board', href: '/notice' },
   { icon: <Briefcase size={18} />, label: 'Fee Payment', href: '/admissions/fee' },
   { icon: <Trophy size={18} />, label: 'Photo Gallery', href: '/campus/gallery' },
@@ -100,7 +105,7 @@ const quickLinks = [
   { icon: <Calendar size={18} />, label: 'Download Brochure', href: '/admissions/brochures' },
 ];
 
-// ── Hero Slider ──────────────────────────────────────────────────────────────
+// â”€â”€ Hero Slider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function HeroSlider() {
   const [current, setCurrent] = useState(0);
   useEffect(() => {
@@ -131,7 +136,7 @@ function HeroSlider() {
             <p className="text-white/85 text-lg mb-8 leading-relaxed max-w-xl">{slide.subtitle}</p>
             <div className="flex gap-3 flex-wrap">
               <Button asChild variant="gold" size="lg" className="shadow-xl">
-                <Link href="/admissions/apply">Apply Now 2026 <ArrowRight size={18} /></Link>
+                <Link href="/admissions/apply?form=1">Apply Now 2026 <ArrowRight size={18} /></Link>
               </Button>
               <Button variant="outline" size="lg" className="border-white/50 text-white hover:bg-white/10 hover:text-white hover:border-white">
                 <Link href="/about" className="flex items-center gap-2"><Play size={16} /> Know More</Link>
@@ -163,11 +168,16 @@ function HeroSlider() {
   );
 }
 
-// ── Main Page ────────────────────────────────────────────────────────────────
+// â”€â”€ Main Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function HomePage() {
   const [enquiry, setEnquiry] = useState({ name: '', phone: '', program: '' });
-  const [notices, setNotices] = useState([]);
-  const [events, setEvents] = useState([]);
+  const [notices, setNotices] = useState(DEFAULT_NOTICES);
+  const [events, setEvents] = useState(DEFAULT_EVENTS);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!db) return;
@@ -181,7 +191,7 @@ export default function HomePage() {
           id: doc.id,
           ...data,
           day: dateObj.getDate().toString().padStart(2, '0'),
-          month: dateObj.toLocaleString('default', { month: 'short' })
+          month: MONTHS_SHORT_EN[dateObj.getMonth()] || 'â€”',
         };
       }));
     });
@@ -189,10 +199,11 @@ export default function HomePage() {
     // Real-time Events
     const qEvents = query(collection(db, 'events'), orderBy('date', 'asc'));
     const unsubEvents = onSnapshot(qEvents, (snapshot) => {
-      setEvents(snapshot.docs.map(doc => ({
+      const fetchedEvents = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
-      })));
+      }));
+      setEvents(fetchedEvents.length > 0 ? fetchedEvents : DEFAULT_EVENTS);
     });
 
     return () => { unsubNotices(); unsubEvents(); };
@@ -213,10 +224,12 @@ export default function HomePage() {
     }
   };
 
-  const activeNotices = notices.filter(n => n.active !== false).map(n => `📣 ${n.title}`);
-  const marqueeItems = activeNotices.length > 0 ? activeNotices : [
-    '📣 Admissions Open for 2026-27 Academic Year',
-  ];
+  // Prevent hydration mismatch by keeping server+initial client render identical.
+  const marqueeItems = mounted
+    ? ((notices.filter(n => n.active !== false).map(n => `ðŸ“£ ${n.title}`)).length > 0
+      ? notices.filter(n => n.active !== false).map(n => `ðŸ“£ ${n.title}`)
+      : ['ðŸ“£ Admissions Open for 2026-27 Academic Year'])
+    : ['ðŸ“£ Admissions Open for 2026-27 Academic Year'];
 
   return (
     <main>
@@ -225,8 +238,8 @@ export default function HomePage() {
       {/* Marquee */}
       <div className="bg-hitm-red py-2.5 overflow-hidden">
         <div className="marquee-track">
-          {[...Array(2)].flatMap(() => marqueeItems).map((text, i) => (
-            <span key={i} className="inline-block px-12 text-white/90 text-sm font-medium">
+          {[0, 1].flatMap(() => marqueeItems).map((text, i) => (
+            <span key={i} className="inline-block px-12 text-white/90 text-sm font-medium" suppressHydrationWarning>
               {text}
             </span>
           ))}
@@ -257,7 +270,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="w-full h-[480px] bg-gray-100 rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
-                <img src="images/carousel/slide1.jpg" alt="HITM Campus" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1200" alt="HITM Campus" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/60 to-transparent" />
               </div>
               <Card className="absolute -bottom-5 -right-5 shadow-xl bg-hitm-red text-white border-none">
@@ -272,13 +285,13 @@ export default function HomePage() {
               <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">Welcome to HITM Ranchi</p>
               <h2 className="text-4xl font-black font-serif text-gray-900 mb-5 leading-tight">A New Landmark in Higher Education</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Haidar Institute of Technology and Management (HITM Ranchi) is set to redefine the educational landscape of Jharkhand.
-                Opening on April 20, 2026, we are a futuristic institution dedicated to excellence in Engineering, Management, and Technology.
+                Haidar Institute of Technology and Management (HITM Ranchi) is redefining the educational landscape of Jharkhand
+                as a future-focused institution dedicated to excellence in Engineering, Management, and Technology.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                Our mission is to empower the first generation of HITM pioneers with cutting-edge skills, global industry exposure, and a spirit of innovation that prepares them for the challenges of tomorrow.
+                Our mission is to empower students with cutting-edge skills, global industry exposure, and a spirit of innovation
+                that prepares them for the challenges of tomorrow.
               </p>
-
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
                   { icon: <Trophy size={20} />, title: 'NAAC Accredited', desc: 'Grade A+ Institution' },
@@ -303,7 +316,7 @@ export default function HomePage() {
                   <Link href="/about">Know More <ArrowRight size={16} /></Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
-                  <Link href="/admissions/apply">Apply Now</Link>
+                  <Link href="/admissions/apply?form=1">Apply Now</Link>
                 </Button>
               </div>
             </div>
@@ -316,10 +329,10 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: <Calendar size={28} />, number: '20 April', label: 'Inauguration' },
-              { icon: <Users size={28} />, number: '500+', label: 'Expected First Batch' },
+              { icon: <Calendar size={28} />, number: 'Admissions', label: 'Open 26-27 Batch' },
+              { icon: <Users size={28} />, number: 'Vibrant', label: 'Student Community' },
               { icon: <BookOpen size={28} />, number: '50+', label: 'Modern Programs' },
-              { icon: <Building2 size={28} />, number: '200+', label: 'Industry Alliances' },
+              { icon: <Building2 size={28} />, number: 'Global', label: 'Industry Ties' },
             ].map((s) => (
               <div key={s.label} className="text-center text-white">
                 <div className="text-hitm-gold mb-2 flex justify-center">{s.icon}</div>
@@ -332,36 +345,37 @@ export default function HomePage() {
       </section>
 
       {/* Programs */}
-      <section className="py-20 bg-gray-50">
+      <section id="programs" className="py-24 bg-gray-50/50">
         <div className="container mx-auto px-4">
-          <div className="section-title">
-            <h2>Programs Offered</h2>
-            <p className="text-gray-500 mt-4 max-w-xl mx-auto">Explore our diverse range of diploma, undergraduate, and postgraduate programs designed for the future.</p>
+          <div className="section-title mb-16">
+            <Badge variant="outline" className="mb-4 border-hitm-red text-hitm-red font-bold px-4 py-1">Academic Programs</Badge>
+            <h2 className="text-4xl md:text-5xl">Programs Offered</h2>
+            <p className="text-gray-500 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">Choose from our industry-aligned technical and management programs designed to launch your global career.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
             {programs.map((p, i) => (
-              <Card key={i} className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border-gray-200 hover:border-hitm-red/30 overflow-hidden flex flex-col">
-                <div className="h-64 w-full relative overflow-hidden">
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent" />
-                  <div className="absolute bottom-4 left-5 w-12 h-12 rounded-xl bg-gradient-to-br from-hitm-red to-hitm-navy flex items-center justify-center shadow-lg border border-hitm-red/20 group-hover:-translate-y-1 transition-transform duration-300 z-10">
+              <Card key={i} className="group hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border-gray-200 hover:border-hitm-red/30 overflow-hidden flex flex-col md:flex-row h-auto md:h-64">
+                <div className="w-full md:w-2/5 relative overflow-hidden h-48 md:h-full">
+                  <img src={p.image} alt={p.name} className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950/60 to-transparent md:bg-gradient-to-r" />
+                  <div className="absolute bottom-4 left-4 md:top-4 md:bottom-auto w-12 h-12 rounded-xl bg-hitm-red flex items-center justify-center shadow-lg border border-white/20 z-10">
                     {p.icon}
                   </div>
                 </div>
-                <CardHeader className="pt-6">
-                  <CardTitle className="text-lg font-bold text-gray-900">{p.name}</CardTitle>
-                  <CardDescription className="text-gray-500 leading-relaxed mt-1">{p.desc}</CardDescription>
-                </CardHeader>
-                <CardContent className="flex-1 flex flex-col justify-between pt-0">
-                  <div className="flex flex-wrap gap-1.5 mb-5 mt-2">
+                <div className="w-full md:w-3/5 p-6 flex flex-col">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-hitm-red transition-colors">{p.name}</h3>
+                    <p className="text-xs font-semibold text-hitm-red/70 uppercase tracking-wider mb-2">{p.desc}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mt-2 mb-4">
                     {p.courses.map((c) => (
-                      <Badge key={c} variant="secondary" className="text-xs bg-gray-100/80 hover:bg-hitm-red hover:text-white transition-colors text-gray-700 border-gray-200">{c}</Badge>
+                      <Badge key={c} variant="secondary" className="px-2 py-0 text-[10px] font-bold bg-gray-100 text-gray-600 hover:bg-hitm-red hover:text-white transition-colors">{c}</Badge>
                     ))}
                   </div>
-                  <Link href="/programs" className="mt-auto inline-flex items-center gap-1.5 text-hitm-red font-semibold text-sm hover:gap-3 transition-all px-1 py-2 rounded">
-                    Explore Program <ArrowRight size={14} />
+                  <Link href="/programs" className="mt-auto inline-flex items-center gap-1.5 text-hitm-red font-bold text-sm hover:translate-x-2 transition-transform">
+                    View Course Details <ArrowRight size={14} />
                   </Link>
-                </CardContent>
+                </div>
               </Card>
             ))}
           </div>
@@ -400,39 +414,35 @@ export default function HomePage() {
             {/* Events */}
             <div>
               <h2 className="text-2xl font-bold font-serif mb-5 flex items-center gap-2">
-                <Calendar className="text-hitm-navy" size={22} /> Events
+                <Calendar className="text-hitm-navy" size={22} /> Upcoming Events
               </h2>
-              <Card className="overflow-hidden shadow-lg mb-5">
-                <div className="bg-hitm-navy px-5 py-3 flex justify-between items-center">
-                  <span className="text-white font-semibold text-sm">Upcoming Events</span>
-                  <Link href="/campus/events" className="text-white/75 text-xs flex items-center gap-1 hover:text-white">
-                    View All <ChevronRight size={12} />
-                  </Link>
-                </div>
-                <div className="divide-y divide-gray-100">
-                  {events.map((e, i) => (
-                    <div key={i} className="flex items-start gap-3 p-3.5 hover:bg-gray-50 cursor-pointer transition-colors">
-                      <div className="w-9 h-9 rounded-lg bg-hitm-navy/10 flex items-center justify-center text-hitm-navy shrink-0">
-                        {e.icon}
+              <Card className="relative h-[280px] overflow-hidden bg-white shadow-lg mb-5 group">
+                <div className="absolute w-full animate-marquee-vertical group-hover:[animation-play-state:paused] flex flex-col">
+                  {[...events, ...events].map((e, i) => (
+                    <div key={i} className="flex items-start gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100">
+                      <div className="w-10 h-10 rounded-xl bg-hitm-navy/10 flex items-center justify-center text-hitm-navy shrink-0 shadow-inner">
+                        {e.icon ? e.icon : eventIcon(e.iconName)}
                       </div>
-                      <div>
-                        <p className="font-semibold text-sm text-gray-800 leading-tight">{e.name}</p>
-                        <p className="text-xs text-gray-500 mt-0.5 flex items-center gap-1">
-                          <Calendar size={11} /> {e.date}
+                      <div className="flex-1">
+                        <p className="font-bold text-sm text-gray-800 leading-tight group-hover:text-hitm-navy">{e.name}</p>
+                        <p className="text-[11px] text-gray-500 mt-1 flex items-center gap-1.5 font-medium">
+                          <Clock size={12} className="text-hitm-red" /> {e.date}
                         </p>
                       </div>
+                      <Badge variant="secondary" className="text-[9px] bg-hitm-navy/5 text-hitm-navy">Join</Badge>
                     </div>
                   ))}
                 </div>
               </Card>
 
               {/* CTA card */}
-              <div className="bg-gradient-to-br from-hitm-red to-hitm-navy rounded-2xl p-5 text-white text-center">
-                <GraduationCap size={36} className="mx-auto mb-2 text-hitm-gold" />
-                <h4 className="font-bold font-serif mb-1">Ready to Join?</h4>
-                <p className="text-white/75 text-xs mb-4">Apply for 2026-27 admissions.</p>
-                <Button asChild variant="gold" size="sm" className="w-full">
-                  <Link href="/admissions/apply">Apply Now →</Link>
+              <div className="bg-gradient-to-br from-hitm-red to-hitm-navy rounded-2xl p-6 text-white text-center shadow-xl relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12 transition-transform duration-700 group-hover:scale-150" />
+                <GraduationCap size={40} className="mx-auto mb-3 text-hitm-gold" />
+                <h4 className="font-bold text-xl font-serif mb-1">Admissions Open</h4>
+                <p className="text-white/80 text-xs mb-5">Be a part of Jharkhand's most futuristic campus.</p>
+                <Button asChild variant="gold" size="sm" className="w-full font-bold shadow-lg">
+                  <Link href="/admissions/apply?form=1" className="flex items-center justify-center gap-2">Apply for 2026 Batch <ArrowRight size={14} /></Link>
                 </Button>
               </div>
             </div>
@@ -440,32 +450,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-950">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-gray-950 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-hitm-red via-hitm-gold to-hitm-navy" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="section-title">
-            <h2 className="!text-white">Campus Life at <span className="text-hitm-gold">HITM</span></h2>
-            <p className="text-gray-400 mt-4">Experience the vibrant campus life with world-class facilities.</p>
+            <h2 className="!text-white text-4xl md:text-5xl">Campus Life at <span className="text-hitm-gold italic">HITM</span></h2>
+            <p className="text-gray-400 mt-4 max-w-2xl mx-auto">Experience a vibrant ecosystem designed for holistic growth, innovation, and lifelong friendships.</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 h-[400px]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 grid-rows-2 gap-4 h-[500px] md:h-[600px]">
             {[
-              { label: 'Main Campus', image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800', className: 'col-span-2 row-span-2' },
-              { label: 'Computer Lab', image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=400' },
-              { label: 'Library', image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=400' },
-              { label: 'Sports Ground', image: 'https://images.unsplash.com/photo-1461896836934-ffe607fa8211?auto=format&fit=crop&q=80&w=400' },
-              { label: 'TechFest 2026', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=400' },
+              { label: 'Green Campus', image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=1000', className: 'col-span-2 row-span-2' },
+              { label: 'Adv. Computing Lab', image: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&q=80&w=900' },
+              { label: 'Digital Library', image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=900' },
+              { label: 'Sports Arena', image: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&q=80&w=900' },
+              { label: 'Innovation Hub', image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=900' },
             ].map((item, i) => (
-              <div key={i} className={cn("relative overflow-hidden rounded-xl cursor-pointer group bg-gray-800", item.className)}>
-                <img src={item.image} alt={item.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:from-hitm-red/90 transition-colors duration-300" />
-                <div className="absolute inset-0 flex items-end p-4">
-                  <span className="text-white font-semibold text-sm drop-shadow-md">{item.label}</span>
+              <div key={i} className={cn("relative overflow-hidden rounded-2xl cursor-pointer group bg-gray-900 shadow-2xl", item.className)}>
+                <img src={item.image} alt={item.label} className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-110 opacity-85 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent group-hover:via-hitm-navy/40 transition-all duration-500" />
+                <div className="absolute inset-0 flex items-end p-6">
+                  <div className="translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                    <span className="block w-8 h-1 bg-hitm-gold mb-2 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+                    <span className="text-white font-bold text-lg md:text-xl drop-shadow-md tracking-tight uppercase">{item.label}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="text-center mt-6">
-            <Button asChild variant="outline" className="border-white/20 text-white hover:text-white hover:bg-white/10 hover:border-white/40">
-              <Link href="/campus/gallery">View Full Gallery <ArrowRight size={16} /></Link>
+          <div className="text-center mt-12">
+            <Button asChild variant="outline" size="lg" className="border-white/20 text-white hover:text-white hover:bg-white/10 hover:border-hitm-gold px-10 rounded-full transition-all">
+              <Link href="/campus/gallery" className="flex items-center gap-3">Explore Campus Life <ArrowRight size={18} /></Link>
             </Button>
           </div>
         </div>
@@ -546,27 +560,70 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Our Recruiters */}
-      <section className="py-12 border-t border-gray-100">
+      {/* Institute Overview */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-gray-400 mb-8">Our Placement Partners &amp; Top Recruiters</p>
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-            {recruiters.map((r) => (
-              <div key={r.name} className="group relative flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-500 hover:-translate-y-1">
-                <div className="h-12 w-32 md:w-40 flex items-center justify-center p-2">
-                  <img
-                    src={r.logo}
-                    alt={r.name}
-                    className="max-h-full max-w-full object-contain drop-shadow-sm group-hover:drop-shadow-md transition-all"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'block';
-                    }}
-                  />
-                  <span className="hidden text-[10px] font-black text-gray-400 uppercase tracking-tighter text-center leading-tight">{r.name}</span>
+          <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-start">
+            <div>
+              <p className="text-hitm-red font-bold text-sm uppercase tracking-widest mb-2">About HITM Ranchi</p>
+              <h2 className="text-3xl md:text-4xl font-black font-serif text-gray-900 leading-tight">
+                A Center Of Learning Where Education Meets Innovation, Opportunity, And Growth
+              </h2>
+              <div className="mt-6 space-y-5 text-gray-600 text-base leading-8">
+                <p>
+                  Haidar Institute of Technology and Management is a premier educational institution committed to
+                  delivering quality education in engineering, technology, and management. Located in Ranchi,
+                  Jharkhand, the institute is established with the vision of nurturing skilled professionals,
+                  innovative thinkers, and responsible leaders for a rapidly evolving global environment.
+                </p>
+                <p>
+                  The institute offers industry-oriented programs with a modern curriculum, practical learning
+                  approach, and strong academic foundation. With experienced faculty, state-of-the-art
+                  infrastructure, and a student-centric learning environment, Haidar Institute of Technology and
+                  Management focuses on academic excellence, skill development, and overall personality growth.
+                </p>
+                <p>
+                  Beyond academics, the institute emphasizes ethics, leadership, research, and real-world exposure
+                  through workshops, projects, and industry interactions. Our mission is to empower students with
+                  knowledge, confidence, and professional competence, enabling them to build successful careers and
+                  contribute meaningfully to society.
+                </p>
+                <p className="text-gray-900 font-semibold">
+                  Haidar Institute of Technology and Management stands as a center of learning where education meets
+                  innovation, opportunity, and growth.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="rounded-3xl bg-gradient-to-br from-hitm-navy to-hitm-red p-8 text-white shadow-2xl">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 mb-5">
+                  <GraduationCap size={28} />
+                </div>
+                <h3 className="text-2xl font-black font-serif leading-tight">Premier Education With Real-World Relevance</h3>
+                <p className="mt-4 text-white/85 leading-7">
+                  Modern curriculum, practical learning, and industry interaction come together to shape confident
+                  and capable future professionals.
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
+                <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6">
+                  <div className="text-sm font-bold uppercase tracking-[0.2em] text-hitm-red">Vision</div>
+                  <p className="mt-3 text-gray-700 leading-7">
+                    To nurture innovative thinkers, skilled professionals, and responsible leaders for a changing
+                    global environment.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="text-sm font-bold uppercase tracking-[0.2em] text-hitm-navy">Mission</div>
+                  <p className="mt-3 text-gray-700 leading-7">
+                    To empower students with knowledge, confidence, ethics, and professional competence for meaningful
+                    careers and social contribution.
+                  </p>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>

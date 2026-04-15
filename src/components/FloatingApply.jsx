@@ -13,7 +13,7 @@ export default function FloatingApply() {
       {floatingButtons.map((btn) => (
         <Link
           key={btn.label}
-          href={`/admissions/apply?course=${encodeURIComponent(btn.course)}`}
+          href={`/admissions/apply?form=1&course=${encodeURIComponent(btn.course)}`}
           className="pointer-events-auto w-16 md:w-20 bg-[#e67e22] text-white flex flex-col items-center justify-center py-2.5 px-1 rounded-l-md shadow-lg hover:w-20 md:hover:w-24 transition-all duration-300 group border-b border-white/20"
         >
           <span className="text-[11px] md:text-[13px] font-black leading-none uppercase tracking-tight">{btn.label}</span>

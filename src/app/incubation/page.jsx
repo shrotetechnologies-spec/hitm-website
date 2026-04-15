@@ -95,7 +95,7 @@ export default function IncubationPage() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h2 className="text-3xl md:text-5xl font-black font-serif mb-8 italic">Have a Groundbreaking Idea?</h2>
           <p className="text-white/60 mb-10 max-w-xl mx-auto text-lg">
-            We are looking for the first 10 pioneer startups to join our 2026 Cohort. Applications open on April 20.
+            We are looking for innovative startups to join our 2026 cohort and grow with strong mentorship, support, and resources.
           </p>
           <Button variant="gold" size="lg" className="h-14 px-12 rounded-full shadow-2xl">
              Join the Waitlist

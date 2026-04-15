@@ -1,13 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
-import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaLinkedinIn } from 'react-icons/fa';
 import { Separator } from '@/components/ui/separator';
 
 const footerLinks = {
   quickLinks: [
     { label: 'About HITM', href: '/about' },
     { label: 'All Programs', href: '/programs' },
-    { label: 'Apply Online', href: '/admissions/apply' },
+    { label: 'Apply Online', href: '/admissions/apply?form=1' },
     { label: 'Academic Calendar', href: '/academics/calendar' },
     { label: 'Placement', href: '/placement/overview' },
     { label: 'Photo Gallery', href: '/campus/gallery' },
@@ -15,51 +16,38 @@ const footerLinks = {
     { label: 'Career', href: '/career' },
   ],
   programs: [
-    { label: 'B.Tech', href: '/programs/engineering' },
-    { label: 'BCA', href: '/programs/bca' },
-    { label: 'MCA', href: '/programs/mca' },
     { label: 'MBA', href: '/programs/mba' },
+    { label: 'MCA', href: '/programs/mca' },
+    { label: 'B.Tech', href: '/programs/engineering' },
+    { label: 'Diploma', href: '/programs/diploma' },
+    { label: 'BCA', href: '/programs/bca' },
     { label: 'BBA', href: '/programs/bba' },
   ],
 };
 
-const socialLinks = [
-  { icon: <FaFacebookF size={16} />, href: '#', label: 'Facebook', className: 'bg-[#1877F2]' },
-  { icon: <FaTwitter size={16} />, href: '#', label: 'Twitter', className: 'bg-[#1DA1F2]' },
-  { icon: <FaInstagram size={16} />, href: '#', label: 'Instagram', className: 'bg-gradient-to-br from-[#f09433] to-[#bc1888]' },
-  { icon: <FaYoutube size={16} />, href: '#', label: 'YouTube', className: 'bg-[#FF0000]' },
-  { icon: <FaLinkedinIn size={16} />, href: '#', label: 'LinkedIn', className: 'bg-[#0A66C2]' },
-];
-
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer className="bg-gray-950 text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10">
 
           {/* Brand */}
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-hitm-red to-hitm-navy flex items-center justify-center text-white font-black text-xl font-serif shadow-lg">
-                <img src="/images/logo/ahct-logo.jpg" alt="HITM Logo" className="w-full h-full object-cover" />
+          <div className="flex flex-col">
+            <Link href="/" className="flex items-center gap-4 mb-6 group">
+              <div className="w-14 h-14 rounded-full bg-white p-1 flex items-center justify-center shadow-xl group-hover:rotate-6 transition-transform">
+                <img src="/images/logo/ahct-logo.jpg" alt="HITM Logo" className="w-full h-full object-contain rounded-full" />
               </div>
-              <div>
-                <h3 className="text-white font-bold font-serif text-base leading-tight">HITM Ranchi</h3>
-                {/* <p className="text-gray-500 text-[10px]">Opening 20 April 2026</p> */}
+              <div className="flex flex-col">
+                <h3 className="text-white font-black text-xl leading-none tracking-tight">HITM <span className="text-hitm-red">RANCHI</span></h3>
+                <p className="text-gray-500 text-[9px] uppercase font-bold tracking-widest mt-1">Haidar Institute of Technology <br /> & Management</p>
               </div>
-            </div>
+            </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Haidar Institute of Technology and Management, Ranchi — Jharkhand&apos;s most futuristic institute,
+              Haidar Institute of Technology and Management, Ranchi - Jharkhand&apos;s most futuristic institute,
               dedicated to excellence in innovation and producing industry-ready leaders.
             </p>
-            <div className="flex gap-2">
-              {socialLinks.map((s) => (
-                <a key={s.label} href={s.href} aria-label={s.label}
-                  className={`w-9 h-9 rounded-lg flex items-center justify-center text-white transition-all hover:scale-110 hover:opacity-90 ${s.className}`}>
-                  {s.icon}
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -108,7 +96,7 @@ export default function Footer() {
               </div>
               <div className="flex gap-3">
                 <Clock size={16} className="text-hitm-gold shrink-0" />
-                <p className="text-gray-400 text-sm">Mon–Sat: 9:00 AM – 5:00 PM</p>
+                <p className="text-gray-400 text-sm">Mon-Sat: 9:00 AM - 5:00 PM</p>
               </div>
             </div>
           </div>
@@ -119,7 +107,9 @@ export default function Footer() {
 
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
         <div className="flex flex-col md:flex-row items-center gap-1 md:gap-4">
-          <p className="text-gray-500 text-xs">© {new Date().getFullYear()} HITM Ranchi. All rights reserved.</p>
+          <p className="text-gray-500 text-xs">
+            &copy; {year} HITM Ranchi. All rights reserved.
+          </p>
           <span className="hidden md:inline text-gray-700 text-xs">|</span>
           <p className="text-gray-500 text-[10px] sm:text-xs">
             Run and Managed by AL ALMAAS HAIDER CHARITABLE TRUST | Developed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>

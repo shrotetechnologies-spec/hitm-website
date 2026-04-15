@@ -115,3 +115,29 @@
   100% { transform: translateY(-50%); }
 }
 .animate-marquee-vertical { animation: marquee-vertical 25s linear infinite; }
+
+.hitm-map-marker {
+  background: transparent;
+  border: none;
+}
+
+.hitm-map-marker__pin {
+  width: 24px;
+  height: 24px;
+  background: #8b1a1a;
+  border: 3px solid #ffffff;
+  border-radius: 9999px 9999px 9999px 0;
+  box-shadow: 0 10px 24px rgba(139, 26, 26, 0.3);
+  transform: rotate(-45deg);
+}
+
+.leaflet-container {
+  z-index: 0;
+}
+
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control {
+  z-index: 10 !important;
+}

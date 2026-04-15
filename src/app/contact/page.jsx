@@ -1,9 +1,10 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ContactLeafletMap from '@/components/ContactLeafletMap';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Mail, Phone, MapPin, Clock, Send, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -53,7 +54,6 @@ export default function ContactPage() {
                         <Mail className="text-hitm-gold" size={20} />
                       </div>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        hitmranchi@gmail.com<br />
                         hitmranchi@gmail.com
                       </p>
                     </div>
@@ -70,14 +70,7 @@ export default function ContactPage() {
                 </CardContent>
               </Card>
 
-              {/* Map Placeholder */}
-              <div className="w-full h-64 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 shadow-sm relative group">
-                 <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-400">
-                    <Globe size={40} className="mb-2 opacity-50" />
-                    <p className="text-xs font-bold uppercase tracking-widest">Interactive Map</p>
-                 </div>
-                 <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=600" className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" alt="Map" />
-              </div>
+              <ContactLeafletMap />
             </div>
 
             {/* Contact Form */}

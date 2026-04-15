@@ -65,16 +65,16 @@ export default function DirectorPage() {
 
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                  <p>
-                    I welcome you all to Haidar Institute of Technology and Management (HITM), a hub of learning and innovation in Ranchi. As we prepare to open our doors for the first time on April 20, 2026, our focus is on providing a transformative educational experience that empowers the next generation of pioneers.
+                    I welcome you all to Haidar Institute of Technology and Management (HITM), a hub of learning and innovation in Ranchi. Our focus is on providing a transformative educational experience that empowers the next generation of skilled, confident, and responsible professionals.
                  </p>
                  <p>
                     The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At HITM, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic 2.48 acre campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
                  </p>
                  <p>
-                    We believe in holistic development. Beyond academics, our students will be encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and we are excited to see our first batch of students make their mark on the world.
+                    We believe in holistic development. Beyond academics, our students will be encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and we remain committed to helping every student make a meaningful mark on the world.
                  </p>
                  <p>
-                    I invite you to be a part of this historic first journey towards excellence. Together, let us shape a brighter future from day one.
+                    I invite you to be a part of this journey towards excellence. Together, let us shape a brighter future through education, innovation, and values.
                  </p>
               </div>
 

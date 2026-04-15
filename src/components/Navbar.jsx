@@ -20,11 +20,11 @@ const navItems = [
     label: 'Courses', icon: <BookOpen size={16} />,
     children: [
       { label: 'MBA', href: '/programs/mba' },
-      { label: 'BBA', href: '/programs/bba' },
       { label: 'MCA', href: '/programs/mca' },
-      { label: 'BCA', href: '/programs/bca' },
       { label: 'Engineering (B.Tech)', href: '/programs/engineering' },
-      { label: 'Diploma / Polytechnic', href: '/programs/diploma' },
+      { label: 'Engineering Diploma', href: '/programs/diploma' },
+      { label: 'BCA', href: '/programs/bca' },
+      { label: 'BBA', href: '/programs/bba' },
     ],
   },
   {
@@ -86,7 +86,7 @@ export default function Navbar() {
     <>
       {/* Premium Header Container */}
       <header className={cn(
-        "bg-white w-full z-50 transition-all duration-300",
+        "bg-white w-full z-[1000] transition-all duration-300",
         scrolled ? "fixed top-0 shadow-2xl" : "relative"
       )}>
         <div className="flex flex-wrap justify-between items-center lg:flex-nowrap lg:items-stretch w-full">
@@ -123,8 +123,8 @@ export default function Navbar() {
                 </a>
               </div>
               <div className="flex items-center gap-4 xl:gap-6">
-                <Link href="/admissions/apply" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6 underline decoration-hitm-gold decoration-2 underline-offset-4">
-                  APPLY NOW {academicYear && `- ${academicYear}`}
+                <Link href="/admissions/apply?form=1" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6 underline decoration-hitm-gold decoration-2 underline-offset-4">
+                  <span suppressHydrationWarning>APPLY NOW {academicYear && `- ${academicYear}`}</span>
                 </Link>
                 <Link href="https://www.aicte.gov.in/" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">AICTE</Link>
                 <Link href="/incubation" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">Incubation Center</Link>
@@ -252,7 +252,7 @@ export default function Navbar() {
 
         <div className="p-6 border-t bg-gray-50 mt-auto shadow-inner">
           <Button asChild variant="default" className="w-full bg-hitm-red hover:bg-hitm-navy text-white h-12 uppercase tracking-widest text-sm font-bold shadow-xl" onClick={() => setMobileOpen(false)}>
-            <Link href="/admissions/apply">Apply Now {academicYear}</Link>
+            <Link href="/admissions/apply?form=1">Apply Now {academicYear}</Link>
           </Button>
           <div className="mt-4 text-center pb-2">
             <p className="text-xs font-semibold text-gray-400">Call Admissions: 000-111-9889</p>

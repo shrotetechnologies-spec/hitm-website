@@ -8,7 +8,7 @@ export default function SitemapPage() {
     { name: 'About Overview', href: '/about/overview' },
     { name: 'Programs (Engineering)', href: '/programs/engineering' },
     { name: 'Programs (MBA)', href: '/programs/mba' },
-    { name: 'Apply Now', href: '/admissions/apply' },
+    { name: 'Apply Now', href: '/admissions/apply?form=1' },
     { name: 'Eligibility', href: '/admissions/eligibility' },
     { name: 'Notice Board', href: '/notice' },
     { name: 'Placement Cell', href: '/placement/overview' },
