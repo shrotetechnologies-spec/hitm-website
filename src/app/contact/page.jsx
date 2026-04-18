@@ -1,7 +1,10 @@
 'use client';
+export const dynamic = 'force-dynamic';
+export const runtime = 'edge';
+
+import dynamicImport from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ContactLeafletMap from '@/components/ContactLeafletMap';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
@@ -9,6 +12,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+
+const ContactLeafletMap = dynamicImport(() => import('@/components/ContactLeafletMap'), { ssr: false });
 
 export default function ContactPage() {
   return (

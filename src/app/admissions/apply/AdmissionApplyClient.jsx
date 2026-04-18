@@ -333,11 +333,11 @@ export default function AdmissionApplyClient() {
               <form onSubmit={handleFinalSubmit} className="p-6">
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6 space-y-2 shadow-inner">
                   <p className="text-sm text-gray-500 flex justify-between">Organisation: <span className="font-bold text-hitm-navy">HITM Ranchi</span></p>
-                  <p className="text-sm text-gray-500 flex justify-between">Bank: <span className="font-bold text-hitm-navy">State Bank of India</span></p>
-                  <p className="text-sm text-gray-500 flex justify-between">A/C No: <span className="font-bold text-hitm-navy">301245678910</span></p>
-                  <p className="text-sm text-gray-500 flex justify-between">IFSC Code: <span className="font-bold text-hitm-navy">SBIN0001234</span></p>
+                  <p className="text-sm text-gray-500 flex justify-between">Bank: <span className="font-bold text-hitm-navy">The Jammu and Kashmir Bank</span></p>
+                  <p className="text-sm text-gray-500 flex justify-between">A/C No: <span className="font-bold text-hitm-navy">0520010100001043</span></p>
+                  <p className="text-sm text-gray-500 flex justify-between">IFSC Code: <span className="font-bold text-hitm-navy">JAKA0RANCHI</span></p>
                   <hr className="border-gray-200 my-2" />
-                  <p className="text-sm text-gray-500 flex justify-between font-bold">UPI ID: <span className="text-hitm-red">hitmranchi@sbi</span></p>
+                  {/* <p className="text-sm text-gray-500 flex justify-between font-bold">UPI ID: <span className="text-hitm-red">hitmranchi@sbi</span></p> */}
                 </div>
 
                 <div className="space-y-4">

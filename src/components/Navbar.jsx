@@ -103,7 +103,7 @@ export default function Navbar() {
                 </h1>
                 <p className="text-[7.5px] sm:text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-[1.2]">
                   Approved by AICTE, New Delhi <br />
-                  <span className="text-hitm-navy">Affiliated to Jharkhand University of Technology</span>
+                  <span className="text-hitm-navy">Run and Managed by ALMAAS HAIDER CHARITABLE TRUST</span>
                 </p>
               </div>
             </Link>
@@ -206,7 +206,7 @@ export default function Navbar() {
           </div>
           <div className="relative z-10">
             <h3 className="text-white font-black font-serif text-2xl tracking-tight">HITM RANCHI</h3>
-            <p className="text-hitm-gold font-bold text-[10px] uppercase tracking-widest mt-1">Haidar Institute of Technology and Management</p>
+            <p className="text-hitm-gold font-bold text-[10px] uppercase tracking-widest mt-1">Haider Institute of Technology and Management</p>
           </div>
           <button onClick={() => setMobileOpen(false)} className="absolute top-4 right-4 text-white/50 hover:text-white bg-white/10 hover:bg-hitm-red rounded-full p-2 transition-colors z-20">
             <X size={20} />

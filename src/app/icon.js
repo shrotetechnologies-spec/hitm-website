@@ -4,6 +4,9 @@ export const size = { width: 64, height: 64 };
 export const contentType = 'image/png';
 
 export default async function Icon() {
+    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+    const imageUrl = new URL('/images/logo/ahct-logo.jpg', baseUrl).href;
+
     return new ImageResponse(
         (
             <div
@@ -19,8 +22,11 @@ export default async function Icon() {
                 }}
             >
                 <img
-                    src="/images/logo/ahct-logo.jpg"
-                    style={{ width: '64px', height: '64px', objectFit: 'contain' }}
+                    src={imageUrl}
+                    alt="HITM logo"
+                    width={64}
+                    height={64}
+                    style={{ objectFit: 'contain' }}
                 />
             </div>
         ),

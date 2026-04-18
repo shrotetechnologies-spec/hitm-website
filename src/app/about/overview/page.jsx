@@ -6,7 +6,7 @@ import { Building2, GraduationCap, CheckCircle, Target, Users, BookOpen } from '
 
 export const metadata = {
   title: 'About HITM Ranchi | Overview',
-  description: 'Learn about the legacy, excellence, and infrastructure of Haidar Institute of Technology and Management.',
+  description: 'Learn about the legacy, excellence, and infrastructure of Haider Institute of Technology and Management.',
 };
 
 export default function OverviewPage() {
@@ -38,7 +38,7 @@ export default function OverviewPage() {
               <Badge variant="gold" className="mb-4">Institution Profile</Badge>
               <h1 className="text-4xl md:text-6xl font-black font-serif text-hitm-navy mb-6 leading-tight uppercase tracking-tighter italic">About HITM Ranchi</h1>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Established as Haidar Institute of Technology and Management in 2008, our institution has emerged as a premier destination for technical &amp; management education in Jharkhand. 
+                Established as Haider Institute of Technology and Management in 2008, our institution has emerged as a premier destination for technical &amp; management education in Jharkhand. 
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 We are committed to fostering academic excellence, research innovation, and holistic development. With a focus on state-of-the-art facilities and industry-aligned programs, we prepare our students to excel in the global professional landscape.

@@ -41,11 +41,11 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <h3 className="text-white font-black text-xl leading-none tracking-tight">HITM <span className="text-hitm-red">RANCHI</span></h3>
-                <p className="text-gray-500 text-[9px] uppercase font-bold tracking-widest mt-1">Haidar Institute of Technology <br /> & Management</p>
+                <p className="text-gray-500 text-[9px] uppercase font-bold tracking-widest mt-1">Haider Institute of Technology <br /> & Management</p>
               </div>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
-              Haidar Institute of Technology and Management, Ranchi - Jharkhand&apos;s most futuristic institute,
+              Haider Institute of Technology and Management, Ranchi - Jharkhand&apos;s most futuristic institute,
               dedicated to excellence in innovation and producing industry-ready leaders.
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function Footer() {
           </p>
           <span className="hidden md:inline text-gray-700 text-xs">|</span>
           <p className="text-gray-500 text-[10px] sm:text-xs">
-            Run and Managed by AL ALMAAS HAIDER CHARITABLE TRUST | Developed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>
+            Developed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>
           </p>
         </div>
         <div className="flex gap-4">

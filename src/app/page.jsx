@@ -68,11 +68,11 @@ function eventIcon(iconName) {
 const testimonials = [
   {
     text: 'HITM Ranchi is exactly what Jharkhand needed â€” a forward-thinking institute with world-class facilities and a curriculum designed for the 2026 industry standards.',
-    name: 'Dr. Ramesh Singh', role: 'Education Consultant', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
+    name: 'Dr. Ramesh Singh', role: 'Education Consultant', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm2',
   },
   {
     text: "The commitment to innovation and student-centric learning is evident in every aspect of HITM. Im excited to see the first batch of pioneers graduate.",
-    name: 'Sonal Verma', role: 'Industry Expert', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm2',
+    name: 'Sonal Verma', role: 'Industry Expert', stars: 5, avatar: 'https://i.pravatar.cc/150?u=hitm1',
   },
   {
     text: 'A campus that rivals the best in the country. HITM is set to redefine technical and management education in the region.',
@@ -269,7 +269,7 @@ export default function HomePage() {
               <p className="text-hitm-red font-semibold text-sm uppercase tracking-widest mb-3">Welcome to HITM Ranchi</p>
               <h2 className="text-4xl font-black font-serif text-gray-900 mb-5 leading-tight">A New Landmark in Higher Education</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Haidar Institute of Technology and Management (HITM Ranchi) is redefining the educational landscape of Jharkhand
+                Haider Institute of Technology and Management (HITM Ranchi) is redefining the educational landscape of Jharkhand
                 as a future-focused institution dedicated to excellence in Engineering, Management, and Technology.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
@@ -440,7 +440,7 @@ export default function HomePage() {
                 <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12 transition-transform duration-700 group-hover:scale-150" />
                 <GraduationCap size={40} className="mx-auto mb-3 text-hitm-gold" />
                 <h4 className="font-bold text-xl font-serif mb-1">Admissions Open</h4>
-                <p className="text-white/80 text-xs mb-5">Be a part of Jharkhand's most futuristic campus.</p>
+                <p className="text-white/80 text-xs mb-5">Be a part of Jharkhand&apos;s most futuristic campus.</p>
                 <Button asChild variant="gold" size="sm" className="w-full font-bold shadow-lg">
                   <Link href="/admissions/apply?form=1" className="flex items-center justify-center gap-2">Apply for 2026 Batch <ArrowRight size={14} /></Link>
                 </Button>
@@ -571,7 +571,7 @@ export default function HomePage() {
               </h2>
               <div className="mt-6 space-y-5 text-gray-600 text-base leading-8">
                 <p>
-                  Haidar Institute of Technology and Management is a premier educational institution committed to
+                  Haider Institute of Technology and Management is a premier educational institution committed to
                   delivering quality education in engineering, technology, and management. Located in Ranchi,
                   Jharkhand, the institute is established with the vision of nurturing skilled professionals,
                   innovative thinkers, and responsible leaders for a rapidly evolving global environment.
@@ -579,7 +579,7 @@ export default function HomePage() {
                 <p>
                   The institute offers industry-oriented programs with a modern curriculum, practical learning
                   approach, and strong academic foundation. With experienced faculty, state-of-the-art
-                  infrastructure, and a student-centric learning environment, Haidar Institute of Technology and
+                  infrastructure, and a student-centric learning environment, Haider Institute of Technology and
                   Management focuses on academic excellence, skill development, and overall personality growth.
                 </p>
                 <p>
@@ -589,7 +589,7 @@ export default function HomePage() {
                   contribute meaningfully to society.
                 </p>
                 <p className="text-gray-900 font-semibold">
-                  Haidar Institute of Technology and Management stands as a center of learning where education meets
+                  Haider Institute of Technology and Management stands as a center of learning where education meets
                   innovation, opportunity, and growth.
                 </p>
               </div>

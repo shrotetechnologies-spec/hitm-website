@@ -17,7 +17,7 @@ export default function TermsPage() {
           <p>While we strive for accuracy, HITM Ranchi is not responsible for errors or omissions in the content provided on this site.</p>
           
           <h2 className="text-2xl font-bold text-gray-900 mt-10">3. Intellectual Property</h2>
-          <p>All content including logos, text, and images are the property of Haidar Institute of Technology and Management and its licensors.</p>
+          <p>All content including logos, text, and images are the property of Haider Institute of Technology and Management and its licensors.</p>
           
           <p className="pt-10 text-sm text-gray-400">Copyright © 2026 HITM Ranchi.</p>
         </div>

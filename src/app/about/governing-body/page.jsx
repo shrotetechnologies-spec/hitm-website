@@ -26,7 +26,7 @@ export default function GoverningBodyPage() {
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Governing Body</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              The steering force behind Haidar Institute of Technology and Management. Our governing body consists of 
+              The steering force behind Haider Institute of Technology and Management. Our governing body consists of 
               eminent academicians, industry leaders, and administrators dedicated to institutional excellence.
             </p>
           </div>

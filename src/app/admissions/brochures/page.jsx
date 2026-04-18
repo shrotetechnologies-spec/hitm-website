@@ -10,12 +10,12 @@ export default function BrochuresPage() {
   const handleDownload = () => {
     generatePagePDF(
       'HITM_University_Prospectus_2026',
-      'Haidar Institute of Technology and Management - UNIVERSITY PROSPECTUS 2026-27',
+      'Haider Institute of Technology and Management - UNIVERSITY PROSPECTUS 2026-27',
       {
         sections: [
           { 
             title: "About HITM", 
-            content: "Haidar Institute of Technology and Management (HITM) is a premier institution in Ranchi, Jharkhand, approved by AICTE and affiliated to JUT. We focus on modern education, industry excellence, and holistic student growth." 
+            content: "Haider Institute of Technology and Management (HITM) is a premier institution in Ranchi, Jharkhand, approved by AICTE and affiliated to JUT. We focus on modern education, industry excellence, and holistic student growth." 
           },
           {
             title: "Our Programs",

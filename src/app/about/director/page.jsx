@@ -65,7 +65,7 @@ export default function DirectorPage() {
 
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
                  <p>
-                    I welcome you all to Haidar Institute of Technology and Management (HITM), a hub of learning and innovation in Ranchi. Our focus is on providing a transformative educational experience that empowers the next generation of skilled, confident, and responsible professionals.
+                    I welcome you all to Haider Institute of Technology and Management (HITM), a hub of learning and innovation in Ranchi. Our focus is on providing a transformative educational experience that empowers the next generation of skilled, confident, and responsible professionals.
                  </p>
                  <p>
                     The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At HITM, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic 2.48 acre campus is equipped with state-of-the-art labs and a vibrant research atmosphere.

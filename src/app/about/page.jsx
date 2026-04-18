@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Building2, GraduationCap, CheckCircle, Target, Users, BookOpen, Globe, Award, ShieldCheck, Zap } from 'lucide-react';
 
 export const metadata = {
-  title: 'About Haidar Institute of Technology and Management | HITM Ranchi',
-  description: 'Learn about the legacy, excellence, and infrastructure of Haidar Institute of Technology and Management.',
+  title: 'About Haider Institute of Technology and Management | HITM Ranchi',
+  description: 'Learn about the legacy, excellence, and infrastructure of Haider Institute of Technology and Management.',
 };
 
 export default function AboutPage() {
@@ -73,16 +73,16 @@ export default function AboutPage() {
               <h2 className="text-4xl font-serif font-black text-hitm-navy mb-8 leading-tight uppercase italic tracking-tighter">Pioneering Technical Education</h2>
               <div className="space-y-4 text-gray-600 text-[17px] leading-relaxed">
                 <p>
-                  Haidar Institute of Technology and Management is a premier educational institution committed to delivering quality education in engineering, technology, and management. Located in Ranchi, Jharkhand, the institute is established with the vision of nurturing skilled professionals, innovative thinkers, and responsible leaders for a rapidly evolving global environment.
+                  Haider Institute of Technology and Management is a premier educational institution committed to delivering quality education in engineering, technology, and management. Located in Ranchi, Jharkhand, the institute is established with the vision of nurturing skilled professionals, innovative thinkers, and responsible leaders for a rapidly evolving global environment.
                 </p>
                 <p>
-                  The institute offers industry-oriented programs with a modern curriculum, practical learning approach, and strong academic foundation. With experienced faculty, state-of-the-art infrastructure, and a student-centric learning environment, Haidar Institute of Technology and Management focuses on academic excellence, skill development, and overall personality growth.
+                  The institute offers industry-oriented programs with a modern curriculum, practical learning approach, and strong academic foundation. With experienced faculty, state-of-the-art infrastructure, and a student-centric learning environment, Haider Institute of Technology and Management focuses on academic excellence, skill development, and overall personality growth.
                 </p>
                 <p>
                   Beyond academics, the institute emphasizes ethics, leadership, research, and real-world exposure through workshops, projects, and industry interactions. Our mission is to empower students with knowledge, confidence, and professional competence, enabling them to build successful careers and contribute meaningfully to society.
                 </p>
                 <p className="font-semibold text-hitm-navy italic border-l-4 border-hitm-red pl-4 mt-6 py-1">
-                  Haidar Institute of Technology and Management stands as a center of learning where education meets innovation, opportunity, and growth.
+                  Haider Institute of Technology and Management stands as a center of learning where education meets innovation, opportunity, and growth.
                 </p>
               </div>
 
