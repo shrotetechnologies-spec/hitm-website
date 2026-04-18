@@ -276,7 +276,7 @@ export default function HomePage() {
                 Our mission is to empower students with cutting-edge skills, global industry exposure, and a spirit of innovation
                 that prepares them for the challenges of tomorrow.
               </p>
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              {/* <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
                   { icon: <Trophy size={20} />, title: 'NAAC Accredited', desc: 'Grade A+ Institution' },
                   { icon: <Users size={20} />, title: '200+ Expert Faculty', desc: 'Industry veterans' },
@@ -293,7 +293,7 @@ export default function HomePage() {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
 
               <div className="flex gap-3 flex-wrap">
                 <Button asChild variant="default" size="lg">

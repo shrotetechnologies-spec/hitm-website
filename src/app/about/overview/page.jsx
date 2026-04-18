@@ -44,10 +44,10 @@ export default function OverviewPage() {
                 We are committed to fostering academic excellence, research innovation, and holistic development. With a focus on state-of-the-art facilities and industry-aligned programs, we prepare our students to excel in the global professional landscape.
               </p>
               <div className="grid grid-cols-2 gap-6">
-                 <div className="flex items-center gap-3">
+                 {/* <div className="flex items-center gap-3">
                     <CheckCircle className="text-hitm-red" size={20} />
                     <span className="font-bold text-hitm-navy uppercase tracking-widest text-xs">NAAC Accredited</span>
-                 </div>
+                 </div> */}
                  <div className="flex items-center gap-3">
                     <CheckCircle className="text-hitm-red" size={20} />
                     <span className="font-bold text-hitm-navy uppercase tracking-widest text-xs">AICTE Approved</span>

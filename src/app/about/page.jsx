@@ -88,9 +88,7 @@ export default function AboutPage() {
 
               <div className="grid grid-cols-2 gap-6 mt-10">
                 {[
-                  'NAAC Accredited',
                   'AICTE Approved',
-                  'ISO 9001:2015 Certified',
                   'JUT Affiliated',
                   'Industry Tie-ups',
                   'Smart Campus'

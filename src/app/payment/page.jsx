@@ -76,7 +76,56 @@ export default function PaymentPage() {
 
       <section className="py-20 flex-1">
         <div className="container mx-auto px-4">
-          <div className="max-w-xl mx-auto">
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Payment Account Details */}
+            <Card className="shadow-2xl border-none rounded-[40px] overflow-hidden">
+              <CardHeader className="bg-hitm-navy text-white p-8 pb-4">
+                <div className="w-12 h-12 rounded-2xl bg-hitm-red/20 flex items-center justify-center text-hitm-red mb-4">
+                  <CreditCard size={24} />
+                </div>
+                <CardTitle className="text-2xl font-black font-serif">Payment Account Details</CardTitle>
+                <CardDescription className="text-gray-300">Use these details to make your fee payment</CardDescription>
+              </CardHeader>
+              <CardContent className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div>
+                      <Label className="text-sm font-semibold text-gray-600">Bank Name</Label>
+                      <p className="text-lg font-bold text-hitm-navy">THE JAMMU AND KASHMIR BANK</p>
+                    </div>
+                    <div>
+                      <Label className="text-sm font-semibold text-gray-600">Account Number</Label>
+                      <p className="text-lg font-bold text-hitm-navy">0520010100001043</p>
+                    </div>
+                    <div>
+                      <Label className="text-sm font-semibold text-gray-600">IFSC Code</Label>
+                      <p className="text-lg font-bold text-hitm-navy">JAKA0RANCHI</p>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <Label className="text-sm font-semibold text-gray-600">Account Holder Name</Label>
+                      <p className="text-lg font-bold text-hitm-navy">Haider Institute of Technology and Management</p>
+                    </div>
+                    <div>
+                      <Label className="text-sm font-semibold text-gray-600">Branch</Label>
+                      <p className="text-lg font-bold text-hitm-navy">Ranchi Branch</p>
+                    </div>
+                    {/* <div>
+                      <Label className="text-sm font-semibold text-gray-600">MICR Code</Label>
+                      <p className="text-lg font-bold text-hitm-navy">700002123</p>
+                    </div> */}
+                  </div>
+                </div>
+                <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-2xl">
+                  <p className="text-sm text-yellow-800 font-medium">
+                    <strong>Important:</strong> After completing the payment, please fill the form below to upload your transaction receipt for verification.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Payment Verification Form */}
             <Card className="shadow-2xl border-none rounded-[40px] overflow-hidden">
               <CardHeader className="bg-white border-b border-gray-100 p-8 pb-4">
                 <div className="w-12 h-12 rounded-2xl bg-hitm-red/10 flex items-center justify-center text-hitm-red mb-4">
