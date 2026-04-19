@@ -66,16 +66,10 @@ function eventIcon(iconName) {
 // Notices and Events are now handled dynamically inside HomePage component
 const DEFAULT_EVENTS = [
   {
-    name: 'Academic Session 2026',
-    date: 'July 2026',
-    title: 'Commencement of new academic session for B.Tech and MBA.',
-    iconName: 'calendar'
-  },
-  {
-    name: 'Placement Drive',
-    date: 'TBA',
-    title: 'Upcoming campus recruitment for final year students.',
-    iconName: 'briefcase'
+    name: '',
+    date: '',
+    title: '',
+    iconName: ''
   }
 ];
 
