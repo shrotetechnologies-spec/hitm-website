@@ -88,7 +88,7 @@ export default function AICTEPage() {
                   <div>
                     <h4 className="font-bold text-lg text-hitm-navy mb-2">Building Approval</h4>
                     <p className="text-sm text-gray-500 leading-relaxed mb-4">Approved by Zila Parishad, Ranchi (RZP/BP/001/2023) for Educational Usage.</p>
-                    <Badge variant="secondary">Area: 2.48 Acres</Badge>
+                    {/* <Badge variant="secondary">Area: 2.48 Acres</Badge> */}
                   </div>
                </div>
                <div className="bg-white p-8 rounded-[32px] shadow-sm border border-gray-100 flex gap-6 items-start">

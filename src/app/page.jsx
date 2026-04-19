@@ -65,7 +65,6 @@ const stats = [
   { icon: <Calendar size={24} />, number: "2026", label: "Admissions Session" },
   { icon: <Users size={24} />, number: "1440+", label: "Seat Capacity" },
   { icon: <BookOpen size={24} />, number: "16+", label: "Approved Courses" },
-  { icon: <Building2 size={24} />, number: "2.48", label: "Acres Campus" },
 ];
 
 const programs = [

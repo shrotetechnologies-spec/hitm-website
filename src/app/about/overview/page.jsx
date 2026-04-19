@@ -12,7 +12,7 @@ export const metadata = {
 export default function OverviewPage() {
   const points = [
     { title: 'Academic Excellence', desc: 'Rigorous curriculum designed in collaboration with industry experts to ensure students are job-ready from day one.' },
-    { title: 'Modern Infrastructure', desc: 'State-of-the-art labs, a digital library, and a beautiful 2.48 acre green campus in Ranchi.' },
+    { title: 'Modern Infrastructure', desc: 'State-of-the-art labs, a digital library, and a beautiful big green campus in Ranchi.' },
     { title: 'Industry Connect', desc: 'Over 200+ corporate partners providing internship and placement opportunities to our students.' },
     { title: 'Expert Faculty', desc: 'Mentorship from Ph.D. holders and industry veterans who bring years of practical experience.' }
   ];

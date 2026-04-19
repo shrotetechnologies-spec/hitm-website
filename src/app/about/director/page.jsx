@@ -68,7 +68,7 @@ export default function DirectorPage() {
                     I welcome you all to Haider Institute of Technology and Management (HITM), a hub of learning and innovation in Ranchi. Our focus is on providing a transformative educational experience that empowers the next generation of skilled, confident, and responsible professionals.
                  </p>
                  <p>
-                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At HITM, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic 2.48 acre campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
+                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At HITM, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic large campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
                  </p>
                  <p>
                     We believe in holistic development. Beyond academics, our students will be encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and we remain committed to helping every student make a meaningful mark on the world.
