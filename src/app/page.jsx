@@ -462,8 +462,8 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 grid-rows-2 gap-4 h-[500px] md:h-[600px]">
             {[
-              { label: 'Green Campus', image: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&q=80&w=1000', className: 'col-span-2 row-span-2' },
-              { label: 'Adv. Computing Lab', image: 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?auto=format&fit=crop&q=80&w=900' },
+              { label: 'Green Campus', image: '/images/campusGarden.jpg', className: 'col-span-2 row-span-2' },
+              { label: 'Adv. Computing Lab', image: '/images/computerLab.jpg' },
               { label: 'Digital Library', image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=900' },
               { label: 'Sports Arena', image: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&q=80&w=900' },
               { label: 'Innovation Hub', image: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=900' },
