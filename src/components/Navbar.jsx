@@ -95,7 +95,7 @@ export default function Navbar() {
           <div className="flex items-center py-3 lg:py-6 pl-[max(1rem,calc((100vw-1400px)/2+1rem))] lg:pr-10 shrink-0">
             <Link href="/" className="flex items-center gap-2.5 sm:gap-4 group">
               <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center relative shrink-0">
-                <img src="/images/logo/ahct-logo.jpg" alt="HITM Logo" className="w-full h-full object-contain rounded-full" />
+                <img src="/images/logo/ahct-logo.png" alt="HITM Logo" className="w-full h-full object-contain rounded-full" />
               </div>
               <div className="flex flex-col">
                 <h1 className="text-[1.1rem] sm:text-2xl md:text-3xl font-black text-hitm-navy tracking-tighter leading-none border-b-2 border-hitm-navy/10 pb-1">

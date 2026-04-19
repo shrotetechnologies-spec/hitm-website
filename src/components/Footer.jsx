@@ -42,7 +42,7 @@ export default function Footer() {
           <div className="flex flex-col">
             <Link href="/" className="flex items-center gap-4 mb-6 group">
               <div className="w-14 h-14 rounded-full bg-white p-1 flex items-center justify-center shadow-xl group-hover:rotate-6 transition-transform">
-                <img src="/images/logo/ahct-logo.jpg" alt="HITM Logo" className="w-full h-full object-contain rounded-full" />
+                <img src="/images/logo/ahct-logo.png" alt="HITM Logo" className="w-full h-full object-contain rounded-full" />
               </div>
               <div className="flex flex-col">
                 <h3 className="text-white font-black text-xl leading-none tracking-tight">HITM <span className="text-hitm-red">RANCHI</span></h3>

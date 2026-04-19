@@ -8,13 +8,13 @@ export const metadata = {
   keywords: 'HITM Ranchi, Haider Institute of Technology and Management, engineering college Jharkhand, management institute Ranchi, BCA BTech MBA admissions 2026',
   icons: {
     icon: [
-      { url: '/images/logo/ahct-logo.jpg', type: 'image/jpeg' },
+      { url: '/images/logo/ahct-logo.png', type: 'image/jpeg' },
     ],
     shortcut: [
-      { url: '/images/logo/ahct-logo.jpg', type: 'image/jpeg' },
+      { url: '/images/logo/ahct-logo.png', type: 'image/jpeg' },
     ],
     apple: [
-      { url: '/images/logo/ahct-logo.jpg', type: 'image/jpeg' },
+      { url: '/images/logo/ahct-logo.png', type: 'image/jpeg' },
     ],
   }
 };

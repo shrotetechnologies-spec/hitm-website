@@ -5,7 +5,7 @@ export const contentType = 'image/png';
 
 export default async function Icon() {
     const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
-    const imageUrl = new URL('/images/logo/ahct-logo.jpg', baseUrl).href;
+    const imageUrl = new URL('/images/logo/ahct-logo.png', baseUrl).href;
 
     return new ImageResponse(
         (
