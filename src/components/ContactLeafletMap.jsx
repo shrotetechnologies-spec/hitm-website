@@ -35,7 +35,7 @@ export default function ContactLeafletMap() {
     <div className="w-full h-64 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
       <MapContainer
         center={pithoriaPosition}
-        zoom={13}
+        zoom={9.5}
         scrollWheelZoom={false}
         className="h-full w-full"
       >
