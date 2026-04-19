@@ -252,7 +252,7 @@ export default function Navbar() {
 
         <div className="p-6 border-t bg-gray-50 mt-auto shadow-inner">
           <Button asChild variant="default" className="w-full bg-hitm-red hover:bg-hitm-navy text-white h-12 uppercase tracking-widest text-sm font-bold shadow-xl" onClick={() => setMobileOpen(false)}>
-            <Link href="/admissions/apply?form=1">Apply Now {academicYear}</Link>
+            <Link href="/admissions/apply?form=1" suppressHydrationWarning>Apply Now {academicYear}</Link>
           </Button>
           <div className="mt-4 text-center pb-2">
             <p className="text-xs font-semibold text-gray-400">Call Admissions: 764-496-6461</p>
