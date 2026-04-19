@@ -124,7 +124,7 @@ export default function Navbar() {
               </div>
               <div className="flex items-center gap-4 xl:gap-6">
                 <Link href="/admissions/apply?form=1" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6 underline decoration-hitm-gold decoration-2 underline-offset-4">
-                  <span suppressHydrationWarning>APPLY NOW {academicYear }</span>
+                  <span suppressHydrationWarning>APPLY NOW Batch-2026</span>
                 </Link>
                 <Link href="https://www.aicte.gov.in/" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">AICTE</Link>
                 <Link href="/incubation" className="hover:text-hitm-gold transition-colors border-r border-white/20 pr-6">Incubation Center</Link>
