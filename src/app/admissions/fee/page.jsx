@@ -75,7 +75,7 @@ export default function FeeStructurePage() {
   const downloadPDF = () => {
     const doc = new jsPDF();
     const collegeName = "AL-HAIDER COLLEGE OF TECHNOLOGY (HITM)";
-    const contactInfo = "Phone: +91 0000-111-988 | Email: hitmranchi@gmail.com";
+    const contactInfo = "Phone: +91 0000-111-988 | Email: hitmranchi40@gmail.com";
     const address = "Hensal, Ormanjhi, Ranchi, Jharkhand - 835219";
 
     const addHeaderFooter = (data) => {
@@ -154,7 +154,7 @@ export default function FeeStructurePage() {
 
       autoTable(doc, {
         startY: currentY,
-        head: [['Semester Timeline', 'Tuition Fee (INR)']],
+        head: [['Semester Fees', 'Tuition Fee (INR)']],
         body: semesterBody,
         theme: 'striped',
         headStyles: { fillColor: [180, 20, 20] },
@@ -186,7 +186,7 @@ export default function FeeStructurePage() {
       <div className="flex-1 bg-gray-50 pt-24 pb-20">
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-16">
-            <Badge variant="outline" className="mb-4 text-hitm-red border-hitm-red/20 font-bold px-4 py-1">Admission 2026-27</Badge>
+            <Badge variant="outline" className="mb-4 text-hitm-red border-hitm-red/20 font-bold px-4 py-1">Admission 2026</Badge>
             <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4">Fee Structure</h1>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
               Transparent investment in your professional future. We provide various scholarship options 
@@ -225,7 +225,7 @@ export default function FeeStructurePage() {
                         <table className="w-full text-sm text-left">
                           <thead className="bg-gray-50 text-hitm-navy font-bold">
                             <tr>
-                              <th className="px-6 py-3">One-Time Dues</th>
+                              <th className="px-6 py-3">Fees</th>
                               <th className="px-6 py-3 text-right">Amount (INR)</th>
                             </tr>
                           </thead>
@@ -249,7 +249,7 @@ export default function FeeStructurePage() {
                         <table className="w-full text-sm text-left">
                           <thead className="bg-hitm-navy text-white font-bold">
                             <tr>
-                              <th className="px-6 py-3">Semester Timeline</th>
+                              <th className="px-6 py-3">Semester Fees</th>
                               <th className="px-6 py-3 text-right">Tuition Fee (INR)</th>
                             </tr>
                           </thead>
@@ -286,15 +286,15 @@ export default function FeeStructurePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div>
                 <h4 className="font-bold border-l-4 border-hitm-red pl-3 mb-4">Hostel Fee</h4>
-                <p className="text-gray-300 text-sm italic">Standard accommodation with mess facilities provided at competitive rates.</p>
+                <p className="text-gray-300 text-sm italic">Accommodation with mess facilities provided at competitive rates.</p>
               </div>
               <div>
                 <h4 className="font-bold border-l-4 border-hitm-red pl-3 mb-4">Note</h4>
-                <p className="text-gray-300 text-sm italic">Fee as per norms of Govt. of Jharkhand / Concerned Board / University.</p>
+                <p className="text-gray-300 text-sm italic">Fee as per norms of AICTE.</p>
               </div>
               <div>
                 <h4 className="font-bold border-l-4 border-hitm-red pl-3 mb-4">Refund Policy</h4>
-                <p className="text-gray-300 text-sm italic">Refund as per AICTE / University norms applicable at the time of withdrawal.</p>
+                <p className="text-gray-300 text-sm italic">Refund as per AICTE  norms applicable at the time of withdrawal.</p>
               </div>
               <div className="flex items-center justify-center md:justify-end">
                 <button 

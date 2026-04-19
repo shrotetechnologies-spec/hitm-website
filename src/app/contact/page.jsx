@@ -50,8 +50,8 @@ export default function ContactPage() {
                         <Phone className="text-hitm-gold" size={20} />
                       </div>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        General: 000-111-9889<br />
-                        Admissions: +91 98765 43210
+                        Admission: 764-496-6461<br />
+                        {/* Admissions: +91 98765 43210 */}
                       </p>
                     </div>
                     <div className="flex gap-4">
@@ -59,7 +59,7 @@ export default function ContactPage() {
                         <Mail className="text-hitm-gold" size={20} />
                       </div>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        hitmranchi@gmail.com
+                        aahctranchi08@gmail.com
                       </p>
                     </div>
                     <div className="flex gap-4">

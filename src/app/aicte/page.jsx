@@ -98,7 +98,7 @@ export default function AICTEPage() {
                   <div>
                     <h4 className="font-bold text-lg text-hitm-navy mb-2">Affiliating Body</h4>
                     <p className="text-sm text-gray-500 leading-relaxed mb-4">Under Jharkhand University of Technology (JUT), Ranchi.</p>
-                    <Badge variant="secondary">Approval Cycle: 2026-27</Badge>
+                    <Badge variant="secondary">Approval Cycle:  From 2026</Badge>
                   </div>
                </div>
             </div>

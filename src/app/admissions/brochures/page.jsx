@@ -8,28 +8,13 @@ import { generatePagePDF } from '@/lib/pdf-service';
 
 export default function BrochuresPage() { 
   const handleDownload = () => {
-    generatePagePDF(
-      'HITM_University_Prospectus_2026',
-      'Haider Institute of Technology and Management - UNIVERSITY PROSPECTUS 2026-27',
-      {
-        sections: [
-          { 
-            title: "About HITM", 
-            content: "Haider Institute of Technology and Management (HITM) is a premier institution in Ranchi, Jharkhand, approved by AICTE and affiliated to JUT. We focus on modern education, industry excellence, and holistic student growth." 
-          },
-          {
-            title: "Our Programs",
-            content: "• B.Tech (CSE, ME, CE, EEE)\n• MBA & MCA\n• BBA & BCA\n• Diploma in Engineering"
-          },
-          {
-            title: "Admission 2026",
-            content: "Admissions are open for the session 2026-27. Students can apply online through our portal or visit the campus admission cell."
-          }
-        ]
-      },
-      'text'
-    );
-  };
+  const link = document.createElement("a");
+  link.href = "/brochure.jpeg"; // public folder path
+  link.download = "brochure.jpeg"; // file name for download
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 
   return (
     <main className='flex flex-col min-h-screen bg-gray-50'>
@@ -69,7 +54,7 @@ export default function BrochuresPage() {
               <div className="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
                 <div className="flex items-center gap-2 text-hitm-gold mb-4">
                    <BookOpen className="w-5 h-5" />
-                   <span className="text-sm font-bold uppercase tracking-wider">Academic Year 2026-27</span>
+                   <span className="text-sm font-bold uppercase tracking-wider">Academic Year 2026</span>
                 </div>
                 <h2 className="text-3xl font-serif font-bold text-hitm-navy mb-4">General University Prospectus</h2>
                 <p className="text-gray-500 mb-8 leading-relaxed">
@@ -93,8 +78,8 @@ export default function BrochuresPage() {
                     className="flex items-center gap-2 px-8 py-4 bg-hitm-navy text-white rounded-xl font-bold hover:bg-hitm-navy/90 transition-all shadow-lg hover:-translate-y-1"
                   >
                     <Download className="w-5 h-5" />
-                    Download PDF
-                    <span className="text-xs opacity-60 ml-1">(12.4 MB)</span>
+                    Download Brochure
+                    <span className="text-xs opacity-60 ml-1">(87.4 KB)</span>
                   </button>
                   <button className="flex items-center gap-2 px-8 py-4 bg-white border border-gray-200 text-hitm-navy rounded-xl font-bold hover:bg-gray-50 transition-all">
                     View Online

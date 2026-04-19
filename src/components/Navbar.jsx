@@ -19,9 +19,9 @@ const navItems = [
   {
     label: 'Courses', icon: <BookOpen size={16} />,
     children: [
+      { label: 'Engineering (B.Tech)', href: '/programs/engineering' },
       { label: 'MBA', href: '/programs/mba' },
       { label: 'MCA', href: '/programs/mca' },
-      { label: 'Engineering (B.Tech)', href: '/programs/engineering' },
       { label: 'Engineering Diploma', href: '/programs/diploma' },
       { label: 'BCA', href: '/programs/bca' },
       { label: 'BBA', href: '/programs/bba' },
@@ -101,10 +101,10 @@ export default function Navbar() {
                 <h1 className="text-[1.1rem] sm:text-2xl md:text-3xl font-black text-hitm-navy tracking-tighter leading-none border-b-2 border-hitm-navy/10 pb-1">
                   HITM <span className="text-hitm-red">RANCHI</span>
                 </h1>
-                <p className="text-[7.5px] sm:text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-[1.2]">
+                <div className="text-[7.5px] sm:text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-[1.2]">
                   <p className="text-hitm-navy">Run and Managed by ALMAAS HAIDER CHARITABLE TRUST</p>
                   Approved by AICTE, New Delhi 
-                </p>
+                </div>
               </div>
             </Link>
           </div>
@@ -115,11 +115,11 @@ export default function Navbar() {
             {/* Top Bar (Dark Blue) - Right Full Width */}
             <div className="bg-hitm-navy text-white text-[10px] font-bold uppercase tracking-wider pl-8 pr-[max(1rem,calc((100vw-1400px)/2+1rem))] py-2.5 rounded-bl-[40px] hidden lg:flex items-center justify-between shadow-lg ml-[-20px] relative z-10">
               <div className="flex items-center gap-6">
-                <a href="mailto:hitmranchi@gmail.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-                  <Mail size={12} className="text-hitm-gold" /> hitmranchi@gmail.com
+                <a href="mailto:hitmranchi40@gmail.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
+                  <Mail size={12} className="text-hitm-gold" /> hitmranchi40@gmail.com
                 </a>
-                <a href="tel:9935345441" className="flex items-center gap-2 hover:text-hitm-gold transition-colors border-l border-white/20 pl-6">
-                  <Phone size={12} className="text-hitm-gold" /> Admission Cell: (+91) 9935345441
+                <a href="tel:7644966461" className="flex items-center gap-2 hover:text-hitm-gold transition-colors border-l border-white/20 pl-6">
+                  <Phone size={12} className="text-hitm-gold" /> Admission Cell: (+91) 7644966461
                 </a>
               </div>
               <div className="flex items-center gap-4 xl:gap-6">
@@ -255,7 +255,7 @@ export default function Navbar() {
             <Link href="/admissions/apply?form=1">Apply Now {academicYear}</Link>
           </Button>
           <div className="mt-4 text-center pb-2">
-            <p className="text-xs font-semibold text-gray-400">Call Admissions: 000-111-9889</p>
+            <p className="text-xs font-semibold text-gray-400">Call Admissions: 764-496-6461</p>
           </div>
         </div>
       </div>

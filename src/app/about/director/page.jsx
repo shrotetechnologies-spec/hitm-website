@@ -83,7 +83,7 @@ export default function DirectorPage() {
                     <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-hitm-red">
                        <Mail size={18} />
                     </div>
-                    <p className="text-sm font-bold text-hitm-navy">hitmranchi@gmail.com</p>
+                    <p className="text-sm font-bold text-hitm-navy">hitmranchi40@gmail.com</p>
                  </div>
               </div>
             </div>

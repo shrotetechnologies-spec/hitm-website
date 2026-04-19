@@ -5,7 +5,7 @@ export const generatePagePDF = (title, contentTitle, data, type = 'table') => {
     const doc = new jsPDF();
     const collegeName = "Haider Institute of Technology and Management (HITM)";
     const address = "Haider Institute of Technology and Management, Okhargarha, Pithoriya, Ranchi -834006";
-    const contact = "Phone: 000-111-9889 | Email: hitmranchi@gmail.com";
+    const contact = "Phone: 764-496-6461 | Email: hitmranchi40@gmail.com";
 
     // Header (Consistent Layout)
     doc.setFont("playfair", "bold");

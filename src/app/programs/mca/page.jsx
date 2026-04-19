@@ -82,7 +82,7 @@ export default function MCAPage() {
                 <h3 className="text-xl font-bold mb-4 mt-8 font-serif text-hitm-gold border-t border-white/10 pt-8">Fee Structure</h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                    <span className="text-sm text-white/80 font-medium">Admission Fee (One-time)</span>
+                    <span className="text-sm text-white/80 font-medium">Admission Fee</span>
                     <span className="text-sm font-bold text-white">₹ 10,000</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-white/10 pb-3">

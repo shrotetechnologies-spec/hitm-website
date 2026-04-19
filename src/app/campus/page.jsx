@@ -8,22 +8,22 @@ import { MapPin, Camera, Building2, Trees, GraduationCap } from 'lucide-react';
 export default function CampusPage() {
   const images = [
     {
-      url: "https://images.unsplash.com/photo-1541339907198-e08756ebafe3?q=80&w=2070&auto=format&fit=crop",
+      url: "/images/mainLibrary.jpg",
       title: "Main Library",
       desc: "A vast collection of knowledge with modern study spaces."
     },
     {
-      url: "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=1986&auto=format&fit=crop",
+      url: "/images/HITM.webp",
       title: "Academic Block",
       desc: "State-of-the-art classrooms and lecture halls."
     },
     {
-      url: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=2070&auto=format&fit=crop",
+      url: "/images/inovationLab.jpg",
       title: "Innovation Lab",
       desc: "Cutting-edge technology for hands-on learning."
     },
     {
-      url: "https://images.unsplash.com/photo-1525920980995-f8a382bf424b?q=80&w=2070&auto=format&fit=crop",
+      url: "/images/campusGarden.jpg",
       title: "Campus Garden",
       desc: "Serene green spaces for relaxation and social interaction."
     },
@@ -59,15 +59,15 @@ export default function CampusPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-hitm-navy mb-1">2.48</div>
-              <p className="text-gray-500 text-sm">Acres Campus</p>
-            </div>
+  <div className="text-3xl font-bold text-hitm-navy mb-1">Modern Campus</div>
+  <p className="text-gray-500 text-sm">Designed for a better learning experience</p>
+</div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-hitm-navy mb-1">20+</div>
+              <div className="text-3xl font-bold text-hitm-navy mb-1">6+</div>
               <p className="text-gray-500 text-sm">Laboratories</p>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-hitm-navy mb-1">5000+</div>
+              <div className="text-3xl font-bold text-hitm-navy mb-1">1440+</div>
               <p className="text-gray-500 text-sm">Student Capacity</p>
             </div>
             <div className="text-center">

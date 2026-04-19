@@ -5,7 +5,7 @@ let adminDb = null;
 // Mock data store (used when Firebase Admin is not configured)
 export const mockStore = {
   notices: [
-    { id: "1", title: "Admission Notice for B.Tech 2026-27 Batch", category: "Admissions", date: "2026-04-11", content: "Admissions are open for the 2026-27 academic session.", active: true, createdAt: new Date().toISOString() },
+    { id: "1", title: "Admission Notice for B.Tech 2026 Batch", category: "Admissions", date: "2026-04-11", content: "Admissions are open for the 2026 academic session.", active: true, createdAt: new Date().toISOString() },
     { id: "2", title: "End Semester Exam Schedule - 2025-26", category: "Examination", date: "2026-04-10", content: "End semester exams scheduled from May 5 to May 20, 2026.", active: true, createdAt: new Date().toISOString() },
     { id: "3", title: "Campus Placement Drive - Infosys & TCS", category: "Placement", date: "2026-04-09", content: "Campus recruitment drive by Infosys & TCS on April 25.", active: true, createdAt: new Date().toISOString() },
     { id: "4", title: "Annual Sports Week Announcement 2026", category: "Events", date: "2026-04-08", content: "Sports week from April 28 to May 3, 2026.", active: true, createdAt: new Date().toISOString() },

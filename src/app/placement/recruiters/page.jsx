@@ -60,7 +60,7 @@ export default function RecruitersPage() {
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
               <div>
                 <p className="text-hitm-gold font-bold">Training & Placement Officer</p>
-                <p>000-111-9889 | hitmranchi@gmail.com</p>
+                <p>764-496-6461 | hitmranchi40@gmail.com</p>
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ export default function PhotoGalleryPage() {
     { title: 'Main Campus Building', cat: 'Campus', url: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800' },
     { title: 'Annual TechFest 2026', cat: 'Events', url: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800' },
     { title: 'Advanced Computing Lab', cat: 'Labs', url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=800' },
-    { title: 'Inter-College Football', cat: 'Sports', url: 'https://images.unsplash.com/photo-1461896836934-ffe607fa8211?auto=format&fit=crop&q=80&w=800' },
+    { title: 'Inter-College Football', cat: 'Sports', url: '/images/KSS_3840.jpg' },
     { title: 'Library Study Area', cat: 'Campus', url: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=800' },
     { title: 'Cultural Night Gala', cat: 'Events', url: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&q=80&w=800' },
     { title: 'Robotics Workshop', cat: 'Labs', url: 'https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&q=80&w=800' },

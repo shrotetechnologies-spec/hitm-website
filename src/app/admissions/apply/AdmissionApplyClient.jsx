@@ -266,7 +266,7 @@ export default function AdmissionApplyClient() {
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-2"><Label>12th / Diploma Board</Label><Input placeholder="CBSE / Board / Univ" required value={formData.twelfthBoard} onChange={e => setFormData({ ...formData, twelfthBoard: e.target.value })} /></div>
                     <div className="space-y-2"><Label>12th / Diploma Passing Year</Label><Input type="number" placeholder="YYYY" required value={formData.twelfthYear} onChange={e => setFormData({ ...formData, twelfthYear: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>12th / Diploma Perc. (%)</Label><Input type="number" step="0.01" required value={formData.twelfthPercentage} onChange={e => setFormData({ ...formData, twelfthPercentage: e.target.value })} /></div>
+                    <div className="space-y-2"><Label>12th / Diploma (%)</Label><Input type="number" step="0.01" required value={formData.twelfthPercentage} onChange={e => setFormData({ ...formData, twelfthPercentage: e.target.value })} /></div>
                   </div>
 
                   {(formData.program === 'B.Tech' || formData.program === 'Diploma' || formData.program === 'MBA' || formData.program === 'MCA') && (

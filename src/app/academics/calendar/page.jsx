@@ -14,7 +14,7 @@ export default function AcademicCalendarPage() {
     const doc = new jsPDF();
     const collegeName = "Haider Institute of Technology and Management (HITM)";
     const address = "Haider Institute of Technology and Management, Okhargarha, Pithoriya, Ranchi -834006";
-    const contact = "Phone: 000-111-9889 | Email: hitmranchi@gmail.com";
+    const contact = "Phone: 764-496-6461 | Email: hitmranchi40@gmail.com";
 
     // Header
     doc.setFont("playfair", "bold");
@@ -37,7 +37,7 @@ export default function AcademicCalendarPage() {
     // Title
     doc.setFontSize(16);
     doc.setTextColor(15, 37, 71); // hitm-navy
-    doc.text("Official Academic Calendar 2026-27", 20, 55);
+    doc.text("Official Academic Calendar 2026-29", 20, 55);
 
     // Table
     const tableData = events.map(e => [e.date, e.event, e.type]);

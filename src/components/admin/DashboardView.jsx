@@ -48,7 +48,7 @@ export default function DashboardView() {
     { icon: <Users size={22} />, label: 'Total Enquiries', value: enquiriesCount.toString(), change: 'Real-time', color: 'text-hitm-red bg-hitm-red/10' },
     { icon: <CalendarDays size={22} />, label: 'Active Events', value: eventsCount.toString(), change: 'Live', color: 'text-hitm-navy bg-hitm-navy/10' },
     { icon: <Bell size={22} />, label: 'Active Notices', value: noticesCount.toString(), change: 'Live', color: 'text-amber-600 bg-amber-50' },
-    { icon: <TrendingUp size={22} />, label: 'Admissions Status', value: 'Open', change: '2026-27', color: 'text-emerald-600 bg-emerald-50' },
+    { icon: <TrendingUp size={22} />, label: 'Admissions Status', value: 'Open', change: '2026', color: 'text-emerald-600 bg-emerald-50' },
   ];
 
   return (

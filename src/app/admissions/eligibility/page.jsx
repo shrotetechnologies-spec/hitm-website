@@ -103,10 +103,10 @@ export default function EligibilityPage() {
                 Our admissions helpdesk is available from 9:00 AM to 6:00 PM to help you with your queries regarding eligibility and entrance tests.
               </p>
               <div className="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="tel:9935345441" className="bg-hitm-red hover:bg-white hover:text-hitm-red text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all shadow-xl">
-                  Call: +91 9935345441
+                <a href="tel:7644966461" className="bg-hitm-red hover:bg-white hover:text-hitm-red text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all shadow-xl">
+                  Call: +91 7644966461
                 </a>
-                <a href="mailto:hitmranchi@gmail.com" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all border border-white/20 backdrop-blur-md">
+                <a href="mailto:hitmranchi40@gmail.com" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all border border-white/20 backdrop-blur-md">
                   Email Support
                 </a>
               </div>

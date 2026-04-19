@@ -65,7 +65,7 @@ export default function IncubationPage() {
 
               <div className="space-y-4">
                 {[
-                  { title: 'Mentorship', tip: 'Access to 50+ industry veterans and successful founders.' },
+                  { title: 'Mentorship', tip: 'Access to 10+ industry veterans and successful founders.' },
                   { title: 'Co-working', tip: 'State-of-the-art labs, high-speed internet, and meeting rooms.' },
                   { title: 'Legal Support', tip: 'Assistance with patent filing and company registration.' }
                 ].map((item, index) => (

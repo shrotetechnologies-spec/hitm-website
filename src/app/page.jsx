@@ -212,7 +212,7 @@ export default function HomePage() {
 
   const activeNotices = notices.filter(n => n.active !== false).map(n => `📣 ${n.title}`);
   const marqueeItems = activeNotices.length > 0 ? activeNotices : [
-    '📣 Admissions Open for 2026-27 Academic Year'
+    '📣 Admissions Open for 2026 Batch '
   ];
 
   return (
@@ -254,13 +254,16 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative">
               <div className="w-full h-[480px] bg-gray-100 rounded-2xl flex items-center justify-center shadow-2xl relative overflow-hidden group">
-                <img src="./HITM.webp" alt="HITM Campus" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/60 to-transparent" />
+<img 
+  src="/images/HITM.webp" 
+  alt="HITM Campus" 
+  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+/>                <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/60 to-transparent" />
               </div>
               <Card className="absolute -bottom-5 -right-5 shadow-xl bg-hitm-red text-white border-none">
                 <CardContent className="p-4 text-center">
                   <div className="text-3xl font-black font-serif">2026</div>
-                  <div className="text-xs text-white/75 mt-1">Founding Year</div>
+                  <div className="text-xs text-white/75 mt-1">Eastablished On</div>
                 </CardContent>
               </Card>
             </div>
@@ -313,9 +316,9 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: <Calendar size={28} />, number: 'Admissions', label: 'Open 26-27 Batch' },
+              { icon: <Calendar size={28} />, number: 'Admissions', label: 'Open 2k26 Batch' },
               { icon: <Users size={28} />, number: 'Vibrant', label: 'Student Community' },
-              { icon: <BookOpen size={28} />, number: '50+', label: 'Modern Programs' },
+              { icon: <BookOpen size={28} />, number: '6+', label: 'Modern Programs' },
               { icon: <Building2 size={28} />, number: 'Global', label: 'Industry Ties' },
             ].map((s) => (
               <div key={s.label} className="text-center text-white">

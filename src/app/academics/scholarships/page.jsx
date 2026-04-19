@@ -37,7 +37,7 @@ export default function ScholarshipsPage() {
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-black/60 z-10" />
         <Image 
-          src="https://images.unsplash.com/photo-1523240715629-67f8553f1347?q=80&w=2070&auto=format&fit=crop"
+          src="/images/scholar.webp"
           alt="Students studying"
           fill
           className="object-cover"
@@ -69,9 +69,11 @@ export default function ScholarshipsPage() {
                     <GraduationCap className="w-6 h-6 text-hitm-red" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-hitm-navy">Over ₹2 Crores Disbursed</h3>
-                    <p className="text-sm text-gray-500">Annually awarded to students across various disciplines.</p>
-                  </div>
+  <h3 className="font-bold text-hitm-navy">Committed to Supporting Every Student</h3>
+  <p className="text-sm text-gray-500">
+    Providing financial assistance and scholarships to help students begin their academic journey.
+  </p>
+</div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="p-2 bg-hitm-gold/10 rounded-lg">
@@ -86,7 +88,7 @@ export default function ScholarshipsPage() {
             </div>
             <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl skew-y-2 lg:skew-y-0 lg:rotate-3 transition-transform hover:rotate-0 duration-500">
               <Image 
-                src="https://images.unsplash.com/photo-1523050853063-913c6e94de06?q=80&w=2070&auto=format&fit=crop"
+                src="/images/school.webp"
                 alt="Success at HITM"
                 fill
                 className="object-cover"
@@ -111,79 +113,7 @@ export default function ScholarshipsPage() {
       </section>
 
       {/* How to Get Scholarship */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-hitm-navy mb-4">How to Apply</h2>
-              <p className="text-gray-500 italic">Follow these simple steps to secure your scholarship at HITM Ranchi.</p>
-            </div>
-
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 bg-gray-100 transform -translate-x-1/2 hidden md:block" />
-
-              <div className="space-y-12">
-                {[
-                  {
-                    step: "01",
-                    title: "Apply for Admission",
-                    desc: "First, you must apply for your desired program through our admission portal. Most scholarships are linked to your admission application."
-                  },
-                  {
-                    step: "02",
-                    title: "Check Eligibility",
-                    desc: "Review the criteria for different scholarships. For merit-based, ensure your scores meet the cutoff. For need-based, gather your income certificates."
-                  },
-                  {
-                    step: "03",
-                    title: "Submit Documents",
-                    desc: "Upload the required supporting documents like marksheets, certificates, or income proof during the admission process or on the student portal."
-                  },
-                  {
-                    step: "04",
-                    title: "Review & Interview",
-                    desc: "The Scholarship Committee will review your application. In some cases, a brief interview might be conducted to assess eligibility."
-                  },
-                  {
-                    step: "05",
-                    title: "Final Award",
-                    desc: "Once approved, the scholarship amount will be adjusted in your tuition fees for the academic year."
-                  }
-                ].map((item, idx) => (
-                  <div key={idx} className={`relative flex flex-col md:flex-row items-center gap-8 ${idx % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-                    <div className="flex-1 text-center md:text-right">
-                      {idx % 2 === 0 && (
-                        <div className="md:pr-12">
-                          <h3 className="text-xl font-bold text-hitm-navy mb-2">{item.title}</h3>
-                          <p className="text-gray-600 text-sm">{item.desc}</p>
-                        </div>
-                      )}
-                    </div>
-                    <div className="z-20 w-12 h-12 rounded-full bg-hitm-red text-white flex items-center justify-center font-bold text-lg shadow-lg">
-                      {item.step}
-                    </div>
-                    <div className="flex-1 text-center md:text-left">
-                      {idx % 2 !== 0 && (
-                        <div className="md:pl-12">
-                          <h3 className="text-xl font-bold text-hitm-navy mb-2">{item.title}</h3>
-                          <p className="text-gray-600 text-sm">{item.desc}</p>
-                        </div>
-                      )}
-                      {idx % 2 === 0 && (
-                        <div className="md:hidden">
-                           <h3 className="text-xl font-bold text-hitm-navy mb-2">{item.title}</h3>
-                           <p className="text-gray-600 text-sm">{item.desc}</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* CTA Section */}
       <section className="py-16 bg-hitm-navy text-white">
