@@ -10,13 +10,7 @@ export const metadata = {
 
 export default function FacultyPage() {
   const departments = [
-    { name: 'Computer Science & Engineering', head: 'Dr. Rakesh Kumar', role: 'Head of Department, Ph.D. in AI' },
-    { name: 'Artificial Intelligence & Data Science', head: 'Prof. Anil Gupta', role: 'Lead Researcher, M.Tech IIT Delhi' },
-    { name: 'Electrical & Electronics Engineering', head: 'Dr. Sunita Sharma', role: 'Head of Department, Ph.D. in Power Systems' },
-    { name: 'Mechanical Engineering', head: 'Prof. Manish Tiwari', role: 'Sr. Professor, M.Tech NIT' },
-    { name: 'Civil Engineering', head: 'Dr. Prakash Jha', role: 'Head of Department, Ph.D. in Structural Engg.' },
-    { name: 'Management Studies (MBA & BBA)', head: 'Dr. Nidhi Singh', role: 'Dean of Management, MBA (IIM), Ph.D.' },
-    { name: 'Computer Applications (MCA & BCA)', head: 'Prof. Ankit Verma', role: 'Head of IT Applications, MCA' }
+    
   ];
 
   return (

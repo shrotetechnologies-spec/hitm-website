@@ -32,7 +32,7 @@ const navItems = [
     children: [
       { label: 'Governing Body', href: '/about/governing-body' },
       { label: 'Vision & Mission', href: '/about/vision' },
-      { label: "Director's Message", href: '/about/director' },
+      { label: "Chairman's Message", href: '/about/director' },
     ],
   },
   {

@@ -21,16 +21,16 @@ export default function DirectorPage() {
             <div className="lg:col-span-2 space-y-8">
                <div className="relative group">
                   <div className="w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl relative">
-                     <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800" alt="Director HITM" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                     <img src="" alt="Director HITM" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                      <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/90 via-transparent to-transparent opacity-60" />
                   </div>
                   <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white px-8 py-5 rounded-2xl shadow-xl border border-gray-100 w-[90%] text-center">
-                     <h2 className="text-xl font-bold text-hitm-navy font-serif uppercase tracking-tighter">Prof. (Dr.) A. K. Singh</h2>
-                     <p className="text-hitm-red font-black text-xs uppercase tracking-widest mt-1">Director, HITM Ranchi</p>
+                     <h2 className="text-xl font-bold text-hitm-navy font-serif uppercase tracking-tighter">Mohammad Anisuddin Haider</h2>
+                     <p className="text-hitm-red font-black text-xs uppercase tracking-widest mt-1">Chairman, HITM Ranchi</p>
                   </div>
                </div>
 
-               <Card className="border-none bg-gray-50 rounded-3xl p-8">
+               {/* <Card className="border-none bg-gray-50 rounded-3xl p-8">
                   <CardContent className="p-0">
                      <h4 className="font-bold text-hitm-navy mb-4 font-serif uppercase tracking-widest text-sm">Qualifications</h4>
                      <ul className="space-y-3 text-sm text-gray-600 font-medium">
@@ -48,7 +48,7 @@ export default function DirectorPage() {
                         </li>
                      </ul>
                   </CardContent>
-               </Card>
+               </Card> */}
             </div>
 
             {/* Message Content */}
