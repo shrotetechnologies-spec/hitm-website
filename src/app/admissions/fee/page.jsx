@@ -11,64 +11,87 @@ export default function FeeStructurePage() {
   const fees = [
     { 
       course: 'B.Tech Program', 
-      specialization: 'Computer Science | Civil | Mechanical | EEE | AI & DS',
+      specialization: 'Computer Science | AI & DS',
       level: 'Undergraduate',
       duration: '4 Years (8 Semesters)', 
-      admissionRegistration: '10,000',
-      admissionFee: '30,000',
+      registrationFee: '10,000',
+      othersFee: '10,000',
+      cautionMoney: '5,000',
+      semesters: 8,
+      perSemesterFee: '65,000',
+      total: '5,45,000'
+    },
+    { 
+      course: 'B.Tech Program', 
+      specialization: 'Civil | Mechanical | EEE',
+      level: 'Undergraduate',
+      duration: '4 Years (8 Semesters)', 
+      registrationFee: '10,000',
+      othersFee: '10,000',
+      cautionMoney: '5,000',
       semesters: 8,
       perSemesterFee: '55,000',
-      total: '4,80,000'
+      total: '4,65,000'
     },
     { 
       course: 'BCA Program', 
       specialization: 'Software Development',
       level: 'Undergraduate',
       duration: '3 Years (6 Semesters)', 
-      admissionFee: '10,000',
+      registrationFee: '10,000',
+      othersFee: '10,000',
+      cautionMoney: '5,000',
       semesters: 6,
-      perSemesterFee: '35,000',
-      total: '2,20,000'
+      perSemesterFee: '50,000',
+      total: '3,25,000'
     },
     { 
       course: 'MCA Program', 
       specialization: 'Advanced IT Technologies',
       level: 'Postgraduate',
       duration: '2 Years (4 Semesters)', 
-      admissionFee: '10,000',
+      registrationFee: '10,000',
+      othersFee: '10,000',
+      cautionMoney: '5,000',
       semesters: 4,
-      perSemesterFee: '65,000',
-      total: '2,70,000'
+      perSemesterFee: '60,000',
+      total: '2,65,000'
     },
     { 
       course: 'Diploma (Polytechnic)', 
-      specialization: 'Civil | Mechanical | Electrical | CSE',
+      specialization: 'Civil | Mechanical | EEE | CSE',
       level: 'Diploma',
       duration: '3 Years (6 Semesters)', 
-      admissionFee: '10,000',
+      registrationFee: '10,000',
+      othersFee: '10,000',
+      cautionMoney: '5,000',
       semesters: 6,
       perSemesterFee: '35,000',
-      total: '2,20,000'
+      total: '2,35,000'
     },
     { 
       course: 'MBA Program', 
       specialization: 'Finance | Marketing | HR | IT',
       level: 'Postgraduate',
       duration: '2 Years (4 Semesters)', 
-      admissionFee: '10,000',
+      registrationFee: '10,000',
+      othersFee: '10,000',
+      cautionMoney: '5,000',
       semesters: 4,
-      perSemesterFee: '75,000',
-      total: '3,10,000'
+      perSemesterFee: '85,000',
+      total: '3,65,000'
     },
     { 
       course: 'BBA Program', 
       specialization: 'Management Essentials',
       level: 'Undergraduate',
       duration: '3 Years (6 Semesters)', 
-      admissionFee: '10,000',
+      registrationFee: '10,000',
+      othersFee: '10,000',
+      cautionMoney: '5,000',
       semesters: 6,
-      perSemesterFee: '35,000',
-      total: '2,20,000'
+      perSemesterFee: '50,000',
+      total: '3,25,000'
     }
   ];
 
@@ -122,11 +145,11 @@ export default function FeeStructurePage() {
       currentY += 5;
 
       // First Table: One-time Fees
-      let oneTimeBody = [];
-      if (fee.admissionRegistration) {
-        oneTimeBody.push(['Admission Registration', `Rs. ${fee.admissionRegistration}`]);
-      }
-      oneTimeBody.push(['Admission Fee', `Rs. ${fee.admissionFee}`]);
+      let oneTimeBody = [
+        ['Registration Fee', `Rs. ${fee.registrationFee}`],
+        ['Others Fee', `Rs. ${fee.othersFee}`],
+        ['Caution Money (Refundable)', `Rs. ${fee.cautionMoney}`]
+      ];
 
       autoTable(doc, {
         startY: currentY,
@@ -230,15 +253,17 @@ export default function FeeStructurePage() {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-gray-100">
-                            {fee.admissionRegistration && (
-                              <tr className="hover:bg-gray-50 transition-colors">
-                                <td className="px-6 py-3 text-gray-600">Admission Registration</td>
-                                <td className="px-6 py-3 font-bold text-hitm-navy text-right">₹ {fee.admissionRegistration}</td>
-                              </tr>
-                            )}
                             <tr className="hover:bg-gray-50 transition-colors">
-                              <td className="px-6 py-3 text-gray-600">Admission Fee</td>
-                              <td className="px-6 py-3 font-bold text-hitm-navy text-right">₹ {fee.admissionFee}</td>
+                              <td className="px-6 py-3 text-gray-600">Registration Fee</td>
+                              <td className="px-6 py-3 font-bold text-hitm-navy text-right">₹ {fee.registrationFee}</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 transition-colors">
+                              <td className="px-6 py-3 text-gray-600">Others Fee</td>
+                              <td className="px-6 py-3 font-bold text-hitm-navy text-right">₹ {fee.othersFee}</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 transition-colors">
+                              <td className="px-6 py-3 text-gray-600">Caution Money (Refundable)</td>
+                              <td className="px-6 py-3 font-bold text-hitm-navy text-right">₹ {fee.cautionMoney}</td>
                             </tr>
                           </tbody>
                         </table>

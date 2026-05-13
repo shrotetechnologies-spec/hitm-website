@@ -117,20 +117,16 @@ export default function EngineeringPage() {
                 <h4 className="text-sm font-bold text-hitm-navy uppercase tracking-widest mb-4 font-serif text-center">Fee Structure</h4>
                 <div className="space-y-3 mb-2">
                   <div className="flex justify-between items-center border-b border-hitm-red/10 pb-2">
-                    <span className="text-xs font-semibold text-gray-600">Admission Registration</span>
-                    <span className="text-sm font-black text-gray-900">₹ 10,000</span>
+                    <span className="text-xs font-semibold text-gray-600">One-time Fees (Reg. + Caution)</span>
+                    <span className="text-sm font-black text-gray-900">₹ 25,000</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-hitm-red/10 pb-2">
-                    <span className="text-xs font-semibold text-gray-600">Admission Fee (One-time)</span>
-                    <span className="text-sm font-black text-gray-900">₹ 30,000</span>
-                  </div>
-                  <div className="flex justify-between items-center border-b border-hitm-red/10 pb-2">
-                    <span className="text-xs font-semibold text-gray-600">Per Semester Fee</span>
+                    <span className="text-xs font-semibold text-gray-600">Semester Fee (Starts From)</span>
                     <span className="text-sm font-black text-hitm-red">₹ 55,000</span>
                   </div>
                   <div className="flex justify-between items-center pt-1">
-                    <span className="text-xs font-black text-hitm-navy">Total Course Fee</span>
-                    <span className="text-sm font-black text-hitm-navy">₹ 4,80,000</span>
+                    <span className="text-xs font-black text-hitm-navy">Total Course Fee (From)</span>
+                    <span className="text-sm font-black text-hitm-navy">₹ 4,65,000</span>
                   </div>
                 </div>
               </div>

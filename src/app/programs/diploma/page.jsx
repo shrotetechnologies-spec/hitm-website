@@ -105,8 +105,8 @@ export default function DiplomaPage() {
                 <h4 className="text-lg font-bold mb-5 relative z-10 font-serif">Fee Structure</h4>
                 <div className="space-y-4 relative z-10 mb-8">
                   <div className="flex justify-between border-b border-white/10 pb-3">
-                    <span className="text-xs text-white/70 font-bold uppercase tracking-wider">Admission Fee</span>
-                    <span className="text-sm font-black">₹ 10,000</span>
+                    <span className="text-xs text-white/70 font-bold uppercase tracking-wider">One-time Fees</span>
+                    <span className="text-sm font-black">₹ 25,000</span>
                   </div>
                   <div className="flex justify-between border-b border-white/10 pb-3">
                     <span className="text-xs text-white/70 font-bold uppercase tracking-wider">Semester Fee</span>
@@ -114,7 +114,7 @@ export default function DiplomaPage() {
                   </div>
                   <div className="flex justify-between pt-1">
                     <span className="text-xs text-white font-black uppercase tracking-wider">Total Fee</span>
-                    <span className="text-sm font-black">₹ 2,20,000</span>
+                    <span className="text-sm font-black">₹ 2,35,000</span>
                   </div>
                 </div>
                 <Link href="/admissions/fee" className="text-xs font-bold text-white hover:text-hitm-gold flex items-center gap-2 relative z-10">View Installment Plans <ArrowRight size={14}/></Link>

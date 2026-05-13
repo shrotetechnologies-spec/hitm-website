@@ -105,16 +105,16 @@ export default function MBAPage() {
               <h3 className="text-xl font-bold font-serif mb-5 text-hitm-gold border-t border-white/10 pt-8 mt-8">Fee Structure</h3>
               <div className="space-y-4 mb-10">
                 <div className="flex justify-between border-b border-white/10 pb-3">
-                  <span className="text-sm text-white/70 font-medium">Admission Fee</span>
-                  <span className="text-sm font-bold text-white">₹ 10,000</span>
+                  <span className="text-sm text-white/70 font-medium">One-time Fees</span>
+                  <span className="text-sm font-bold text-white">₹ 25,000</span>
                 </div>
                 <div className="flex justify-between border-b border-white/10 pb-3">
                   <span className="text-sm text-white/70 font-medium">Per Semester Fee</span>
-                  <span className="text-sm font-bold text-hitm-gold">₹ 75,000</span>
+                  <span className="text-sm font-bold text-hitm-gold">₹ 85,000</span>
                 </div>
                 <div className="flex justify-between pt-1">
                   <span className="text-sm font-bold text-white">Total Fee</span>
-                  <span className="text-sm font-black text-white">₹ 3,10,000</span>
+                  <span className="text-sm font-black text-white">₹ 3,65,000</span>
                 </div>
               </div>
 

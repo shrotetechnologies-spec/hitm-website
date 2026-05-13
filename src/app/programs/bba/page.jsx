@@ -86,8 +86,8 @@ export default function BBAPage() {
                       { label: 'Seats', value: '120' },
                       { label: 'Duration', value: '3 Years / 6 Sem' },
                       { label: 'Eligibility', value: '10+2 with 45% Avg' },
-                      { label: 'Admission Fee', value: '₹ 10,000' },
-                      { label: 'Semester Fee', value: '₹ 35,000' },
+                      { label: 'Admission Fee', value: '₹ 25,000' },
+                      { label: 'Semester Fee', value: '₹ 50,000' },
                     ].map((item, i) => (
                       <div key={i} className="flex justify-between items-center border-b border-white/10 pb-2">
                         <span className="text-xs text-white/50">{item.label}</span>

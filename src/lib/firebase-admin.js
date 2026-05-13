@@ -24,8 +24,8 @@ export const mockStore = {
     { id: "3", name: "Amit Sharma", email: "amit@email.com", phone: "9765432198", program: "BCA", status: "New", message: "12th pass query", createdAt: new Date().toISOString() },
   ],
   programs: [
-    { id: "1", name: "B.Tech (Computer Science & Engineering)", school: "Engineering & IT", duration: "4 Years", level: "UG", fee: "85000", seats: 60 },
-    { id: "2", name: "B.Tech (Mechanical Engineering)", school: "Engineering & IT", duration: "4 Years", level: "UG", fee: "75000", seats: 60 },
+    { id: "1", name: "B.Tech (Computer Science & Engineering)", school: "Engineering & IT", duration: "4 Years", level: "UG", fee: "130000", seats: 60 },
+    { id: "2", name: "B.Tech (Mechanical Engineering)", school: "Engineering & IT", duration: "4 Years", level: "UG", fee: "110000", seats: 60 },
     { id: "3", name: "BCA", school: "Engineering & IT", duration: "3 Years", level: "UG", fee: "55000", seats: 60 },
     { id: "4", name: "MCA", school: "Engineering & IT", duration: "2 Years", level: "PG", fee: "65000", seats: 30 },
     { id: "5", name: "MBA", school: "Management", duration: "2 Years", level: "PG", fee: "80000", seats: 60 },

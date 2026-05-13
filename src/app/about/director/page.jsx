@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Quote, Phone, Mail } from 'lucide-react';
 
 export const metadata = {
-  title: "Director's Desk | HITM Ranchi",
-  description: 'A message from the Director of HITM Ranchi, Prof. (Dr.) A. K. Singh.',
+  title: "Chairman's Message | HITM Ranchi",
+  description: 'A message from the Chairman of HITM Ranchi, Mohammad Anisuddin Haider.',
 };
 
 export default function DirectorPage() {
@@ -21,7 +21,7 @@ export default function DirectorPage() {
             <div className="lg:col-span-2 space-y-8">
                <div className="relative group">
                   <div className="w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl relative">
-                     <img src="" alt="Director HITM" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                     <img src="/images/chairman.jpg" alt="Chairman HITM" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                      <div className="absolute inset-0 bg-gradient-to-t from-hitm-navy/90 via-transparent to-transparent opacity-60" />
                   </div>
                   <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white px-8 py-5 rounded-2xl shadow-xl border border-gray-100 w-[90%] text-center">
@@ -54,28 +54,54 @@ export default function DirectorPage() {
             {/* Message Content */}
             <div className="lg:col-span-3">
               <Badge variant="gold" className="mb-4">Leadership Message</Badge>
-              <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-10 leading-tight italic tracking-tighter uppercase">From the Director&apos;s Desk</h1>
+              <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-10 leading-tight italic tracking-tighter uppercase">Chairman&apos;s Message</h1>
               
               <div className="relative mb-10">
                  <Quote size={60} className="text-hitm-red/10 absolute -top-8 -left-8" />
                  <p className="text-xl text-hitm-navy font-serif italic leading-relaxed relative z-10">
-                    &quot;Our mission is to nurture not just engineers and managers, but leaders who are ethically grounded and technologically proficient.&quot;
+                    &quot;At Haider Institute of Technology and Management (HITM), our mission goes beyond traditional schooling; we are dedicated to cultivating an ecosystem where academic rigor meets industrial relevance.&quot;
                  </p>
               </div>
 
-              <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-                 <p>
-                    I welcome you all to Haider Institute of Technology and Management (HITM), a hub of learning and innovation in Ranchi. Our focus is on providing a transformative educational experience that empowers the next generation of skilled, confident, and responsible professionals.
-                 </p>
-                 <p>
-                    The world is changing rapidly, with advancements in Artificial Intelligence, Blockchain, and Sustainable Energy redefining industries. At HITM, we have built our curriculum and infrastructure from the ground up to lead these changes. Our futuristic large campus is equipped with state-of-the-art labs and a vibrant research atmosphere.
-                 </p>
-                 <p>
-                    We believe in holistic development. Beyond academics, our students will be encouraged to participate in fests, technical clubs, and sports, ensuring they graduate as well-rounded individuals. I am proud of our faculty members who act as mentors, and we remain committed to helping every student make a meaningful mark on the world.
-                 </p>
-                 <p>
-                    I invite you to be a part of this journey towards excellence. Together, let us shape a brighter future through education, innovation, and values.
-                 </p>
+              <div className="space-y-8 text-gray-600 text-lg leading-relaxed">
+                 <div>
+                    <h3 className="text-hitm-navy font-bold text-xl mb-2">Empowering Minds and Engineering Futures</h3>
+                    <p>
+                       At Haider Institute of Technology and Management (HITM), our mission goes beyond traditional schooling; we are dedicated to cultivating an ecosystem where academic rigor meets industrial relevance. In an era defined by rapid technological shifts, we believe that education must be as dynamic as the world around us.
+                    </p>
+                 </div>
+
+                 <div>
+                    <h3 className="text-hitm-navy font-bold text-xl mb-2">Bridging the Gap: Innovation & Skill</h3>
+                    <p>
+                       Our AICTE-approved programs are meticulously designed to transform students into industry-ready professionals. We don't just teach theory; we foster a culture of innovation, hands-on training, and adaptability. At HITM, we bridge the gap between the classroom and the real world, ensuring our graduates are not just job-seekers, but problem-solvers.
+                    </p>
+                 </div>
+
+                 <div>
+                    <h3 className="text-hitm-navy font-bold text-xl mb-2">Placement & Professional Excellence</h3>
+                    <p>
+                       Career readiness is at the heart of everything we do. Through strategic industry partnerships, intensive internship modules, and dedicated placement cells, we provide our students with the competitive edge required to excel in the global marketplace.
+                    </p>
+                 </div>
+
+                 <p className="text-center font-bold text-hitm-navy opacity-20 text-2xl">I</p>
+
+                 <div>
+                    <h3 className="text-hitm-navy font-bold text-xl mb-2">A Legacy of Social Responsibility</h3>
+                    <p>
+                       We believe that true leadership is defined by service. Our commitment to Jharkhand&apos;s youth is reflected in our social initiatives, such as providing free IAS/JPSC coaching for the underprivileged. Our foundation is built on resilience and humanity-exemplified by our self-funded humanitarian efforts during the COVID-19 pandemic, where we stood by our community in its toughest hour.
+                    </p>
+                 </div>
+
+                 <p className="text-center font-bold text-hitm-navy opacity-20 text-2xl">了</p>
+
+                 <div>
+                    <h3 className="text-hitm-navy font-bold text-xl mb-2">Building a Brighter Jharkhand</h3>
+                    <p>
+                       With world-class infrastructure and a faculty of distinguished experts, we are proud to nurture the local talent of Jharkhand, empowering them to achieve global success. We invite you to become a part of HITM, where your ambition meets our excellence.
+                    </p>
+                 </div>
               </div>
 
               <div className="mt-12 pt-8 border-t border-gray-100 flex flex-col md:flex-row gap-8">

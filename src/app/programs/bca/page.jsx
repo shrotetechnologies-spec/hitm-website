@@ -80,8 +80,8 @@ export default function BCAPage() {
                   { label: 'Duration', value: '3 Years / 6 Sem' },
                   { label: 'Eligibility', value: '10+2 with 45%' },
                   { label: 'Core Language', value: 'C++, Java, Python' },
-                  { label: 'Admission Fee', value: '₹ 10,000 (One-time)' },
-                  { label: 'Semester Fee', value: '₹ 35,000' },
+                  { label: 'Admission Fee', value: '₹ 25,000 (One-time)' },
+                  { label: 'Semester Fee', value: '₹ 50,000' },
                 ].map((s, i) => (
                   <div key={i} className="flex justify-between items-center py-2 border-b border-gray-200">
                     <span className="text-xs text-gray-500 font-bold uppercase tracking-widest">{s.label}</span>

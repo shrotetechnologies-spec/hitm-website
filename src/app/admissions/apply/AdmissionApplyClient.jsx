@@ -323,7 +323,7 @@ export default function AdmissionApplyClient() {
               <div className="bg-gradient-to-r from-hitm-navy to-hitm-red p-6 text-white flex justify-between items-center relative">
                 <div>
                   <h3 className="text-xl font-black font-serif italic">Complete Payment</h3>
-                  <p className="text-xs font-bold uppercase tracking-widest opacity-80 mt-1">Application Fee: Rs. 1,000</p>
+                  <p className="text-xs font-bold uppercase tracking-widest opacity-80 mt-1">Application Fee: Rs. 10,000</p>
                 </div>
                 <button onClick={() => setShowPayment(false)} className="bg-white/20 p-2 rounded-full hover:bg-white hover:text-hitm-navy transition-colors text-white absolute top-6 right-6">
                   <X size={16} />
