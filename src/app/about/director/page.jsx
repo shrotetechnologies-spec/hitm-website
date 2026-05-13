@@ -84,72 +84,7 @@ export default function DirectorPage() {
                         </div>
                      </div>
 
-                     <div className="relative mb-10">
-                        <Quote
-                           size={60}
-                           className="text-hitm-red/10 absolute -top-8 -left-8"
-                        />
-
-                        <p className="text-xl text-hitm-navy font-serif italic leading-relaxed relative z-10">
-                           &quot;At HITM, we are committed to empowering minds, nurturing innovation,
-                           and building engineering futures that create meaningful impact for
-                           society and the nation.&quot;
-                        </p>
-                     </div>
-
-                     <div className="space-y-6 text-gray-600 text-lg leading-relaxed">
-                        <p>
-                           I warmly welcome you to Haider Institute of Technology and Management
-                           (HITM), where education goes beyond traditional learning. Our vision is
-                           to create an ecosystem where academic excellence meets industrial
-                           relevance, enabling students to become confident professionals,
-                           innovators, and responsible leaders.
-                        </p>
-
-                        <p>
-                           In today&apos;s rapidly evolving technological landscape, education must be
-                           dynamic and future-focused. At HITM, our AICTE-approved programs are
-                           designed to bridge the gap between classroom learning and real-world
-                           industry demands. Through practical exposure, hands-on training, research
-                           opportunities, and innovation-driven learning, we prepare our students to
-                           become not only job-seekers but also problem-solvers and creators of
-                           change.
-                        </p>
-
-                        <p>
-                           Career readiness remains at the core of our mission. With dedicated
-                           placement support, strategic industry collaborations, internship programs,
-                           and skill development initiatives, we ensure that our students gain the
-                           competitive edge required to succeed in the global professional
-                           environment.
-                        </p>
-
-                        <p>
-                           At HITM, we also believe that true leadership is built on compassion and
-                           service to society. Our commitment to the youth of Jharkhand is reflected
-                           in initiatives such as free IAS/JPSC coaching for underprivileged
-                           students, as well as our humanitarian efforts during challenging times
-                           like the COVID-19 pandemic. These values of resilience, responsibility,
-                           and humanity define the foundation of our institution.
-                        </p>
-
-                        <p>
-                           Supported by modern infrastructure and a team of distinguished faculty and
-                           mentors, we are proud to nurture local talent and empower students to
-                           achieve global success. I invite you to become a part of HITM&apos;s journey
-                           of excellence, innovation, and transformation as we work together toward
-                           building a brighter future for Jharkhand and beyond.
-                        </p>
-                     </div>
-
-                     <div className="mt-12 pt-8 border-t border-gray-100 flex flex-col md:flex-row gap-8">
-                        <div className="flex items-center gap-3">
-                           <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-hitm-red">
-                              <Mail size={18} />
-                           </div>
-                           <p className="text-sm font-bold text-hitm-navy">hitmranchi40@gmail.com</p>
-                        </div>
-                     </div>
+                     
                   </div>
 
                </div>
