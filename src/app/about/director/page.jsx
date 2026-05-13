@@ -54,7 +54,7 @@ export default function DirectorPage() {
                         <div>
                            <h3 className="text-hitm-navy font-bold text-xl mb-2">Bridging the Gap: Innovation & Skill</h3>
                            <p>
-                              Our AICTE-approved programs are meticulously designed to transform students into industry-ready professionals. We don't just teach theory; we foster a culture of innovation, hands-on training, and adaptability. At HITM, we bridge the gap between the classroom and the real world, ensuring our graduates are not just job-seekers, but problem-solvers.
+                              Our AICTE-approved programs are meticulously designed to transform students into industry-ready professionals. We don&apos;t just teach theory; we foster a culture of innovation, hands-on training, and adaptability. At HITM, we bridge the gap between the classroom and the real world, ensuring our graduates are not just job-seekers, but problem-solvers.
                            </p>
                         </div>
 

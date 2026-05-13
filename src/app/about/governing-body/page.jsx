@@ -60,7 +60,7 @@ export default function GoverningBodyPage() {
           <div className="text-center mb-16 pt-10 border-t border-gray-200">
             <h2 className="text-4xl font-black font-serif text-hitm-navy mb-4 uppercase tracking-tighter italic">Advisory Council</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              Our Advisory Council brings together global expertise and strategic vision to guide HITM's growth and industry integration.
+              Our Advisory Council brings together global expertise and strategic vision to guide HITM&apos;s growth and industry integration.
             </p>
           </div>
 
