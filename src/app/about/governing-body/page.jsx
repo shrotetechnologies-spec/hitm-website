@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default function GoverningBodyPage() {
-  const governingBody = [
+  const advisoryCouncil = [
     { name: 'Prof. (Dr.) Rakesh Kumar Misra', role: 'Governing Body', desc: 'Professor, Department of Electrical Engineering, IIT (BHU)' },
     { name: 'Prof. (Dr.) Shashank Awasthi', role: 'Governing Body', desc: 'Dean Strategy, G L Bajaj Institute of Technology and Management, Greater Noida, Vice-Chair, IEEE India Council.' },
     { name: 'Prof. (Dr.) Aqueel Syed', role: 'Governing Body', desc: 'Director, HRDC, Integral University' },
@@ -18,9 +18,6 @@ export default function GoverningBodyPage() {
     { name: 'Prof. (Dr.) A. A. Khan', role: 'Governing Body', desc: 'Ex Vice Chancellor, Ranchi University, Ranchi' },
     { name: 'Prof. (Dr.) M. Basheer Ahmed Khan', role: 'Governing Body', desc: 'Former Vice-Chancellor, Sido Kanhu Murmu University, Dumka & Former President, Middle East University, UAE.' },
     { name: 'Prof. (Dr.) Firoz Ahmad', role: 'Governing Body', desc: 'Ex Vice Chancellor, NPU Daltonganj, Palamu' },
-  ];
-
-  const advisoryCouncil = [
     { name: 'Prof. (Dr.) Khursheed Alam', role: 'Advisory Council', desc: 'Executive Chairman, Academy for Advanced Studies and Training UK International Limited, Middlesex University, London.' },
     { name: 'Mr Najeed Ahmed Khan', role: 'Advisory Council', desc: 'New York University Stern School of Business, Former Principal Director, Ericsson, USA' },
     { name: 'Prof. (Dr.) T. J. Kamalanabhan', role: 'Advisory Council', desc: 'IIT, CHENNAI, Department of Management Studies' },
