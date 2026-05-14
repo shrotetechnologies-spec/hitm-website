@@ -38,22 +38,7 @@ export default function GoverningBodyPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-            {governingBody.map((member, idx) => (
-              <Card key={idx} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-hitm-navy/5 to-transparent rounded-bl-[100px] -z-0"></div>
-                <CardContent className="px-8 pt-10 pb-8 text-center relative z-10">
-                  <div className="mx-auto w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center text-gray-300 border-4 border-white shadow-md mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <UserCircle2 size={48} strokeWidth={1} />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-hitm-red font-semibold text-sm uppercase tracking-wider mb-4">{member.role}</p>
-                  <p className="text-gray-500 text-sm leading-relaxed">{member.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
+          
           <div className="text-center mb-16 pt-10 border-t border-gray-200">
             <h2 className="text-4xl font-black font-serif text-hitm-navy mb-4 uppercase tracking-tighter italic">Advisory Council</h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
