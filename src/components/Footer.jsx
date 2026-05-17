@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Clock, ChevronRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ChevronRight, Facebook, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 const footerLinks = {
@@ -53,6 +53,23 @@ export default function Footer() {
               Haider Institute of Technology and Management, Ranchi - Jharkhand&apos;s most futuristic institute,
               dedicated to excellence in innovation and producing industry-ready leaders.
             </p>
+            <div className="flex gap-3">
+              <a href="#" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all text-gray-400" aria-label="Facebook">
+                <Facebook size={16} />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all text-gray-400" aria-label="LinkedIn">
+                <Linkedin size={16} />
+              </a>
+              <a href="https://www.instagram.com/hitm_ranchi/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all text-gray-400" aria-label="Instagram">
+                <Instagram size={16} />
+              </a>
+              <a href="https://x.com/HITM_RANCHI" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-gray-800 hover:text-white transition-all text-gray-400" aria-label="Twitter">
+                <Twitter size={16} />
+              </a>
+              <a href="https://www.youtube.com/channel/UChpON9rl02F-PrBOrw4bDQw" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all text-gray-400" aria-label="YouTube">
+                <Youtube size={16} />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
