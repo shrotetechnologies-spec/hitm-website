@@ -359,16 +359,48 @@ export default function HomePage() {
 
   const handleEnquiry = async (e) => {
     e.preventDefault();
+    let firestoreSuccess = false;
     try {
-      await fetch("/api/enquiries", {
+      const response = await fetch("/api/enquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(enquiry),
       });
+      if (response.ok) {
+        firestoreSuccess = true;
+      }
+    } catch (err) {
+      console.error("Quick Enquiry database submission failed:", err);
+    }
+
+    if (firestoreSuccess) {
+      // Send email via Web3Forms (safely caught)
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            access_key: "ea72c4d8-d56a-48f8-af05-7dd8d48268a9",
+            subject: `New Quick Enquiry - ${enquiry.name} (${enquiry.program})`,
+            name: enquiry.name,
+            phone: enquiry.phone,
+            program: enquiry.program,
+            message: `New Quick Enquiry Details:\n\n- Name: ${enquiry.name}\n- Phone: ${enquiry.phone}\n- Program of Interest: ${enquiry.program}`
+          })
+        });
+      } catch (mailErr) {
+        console.error("Web3Forms quick enquiry email failed:", mailErr);
+      }
+
       alert("Enquiry submitted! We will contact you shortly.");
       setEnquiry({ name: "", phone: "", program: "" });
-    } catch (err) {
+    } else {
+      // Fallback fallback alert to match original behavior if Firestore endpoint failed
       alert("Thank you! We will contact you shortly.");
+      setEnquiry({ name: "", phone: "", program: "" });
     }
   };
 

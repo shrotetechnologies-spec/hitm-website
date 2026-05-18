@@ -2,20 +2,95 @@
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
 
+import { useState } from 'react';
 import dynamicImport from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send, Loader2, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const ContactLeafletMap = dynamicImport(() => import('@/components/ContactLeafletMap'), { ssr: false });
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); // 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      setErrorMessage("Please fill in all required fields.");
+      setStatus("error");
+      return;
+    }
+
+    setLoading(true);
+    setStatus(null);
+    setErrorMessage('');
+
+    let firestoreSuccess = false;
+
+    // 1. Try to submit to Firestore first
+    try {
+      if (db) {
+        await addDoc(collection(db, 'contact_submissions'), {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'General Inquiry',
+          message: formData.message,
+          createdAt: serverTimestamp()
+        });
+        firestoreSuccess = true;
+      } else {
+        throw new Error("Database not initialized.");
+      }
+    } catch (err) {
+      console.error("Firestore submit error:", err);
+      setErrorMessage("Could not save to database. Please check your internet connection.");
+      setStatus("error");
+    }
+
+    // 2. Try to submit to Web3Forms email API
+    // We wrap this in a try-catch so that even if Web3Forms fails, it doesn't affect Firestore success!
+    if (firestoreSuccess) {
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            access_key: "ea72c4d8-d56a-48f8-af05-7dd8d48268a9",
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject || "Contact Page Message",
+            message: formData.message
+          })
+        });
+        const data = await res.json();
+        if (!data.success) {
+          console.warn("Web3Forms email submission returned success: false", data);
+        }
+      } catch (mailErr) {
+        console.error("Web3Forms email submission failed:", mailErr);
+      }
+
+      setStatus("success");
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }
+
+    setLoading(false);
+  };
+
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar />
@@ -86,29 +161,90 @@ export default function ContactPage() {
                   <h3 className="text-2xl font-bold text-hitm-navy mb-2">Send us a Message</h3>
                   <p className="text-gray-500 text-sm">We&apos;ll get back to you within 24 business hours.</p>
                 </div>
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label>Full Name</Label>
-                      <Input placeholder="John Doe" className="h-12 bg-gray-50 border-gray-200" />
+                {status === 'success' ? (
+                  <div className="text-center py-10 animate-in fade-in zoom-in duration-300">
+                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-green-100 animate-bounce">
+                      <CheckCircle2 className="text-green-500 w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-hitm-navy mb-2">Message Sent!</h3>
+                    <p className="text-gray-500 max-w-md mx-auto">
+                      Thank you for contacting us. Your message has been safely saved, and we will get back to you shortly.
+                    </p>
+                    <Button 
+                      className="mt-8 bg-hitm-navy hover:bg-hitm-red text-white" 
+                      onClick={() => setStatus(null)}
+                    >
+                      Send Another Message
+                    </Button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label>Full Name *</Label>
+                        <Input 
+                          required
+                          value={formData.name}
+                          onChange={e => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="John Doe" 
+                          className="h-12 bg-gray-50 border-gray-200" 
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Email Address *</Label>
+                        <Input 
+                          required
+                          type="email" 
+                          value={formData.email}
+                          onChange={e => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="john@example.com" 
+                          className="h-12 bg-gray-50 border-gray-200" 
+                        />
+                      </div>
                     </div>
                     <div className="space-y-2">
-                      <Label>Email Address</Label>
-                      <Input type="email" placeholder="john@example.com" className="h-12 bg-gray-50 border-gray-200" />
+                      <Label>Subject</Label>
+                      <Input 
+                        value={formData.subject}
+                        onChange={e => setFormData({ ...formData, subject: e.target.value })}
+                        placeholder="Admission Inquiry" 
+                        className="h-12 bg-gray-50 border-gray-200" 
+                      />
                     </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Subject</Label>
-                    <Input placeholder="Admission Inquiry" className="h-12 bg-gray-50 border-gray-200" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Your Message</Label>
-                    <Textarea placeholder="Type your message here..." className="min-h-[150px] bg-gray-50 border-gray-200" />
-                  </div>
-                  <Button className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-hitm-red/20 group">
-                    Send Message <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
-                  </Button>
-                </form>
+                    <div className="space-y-2">
+                      <Label>Your Message *</Label>
+                      <Textarea 
+                        required
+                        value={formData.message}
+                        onChange={e => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Type your message here..." 
+                        className="min-h-[150px] bg-gray-50 border-gray-200" 
+                      />
+                    </div>
+                    
+                    {status === 'error' && (
+                      <p className="text-red-500 text-sm font-semibold bg-red-50 p-3 rounded-lg border border-red-100 animate-in fade-in duration-300">
+                        {errorMessage}
+                      </p>
+                    )}
+
+                    <Button 
+                      type="submit"
+                      disabled={loading}
+                      className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-hitm-red/20 group"
+                    >
+                      {loading ? (
+                        <>
+                          <Loader2 className="animate-spin mr-2" size={18} /> Submitting...
+                        </>
+                      ) : (
+                        <>
+                          Send Message <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </div>

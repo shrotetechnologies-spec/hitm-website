@@ -122,6 +122,51 @@ export default function AdmissionApplyClient() {
         createdAt: serverTimestamp()
       });
 
+      // Safe Web3Forms email submission
+      try {
+        const messageText = `
+=== NEW ADMISSION & PAYMENT ENQUIRY ===
+
+STUDENT DETAILS:
+- Name: ${formData.name}
+- Father Name: ${formData.fatherName}
+- Mobile Number / App ID: ${formData.phone}
+- Email Address: ${formData.email}
+
+ACADEMIC DETAILS:
+- Selected Course: ${formData.program}
+- Branch/Specialization: ${formData.branch || 'N/A'}
+- 10th Score: ${formData.tenthPercentage}% (Board: ${formData.tenthBoard}, Year: ${formData.tenthYear})
+- 12th Score: ${formData.twelfthPercentage}% (Board: ${formData.twelfthBoard}, Year: ${formData.twelfthYear})
+- Entrance Exam Score: ${formData.examScore || 'N/A'}
+- Marksheet Document Link: ${docUrl}
+
+PAYMENT VERIFICATION DETAILS:
+- Transaction ID / UTR Number: ${paymentData.transactionId}
+- Payment Receipt Image Link: ${receiptUrl}
+- Initial Status: Pending Verification
+
+Submitted from IP: ${userIp}
+`;
+
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            access_key: "ea72c4d8-d56a-48f8-af05-7dd8d48268a9",
+            subject: `Admission & Payment Enquiry: ${formData.name} (${formData.program})`,
+            name: formData.name,
+            email: formData.email,
+            message: messageText
+          })
+        });
+      } catch (mailErr) {
+        console.error("Web3Forms admission email notification failed:", mailErr);
+      }
+
       setShowPayment(false);
       setSubmitted(true);
     } catch (submitError) {

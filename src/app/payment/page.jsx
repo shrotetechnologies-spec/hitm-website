@@ -44,6 +44,42 @@ export default function PaymentPage() {
         createdAt: serverTimestamp(),
       });
 
+      // Safe Web3Forms email submission
+      try {
+        const messageText = `
+=== NEW ONLINE PAYMENT VERIFICATION ENQUIRY ===
+
+STUDENT DETAILS:
+- Name: ${formData.name}
+- Registration Number: ${formData.regNum}
+- Mobile Number: ${formData.mobile}
+- Email Address: ${formData.email}
+
+TRANSACTION PROOF:
+- Receipt Screenshot Link: ${ssUrl}
+- Initial Verification Status: Pending Verification
+
+Submitted at: ${new Date().toLocaleString()}
+`;
+
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            access_key: "ea72c4d8-d56a-48f8-af05-7dd8d48268a9",
+            subject: `Payment Verification: ${formData.name} (${formData.regNum})`,
+            name: formData.name,
+            email: formData.email,
+            message: messageText
+          })
+        });
+      } catch (mailErr) {
+        console.error("Web3Forms payment verification email notification failed:", mailErr);
+      }
+
       setSuccess(true);
       setTimeout(() => {
         setSuccess(false);
