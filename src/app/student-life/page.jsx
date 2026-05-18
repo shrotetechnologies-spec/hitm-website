@@ -30,13 +30,23 @@ export default function StudentLifePage() {
     },
     {
       image: "/images/audutorim.jpg",
-      title: "Auditorium",
-      desc: "A state-of-the-art auditorium for cultural events, seminars, and technical workshops.",
+      title: "Seminar Hall",
+      desc: "A state-of-the-art seminar hall for cultural events, seminars, and technical workshops.",
     },
     {
       image: "/images/labs.jpg",
       title: "Labs & Library",
       desc: "Fully equipped modern laboratories and a massive digital library with over 50,000+ books.",
+    },
+    {
+      image: "https://www.gjimt.ac.in/wp-content/uploads/2024/10/Girls-Common-Room-6.jpg",
+      title: "Common Room for Girls & Boys",
+      desc: "Spacious, comfortable, and separate common rooms for girls and boys to relax, study, and engage in indoor games.",
+    },
+    {
+      image: "https://www.hppc.co.uk/wp-content/uploads/2025/09/New-Swimming-Pool-Hurst-College-West-Sussex-Hurstpierpoint-More-Red-62-2048x1365.jpg",
+      title: "Swimming Pool",
+      desc: "A clean, well-maintained, semi-Olympic size swimming pool with trained lifeguards and dedicated slots for boys and girls.",
     }
   ];
 

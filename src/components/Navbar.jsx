@@ -102,7 +102,7 @@ export default function Navbar() {
                   HITM <span className="text-hitm-red">RANCHI</span>
                 </h1>
                 <div className="text-[7.5px] sm:text-[9px] md:text-[11px] font-bold text-gray-500 uppercase mt-1 leading-[1.2]">
-                  <p className="text-hitm-navy">Run and Managed by ALMAAS HAIDER CHARITABLE TRUST</p>
+                  <p className="text-hitm-navy">Run and Managed by AL ALMAAS HAIDER CHARITABLE TRUST</p>
                   Approved by AICTE, New Delhi 
                 </div>
               </div>
