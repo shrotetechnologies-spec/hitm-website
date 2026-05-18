@@ -39,12 +39,12 @@ export default function StudentLifePage() {
       desc: "Fully equipped modern laboratories and a massive digital library with over 50,000+ books.",
     },
     {
-      image: "https://www.gjimt.ac.in/wp-content/uploads/2024/10/Girls-Common-Room-6.jpg",
+      image: "/common-room.jpg",
       title: "Common Room for Girls & Boys",
       desc: "Spacious, comfortable, and separate common rooms for girls and boys to relax, study, and engage in indoor games.",
     },
     {
-      image: "https://www.hppc.co.uk/wp-content/uploads/2025/09/New-Swimming-Pool-Hurst-College-West-Sussex-Hurstpierpoint-More-Red-62-2048x1365.jpg",
+      image: "/swimmingpool.jpg",
       title: "Swimming Pool",
       desc: "A clean, well-maintained, semi-Olympic size swimming pool with trained lifeguards and dedicated slots for boys and girls.",
     }
