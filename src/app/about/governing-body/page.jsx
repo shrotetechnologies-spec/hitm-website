@@ -31,14 +31,7 @@ export default function GoverningBodyPage() {
       <Navbar />
       <div className="flex-1 bg-gray-50 flex flex-col items-center pt-24 pb-20">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-black font-serif text-hitm-navy mb-4 uppercase tracking-tighter italic">Governing Body</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-              The steering force behind Haider Institute of Technology and Management. Our governing body consists of 
-              eminent academicians, industry leaders, and administrators dedicated to institutional excellence.
-            </p>
-          </div>
-          
+                   
           
           <div className="text-center mb-16 pt-10 border-t border-gray-200">
             <h2 className="text-4xl font-black font-serif text-hitm-navy mb-4 uppercase tracking-tighter italic">Advisory Council</h2>
