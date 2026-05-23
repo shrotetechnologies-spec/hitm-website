@@ -100,6 +100,16 @@ export default function FeeStructurePage() {
     const collegeName = "AL-HAIDER COLLEGE OF TECHNOLOGY (HITM)";
     const contactInfo = "Phone: +91 0000-111-988 | Email: hitmranchi40@gmail.com";
     const address = "Hensal, Ormanjhi, Ranchi, Jharkhand - 835219";
+    const pageHeight = doc.internal.pageSize?.height || doc.internal.pageSize.getHeight();
+    const headerHeight = 35;
+    const footerHeight = 35;
+
+    const ensurePageSpace = (spaceNeeded) => {
+      if (currentY + spaceNeeded > pageHeight - footerHeight) {
+        doc.addPage();
+        currentY = headerHeight;
+      }
+    };
 
     const addHeaderFooter = (data) => {
       // Header
@@ -133,10 +143,7 @@ export default function FeeStructurePage() {
     currentY += 15;
 
     fees.forEach((fee, index) => {
-      if (currentY > 230) {
-        doc.addPage();
-        currentY = 35;
-      }
+      ensurePageSpace(120);
 
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
@@ -151,13 +158,14 @@ export default function FeeStructurePage() {
         ['Caution Money (Refundable)', `Rs. ${fee.cautionMoney}`]
       ];
 
+      ensurePageSpace(100);
       autoTable(doc, {
         startY: currentY,
         head: [['One-Time Payments', 'Amount (INR)']],
         body: oneTimeBody,
         theme: 'striped',
         headStyles: { fillColor: [200, 200, 200], textColor: [0,0,0] },
-        margin: { left: 14, right: 14 },
+        margin: { left: 14, right: 14, top: 35, bottom: 35 },
         didDrawPage: addHeaderFooter
       });
 
@@ -173,15 +181,14 @@ export default function FeeStructurePage() {
         { content: `Rs. ${fee.total}`, styles: { fontStyle: 'bold', fillColor: [230, 230, 230] } }
       ]);
 
-      if (currentY > 240) { doc.addPage(); currentY = 35; }
-
+      ensurePageSpace(100);
       autoTable(doc, {
         startY: currentY,
         head: [['Semester Fees', 'Tuition Fee (INR)']],
         body: semesterBody,
         theme: 'striped',
         headStyles: { fillColor: [180, 20, 20] },
-        margin: { left: 14, right: 14 },
+        margin: { left: 14, right: 14, top: 35, bottom: 35 },
         didDrawPage: addHeaderFooter
       });
 
@@ -189,7 +196,7 @@ export default function FeeStructurePage() {
     });
 
     // Final total disclaimer
-    if (currentY > 260) { doc.addPage(); currentY = 35; }
+    ensurePageSpace(20);
     doc.setFontSize(9);
     doc.setTextColor(100);
     doc.setFont("helvetica", "italic");

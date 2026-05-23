@@ -62,7 +62,7 @@ export default function BCAPage() {
                   { icon: <Monitor className="text-hitm-red" />, title: 'Modern Labs', desc: 'Work on high-end systems in our specialized computing labs.' },
                   { icon: <Users className="text-hitm-red" />, title: 'Team Projects', desc: 'Build real-world software applications in collaborative teams.' },
                   { icon: <BookOpen className="text-hitm-red" />, title: 'Updated Syllabus', desc: 'Learn current industry trends like Cloud and Cybersecurity.' },
-                  { icon: <Clock className="text-hitm-red" />, title: 'Fast Careers', desc: 'Secure technical roles across India&apos;s top tech hubs.' }
+                  { icon: <Clock className="text-hitm-red" />, title: 'Fast Careers', desc: 'Secure technical roles across India’s leading technology hubs.' }
                 ].map((f, i) => (
                   <div key={i} className="flex gap-4 p-5 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-xl transition-all border border-gray-100">
                     <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0">{f.icon}</div>

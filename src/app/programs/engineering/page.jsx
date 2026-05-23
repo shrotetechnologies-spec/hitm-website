@@ -121,7 +121,7 @@ export default function EngineeringPage() {
                     <span className="text-sm font-black text-gray-900">₹ 25,000</span>
                   </div>
                   <div className="flex justify-between items-center border-b border-hitm-red/10 pb-2">
-                    <span className="text-xs font-semibold text-gray-600">Semester Fee (Starts From)</span>
+                    <span className="text-xs font-semibold text-gray-600">Semester Fee</span>
                     <span className="text-sm font-black text-hitm-red">₹ 55,000</span>
                   </div>
                   <div className="flex justify-between items-center pt-1">
