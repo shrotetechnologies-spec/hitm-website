@@ -166,7 +166,7 @@ export default function FeeStructurePage() {
         body: oneTimeBody,
         theme: 'striped',
         headStyles: { fillColor: [200, 200, 200], textColor: [0,0,0] },
-        margin: { left: 14, right: 14 },
+        margin: { top: topMargin, bottom: bottomMargin, left: 14, right: 14 },
         didDrawPage: addHeaderFooter
       });
 
@@ -189,7 +189,7 @@ export default function FeeStructurePage() {
         body: semesterBody,
         theme: 'striped',
         headStyles: { fillColor: [180, 20, 20] },
-        margin: { left: 14, right: 14 },
+        margin: { top: topMargin, bottom: bottomMargin, left: 14, right: 14 },
         didDrawPage: addHeaderFooter
       });
 
