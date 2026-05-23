@@ -149,7 +149,7 @@ export default function FeeStructurePage() {
       doc.setFontSize(12);
       doc.setFont("helvetica", "bold");
       doc.setTextColor(0, 48, 96); // HITM Navy
-      doc.text(`${index + 1}. ${fee.course} (${fee.duration})`, 14, currentY);
+      doc.text(`${index + 1}. ${fee.course} - ${fee.specialization} (${fee.duration})`, 14, currentY);
       currentY += 5;
 
       // First Table: One-time Fees
