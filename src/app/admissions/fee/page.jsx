@@ -98,8 +98,8 @@ export default function FeeStructurePage() {
   const downloadPDF = () => {
     const doc = new jsPDF();
     const collegeName = "AL-HAIDER COLLEGE OF TECHNOLOGY (HITM)";
-    const contactInfo = "Phone: +91 0000-111-988 | Email: hitmranchi40@gmail.com";
-    const address = "Hensal, Ormanjhi, Ranchi, Jharkhand - 835219";
+    const contactInfo = "Phone: +91 764-496-6461 | Email: hitmranchi40@gmail.com";
+    const address = "Haider Institute of Technology and Management, Okhargarha, Pithoriya, Ranchi -834006";
     const pageHeight = doc.internal.pageSize?.height || doc.internal.pageSize.getHeight();
     const topMargin = 35;
     const bottomMargin = 25;
