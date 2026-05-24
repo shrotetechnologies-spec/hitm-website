@@ -1,17 +1,62 @@
 'use client';
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { Rocket, Lightbulb, Users, Target, Zap, Globe } from 'lucide-react';
+import { Lightbulb, Target, Zap, Globe, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function IncubationPage() {
+  const [showModal, setShowModal] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
+  const [form, setForm] = useState({ name: '', email: '', phone: '', interest: '' });
+
   const features = [
     { icon: <Lightbulb size={32} />, title: 'Idea Validation', desc: 'Work with industry mentors to turn your academic projects into viable business models.' },
     { icon: <Zap size={32} />, title: 'Seed Funding', desc: 'Access to seed grants and connection to angel investors for promising student startups.' },
     { icon: <Globe size={32} />, title: 'Global Network', desc: 'Partnerships with international incubators for cross-border mentorship and expansion.' }
   ];
+
+  const openModal = () => {
+    setStatusMessage('');
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const handleChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!form.name || !form.email || !form.phone || !form.interest) {
+      setStatusMessage('Please fill in all fields before submitting.');
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      await addDoc(collection(db, 'incubation_enquiries'), {
+        ...form,
+        source: 'Incubation Page',
+        status: 'New',
+        createdAt: serverTimestamp(),
+      });
+      setStatusMessage('Thank you! Your request has been submitted successfully.');
+      setForm({ name: '', email: '', phone: '', interest: '' });
+      setShowModal(false);
+    } catch (error) {
+      console.error('Error saving incubation enquiry:', error);
+      setStatusMessage('Unable to submit right now. Please try again later.');
+    }
+    setSubmitting(false);
+  };
 
   return (
     <main className="min-h-screen bg-white flex flex-col">
@@ -26,6 +71,17 @@ export default function IncubationPage() {
           <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
             Empowering the entrepreneurs of tomorrow. We provide the space, mentorship, and resources to transform your vision into a successful startup.
           </p>
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button variant="navy" size="lg" className="h-14 px-10 rounded-full shadow-xl" onClick={openModal}>
+              Apply for Incubation 2026
+            </Button>
+            <Button asChild variant="outline" size="lg" className="h-14 px-10 rounded-full shadow-xl border-white/20 text-white hover:bg-white/10">
+              <a href="/hitm.pdf" download>Download Brochure</a>
+            </Button>
+          </div>
+          {statusMessage && (
+            <p className="mt-6 text-sm text-amber-100 max-w-xl mx-auto">{statusMessage}</p>
+          )}
         </div>
       </section>
 
@@ -81,9 +137,14 @@ export default function IncubationPage() {
                 ))}
               </div>
 
-              <Button variant="default" size="lg" className="h-14 bg-hitm-navy hover:bg-hitm-red px-10 rounded-full shadow-xl">
-                 Apply for Incubation 2026
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button variant="default" size="lg" className="h-14 bg-hitm-navy hover:bg-hitm-red px-10 rounded-full shadow-xl" onClick={openModal}>
+                  Apply for Incubation 2026
+                </Button>
+                <Button asChild variant="outline" size="lg" className="h-14 px-10 rounded-full shadow-xl border-gray-200 text-hitm-navy hover:bg-gray-100">
+                  <a href="/hitm.pdf" download>Download Brochure</a>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -97,11 +158,93 @@ export default function IncubationPage() {
           <p className="text-white/60 mb-10 max-w-xl mx-auto text-lg">
             We are looking for innovative startups to join our 2026 cohort and grow with strong mentorship, support, and resources.
           </p>
-          <Button variant="gold" size="lg" className="h-14 px-12 rounded-full shadow-2xl">
-             Join the Waitlist
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button variant="gold" size="lg" className="h-14 px-12 rounded-full shadow-2xl" onClick={openModal}>
+              Join the Waitlist
+            </Button>
+            <Button asChild variant="outline" size="lg" className="h-14 px-12 rounded-full shadow-2xl border-white/20 text-white hover:bg-white/10">
+              <a href="/hitm.pdf" download>Download Brochure</a>
+            </Button>
+          </div>
         </div>
       </section>
+
+      {showModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal} />
+          <div className="relative w-full max-w-2xl rounded-[40px] bg-white shadow-2xl overflow-hidden">
+            <div className="bg-hitm-navy px-8 py-8 text-white relative overflow-hidden">
+              <div className="absolute right-0 top-0 w-44 h-44 bg-white/10 rounded-full blur-3xl" />
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-hitm-gold mb-3">Incubation Enquiry</p>
+                  <h2 className="text-3xl md:text-4xl font-black font-serif max-w-xl">Share your startup idea with our 2026 cohort.</h2>
+                </div>
+                <button type="button" onClick={closeModal} className="rounded-full border border-white/20 bg-white/10 p-3 text-white hover:bg-white/20 transition-colors">
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+            <form onSubmit={handleSubmit} className="p-8 grid gap-6 bg-white">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <label className="space-y-2 text-sm text-gray-700">
+                  <span>Name</span>
+                  <input
+                    type="text"
+                    value={form.name}
+                    onChange={(e) => handleChange('name', e.target.value)}
+                    className="w-full rounded-3xl border border-gray-200 px-4 py-3 focus:border-hitm-navy focus:ring-hitm-navy/10 outline-none"
+                    placeholder="Your full name"
+                  />
+                </label>
+                <label className="space-y-2 text-sm text-gray-700">
+                  <span>Email</span>
+                  <input
+                    type="email"
+                    value={form.email}
+                    onChange={(e) => handleChange('email', e.target.value)}
+                    className="w-full rounded-3xl border border-gray-200 px-4 py-3 focus:border-hitm-navy focus:ring-hitm-navy/10 outline-none"
+                    placeholder="you@example.com"
+                  />
+                </label>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <label className="space-y-2 text-sm text-gray-700">
+                  <span>Phone</span>
+                  <input
+                    type="tel"
+                    value={form.phone}
+                    onChange={(e) => handleChange('phone', e.target.value)}
+                    className="w-full rounded-3xl border border-gray-200 px-4 py-3 focus:border-hitm-navy focus:ring-hitm-navy/10 outline-none"
+                    placeholder="Mobile number"
+                  />
+                </label>
+                <label className="space-y-2 text-sm text-gray-700">
+                  <span>Area of Interest</span>
+                  <input
+                    type="text"
+                    value={form.interest}
+                    onChange={(e) => handleChange('interest', e.target.value)}
+                    className="w-full rounded-3xl border border-gray-200 px-4 py-3 focus:border-hitm-navy focus:ring-hitm-navy/10 outline-none"
+                    placeholder="E.g. AI, EdTech, HealthTech"
+                  />
+                </label>
+              </div>
+              {statusMessage && (
+                <p className="text-sm text-rose-600">{statusMessage}</p>
+              )}
+              <div className="flex flex-col sm:flex-row gap-4 justify-end">
+                <Button variant="outline" type="button" className="h-14 rounded-full" onClick={closeModal}>
+                  Cancel
+                </Button>
+                <Button type="submit" className="h-14 rounded-full" disabled={submitting}>
+                  {submitting ? 'Submitting...' : 'Submit Enquiry'}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </main>

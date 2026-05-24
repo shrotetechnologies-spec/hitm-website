@@ -172,7 +172,7 @@ export default function CareerPage() {
               Send your resume to <span className="text-hitm-gold font-bold">hitmranchi40@gmail.com</span>. We&apos;ll keep you in our talent pool for future opportunities.
             </p>
             <Button variant="gold" size="lg" className="relative z-10 shadow-2xl" onClick={() => setApplyModal({ id: 'general', title: 'General Application' })}>
-               General Interest Application
+               Interested in joining our team?
             </Button>
           </div>
         </div>

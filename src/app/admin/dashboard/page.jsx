@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import {
   LayoutDashboard, Bell, CalendarDays, Users, Briefcase,
-  Globe, LogOut, Menu, Clock, GraduationCap, Sparkles
+  Globe, LogOut, Menu, Clock, Sparkles, Rocket
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -17,6 +17,7 @@ import EventsManager from '@/components/admin/EventsManager';
 import EnquiriesManager from '@/components/admin/EnquiriesManager';
 import CareerManager from '@/components/admin/CareerManager';
 import PopupManager from '@/components/admin/PopupManager';
+import IncubationManager from '@/components/admin/IncubationManager';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={16} /> },
@@ -24,6 +25,7 @@ const navItems = [
   { id: 'events', label: 'Events', icon: <CalendarDays size={16} /> },
   { id: 'enquiries', label: 'Enquiries', icon: <Users size={16} /> },
   { id: 'careers', label: 'Careers', icon: <Briefcase size={16} /> },
+  { id: 'incubation', label: 'Incubation Leads', icon: <Rocket size={16} /> },
   { id: 'popup', label: 'Popup Leads', icon: <Sparkles size={16} /> },
 ];
 
@@ -47,7 +49,7 @@ export default function AdminDashboard() {
             router.push('/admin/login');
           }
         } catch (error) {
-          console.error("Error fetching user data:", error);
+          console.error('Error fetching user data:', error);
           router.push('/admin/login');
         }
       } else {
@@ -81,6 +83,7 @@ export default function AdminDashboard() {
       case 'events': return <EventsManager />;
       case 'enquiries': return <EnquiriesManager />;
       case 'careers': return <CareerManager />;
+      case 'incubation': return <IncubationManager />;
       case 'popup': return <PopupManager />;
       default: return (
         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
@@ -94,15 +97,13 @@ export default function AdminDashboard() {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar overlay (mobile) */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/50 z-40 xl:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
-      {/* Sidebar */}
       <aside className={cn(
-        "fixed top-0 left-0 h-full w-64 bg-gray-950 z-50 flex flex-col transition-transform duration-300",
-        sidebarOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0"
+        'fixed top-0 left-0 h-full w-64 bg-gray-950 z-50 flex flex-col transition-transform duration-300',
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full xl:translate-x-0'
       )}>
         <div className="bg-hitm-red/80 px-4 py-5 text-center shrink-0">
           <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center text-white font-black text-xl font-serif mx-auto mb-2">A</div>
@@ -117,7 +118,7 @@ export default function AdminDashboard() {
               key={item.id}
               id={`nav-${item.id}`}
               onClick={() => { setActiveSection(item.id); setSidebarOpen(false); }}
-              className={cn("admin-sidebar-link w-full text-left mb-0.5", activeSection === item.id && "active")}
+              className={cn('admin-sidebar-link w-full text-left mb-0.5', activeSection === item.id && 'active')}
             >
               {item.icon} {item.label}
             </button>
@@ -133,9 +134,7 @@ export default function AdminDashboard() {
         </nav>
       </aside>
 
-      {/* Main */}
       <div className="flex-1 xl:ml-64 flex flex-col">
-        {/* Topbar */}
         <header className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-30 shadow-sm">
           <div className="flex items-center gap-3">
             <button className="xl:hidden p-1.5 rounded-md hover:bg-gray-100" onClick={() => setSidebarOpen(true)}>
@@ -143,7 +142,7 @@ export default function AdminDashboard() {
             </button>
             <div>
               <h1 className="font-bold text-gray-900 text-sm leading-tight">
-                {navItems.find(i => i.id === activeSection)?.label || 'Dashboard'}
+                {navItems.find((i) => i.id === activeSection)?.label || 'Dashboard'}
               </h1>
               <p className="text-xs text-gray-400">Welcome, {user?.name || user?.email}</p>
             </div>
