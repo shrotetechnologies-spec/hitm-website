@@ -186,7 +186,9 @@ export default function SyllabusPage() {
                <div className="bg-hitm-navy rounded-[32px] p-8 text-white">
                  <h4 className="font-bold mb-4">Academic Standards</h4>
                  <p className="text-xs text-white/60 leading-relaxed mb-4">Following the industry 4.0 roadmap, our curriculum is integrated with hands-on projects, industry internships, and professional skill certifications.</p>
-                 <Button variant="gold" size="sm" className="w-full">Request Brochure</Button>
+                 <Button asChild variant="gold" size="sm" className="w-full">
+                   <a href="/hitm.pdf" download>Request Brochure</a>
+                 </Button>
                </div>
             </div>
           </div>

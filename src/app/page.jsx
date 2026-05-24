@@ -206,7 +206,7 @@ const quickLinks = [
   {
     icon: <Calendar size={18} />,
     label: "Download Brochure",
-    href: "/admissions/brochures",
+    href: "/hitm.pdf",
   },
 ];
 
@@ -441,14 +441,26 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap gap-3 justify-center">
             {quickLinks.map((ql) => (
-              <Link
-                key={ql.label}
-                href={ql.href}
-                className="flex items-center gap-2.5 bg-white border-2 border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:border-hitm-red hover:text-hitm-red hover:bg-hitm-red/5 transition-all hover:-translate-y-1 hover:shadow-sm"
-              >
-                <span className="text-hitm-red">{ql.icon}</span>
-                {ql.label}
-              </Link>
+              ql.href.endsWith('.pdf') ? (
+                <a
+                  key={ql.label}
+                  href={ql.href}
+                  download
+                  className="flex items-center gap-2.5 bg-white border-2 border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:border-hitm-red hover:text-hitm-red hover:bg-hitm-red/5 transition-all hover:-translate-y-1 hover:shadow-sm"
+                >
+                  <span className="text-hitm-red">{ql.icon}</span>
+                  {ql.label}
+                </a>
+              ) : (
+                <Link
+                  key={ql.label}
+                  href={ql.href}
+                  className="flex items-center gap-2.5 bg-white border-2 border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium text-gray-700 hover:border-hitm-red hover:text-hitm-red hover:bg-hitm-red/5 transition-all hover:-translate-y-1 hover:shadow-sm"
+                >
+                  <span className="text-hitm-red">{ql.icon}</span>
+                  {ql.label}
+                </Link>
+              )
             ))}
           </div>
         </div>

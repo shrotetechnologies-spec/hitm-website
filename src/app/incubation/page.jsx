@@ -75,9 +75,6 @@ export default function IncubationPage() {
             <Button variant="navy" size="lg" className="h-14 px-10 rounded-full shadow-xl" onClick={openModal}>
               Apply for Incubation 2026
             </Button>
-            <Button asChild variant="outline" size="lg" className="h-14 px-10 rounded-full shadow-xl border-white/20 text-white hover:bg-white/10">
-              <a href="/hitm.pdf" download>Download Brochure</a>
-            </Button>
           </div>
           {statusMessage && (
             <p className="mt-6 text-sm text-amber-100 max-w-xl mx-auto">{statusMessage}</p>
@@ -141,9 +138,6 @@ export default function IncubationPage() {
                 <Button variant="default" size="lg" className="h-14 bg-hitm-navy hover:bg-hitm-red px-10 rounded-full shadow-xl" onClick={openModal}>
                   Apply for Incubation 2026
                 </Button>
-                <Button asChild variant="outline" size="lg" className="h-14 px-10 rounded-full shadow-xl border-gray-200 text-hitm-navy hover:bg-gray-100">
-                  <a href="/hitm.pdf" download>Download Brochure</a>
-                </Button>
               </div>
             </div>
           </div>
@@ -161,9 +155,6 @@ export default function IncubationPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button variant="gold" size="lg" className="h-14 px-12 rounded-full shadow-2xl" onClick={openModal}>
               Join the Waitlist
-            </Button>
-            <Button asChild variant="outline" size="lg" className="h-14 px-12 rounded-full shadow-2xl border-white/20 text-white hover:bg-white/10">
-              <a href="/hitm.pdf" download>Download Brochure</a>
             </Button>
           </div>
         </div>

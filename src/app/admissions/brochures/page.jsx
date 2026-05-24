@@ -9,8 +9,8 @@ import { generatePagePDF } from '@/lib/pdf-service';
 export default function BrochuresPage() { 
   const handleDownload = () => {
   const link = document.createElement("a");
-  link.href = "/brochure.jpeg"; // public folder path
-  link.download = "brochure.jpeg"; // file name for download
+  link.href = "/hitm.pdf";
+  link.download = "hitm.pdf";
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
