@@ -83,14 +83,6 @@ export default function AdmissionApplyClient() {
 
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
-    if (!paymentData.receiptFile) {
-      setError('Please upload your payment screenshot.');
-      return;
-    }
-    if (!paymentData.transactionId) {
-      setError('Please enter the transaction ID.');
-      return;
-    }
 
     setLoading(true);
     setError('');
@@ -107,14 +99,13 @@ export default function AdmissionApplyClient() {
       };
 
       const docUrl = await processUpload(documentFile, `applications/${formData.phone}/document_${Date.now()}`);
-      const receiptUrl = await processUpload(paymentData.receiptFile, `applications/${formData.phone}/payment_${Date.now()}`);
 
       await setDoc(doc(db, 'enquiries', formData.phone), {
         ...formData,
         documentUrl: docUrl,
         payment: {
-          transactionId: paymentData.transactionId,
-          receiptUrl: receiptUrl,
+          transactionId: 'N/A',
+          receiptUrl: 'N/A',
           status: 'Pending'
         },
         status: 'New',
@@ -142,8 +133,8 @@ ACADEMIC DETAILS:
 - Marksheet Document Link: ${docUrl}
 
 PAYMENT VERIFICATION DETAILS:
-- Transaction ID / UTR Number: ${paymentData.transactionId}
-- Payment Receipt Image Link: ${receiptUrl}
+- Transaction ID / UTR Number: N/A
+- Payment Receipt Image Link: N/A
 - Initial Status: Pending Verification
 
 Submitted from IP: ${userIp}
@@ -367,8 +358,8 @@ Submitted from IP: ${userIp}
             <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-in zoom-in-95 duration-300">
               <div className="bg-gradient-to-r from-hitm-navy to-hitm-red p-6 text-white flex justify-between items-center relative">
                 <div>
-                  <h3 className="text-xl font-black font-serif italic">Complete Payment</h3>
-                  <p className="text-xs font-bold uppercase tracking-widest opacity-80 mt-1">Application Fee: Rs. 10,000</p>
+                  <h3 className="text-xl font-black font-serif italic">Submit Application</h3>
+                  <p className="text-xs font-bold uppercase tracking-widest opacity-80 mt-1">Application Fee: Rs. 1,000</p>
                 </div>
                 <button onClick={() => setShowPayment(false)} className="bg-white/20 p-2 rounded-full hover:bg-white hover:text-hitm-navy transition-colors text-white absolute top-6 right-6">
                   <X size={16} />
@@ -376,33 +367,15 @@ Submitted from IP: ${userIp}
               </div>
 
               <form onSubmit={handleFinalSubmit} className="p-6">
-                <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6 space-y-2 shadow-inner">
-                  <p className="text-sm text-gray-500 flex justify-between">Organisation: <span className="font-bold text-hitm-navy">HITM Ranchi</span></p>
-                  <p className="text-sm text-gray-500 flex justify-between">Bank: <span className="font-bold text-hitm-navy">The Jammu and Kashmir Bank</span></p>
-                  <p className="text-sm text-gray-500 flex justify-between">A/C No: <span className="font-bold text-hitm-navy">0520010100001043</span></p>
-                  <p className="text-sm text-gray-500 flex justify-between">IFSC Code: <span className="font-bold text-hitm-navy">JAKA0RANCHI</span></p>
-                  <hr className="border-gray-200 my-2" />
-                  {/* <p className="text-sm text-gray-500 flex justify-between font-bold">UPI ID: <span className="text-hitm-red">hitmranchi@sbi</span></p> */}
-                </div>
-
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label>Upload Payment Screenshot</Label>
-                    <div className="border border-gray-200 rounded-lg p-2 bg-gray-50">
-                      <input type="file" accept="image/*,.pdf" className="text-sm cursor-pointer w-full" onChange={e => setPaymentData({ ...paymentData, receiptFile: e.target.files[0] })} required />
-                    </div>
-                    <p className="text-[10px] text-gray-400 italic">Clear screenshot showing successful status.</p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Transaction ID / UTR Number</Label>
-                    <Input placeholder="e.g. 123456789012" className="bg-gray-50" value={paymentData.transactionId} onChange={e => setPaymentData({ ...paymentData, transactionId: e.target.value })} required />
-                  </div>
+                <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 mb-6 space-y-2 text-center shadow-inner">
+                  <p className="text-sm text-gray-700 leading-relaxed font-medium">
+                    Admission form fees <strong className="text-hitm-navy font-bold">1,000 Rupees</strong> payment karne ke liye college ke taraf se call ya mail aayega. Kripya unke diye gaye payment link par hi payment karein.
+                  </p>
                 </div>
 
                 {error && showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100 mt-4">{error}</p>}
 
-                <Button type="submit" disabled={loading} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest mt-6 shadow-xl hover:-translate-y-0.5 transition-transform">
+                <Button type="submit" disabled={loading} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest mt-2 shadow-xl hover:-translate-y-0.5 transition-transform">
                   {loading ? <Loader2 className="animate-spin" /> : 'Confirm & Submit Application'}
                 </Button>
               </form>
