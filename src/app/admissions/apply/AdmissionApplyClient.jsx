@@ -236,7 +236,7 @@ Submitted from IP: ${userIp}
                 <div className="text-center py-10 animate-fade-in">
                   <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6"><CheckCircle2 size={32} /></div>
                   <h3 className="text-2xl font-bold text-hitm-navy mb-2">Application Submitted successfully!</h3>
-                  <p className="text-gray-500">Your form and payment details have been recorded. Our admissions cell will review and verify your application shortly.</p>
+                  <p className="text-gray-500">Your form details have been recorded. Our admissions cell will review and verify your application shortly.</p>
                 </div>
               ) : !showForm ? (
                 <div className="text-center py-8">
@@ -369,7 +369,8 @@ Submitted from IP: ${userIp}
               <form onSubmit={handleFinalSubmit} className="p-6">
                 <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 mb-6 space-y-2 text-center shadow-inner">
                   <p className="text-sm text-gray-700 leading-relaxed font-medium">
-                    Admission form fees <strong className="text-hitm-navy font-bold">1,000 Rupees</strong> payment karne ke liye college ke taraf se call ya mail aayega. Kripya unke diye gaye payment link par hi payment karein.
+                     A call or email will be sent from the college regarding the payment of the <strong className="text-hitm-navy font-bold">1,000 Rupees</strong> admission form fee. Kindly make the payment only through the payment link provided by the college.
+
                   </p>
                 </div>
 
