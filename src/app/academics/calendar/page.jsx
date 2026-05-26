@@ -14,7 +14,7 @@ export default function AcademicCalendarPage() {
     const doc = new jsPDF();
     const collegeName = "Haider Institute of Technology and Management (HITM)";
     const address = "Haider Institute of Technology and Management, Okhargarha, Pithoriya, Ranchi -834006";
-    const contact = "Phone: 764-496-6461 | Email: hitmranchi40@gmail.com";
+    const contact = "Phone: 764-496-6461 | Email: info@hitmranchi.ac.in";
 
     // Header
     doc.setFont("playfair", "bold");

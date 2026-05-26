@@ -169,7 +169,7 @@ export default function CareerPage() {
             <div className="absolute bottom-0 right-0 w-64 h-64 bg-hitm-red/20 blur-[100px]" />
             <h2 className="text-3xl md:text-4xl font-black font-serif mb-6 relative z-10">Don&apos;t see a matching role?</h2>
             <p className="text-white/60 mb-8 max-w-xl mx-auto relative z-10">
-              Send your resume to <span className="text-hitm-gold font-bold">hitmranchi40@gmail.com</span>. We&apos;ll keep you in our talent pool for future opportunities.
+              Send your resume to <span className="text-hitm-gold font-bold">info@hitmranchi.ac.in</span>. We&apos;ll keep you in our talent pool for future opportunities.
             </p>
             <Button variant="gold" size="lg" className="relative z-10 shadow-2xl" onClick={() => setApplyModal({ id: 'general', title: 'General Application' })}>
                Interested in joining our team?

@@ -115,8 +115,8 @@ export default function Navbar() {
             {/* Top Bar (Dark Blue) - Right Full Width */}
             <div className="bg-hitm-navy text-white text-[10px] font-bold uppercase tracking-wider pl-8 pr-[max(1rem,calc((100vw-1400px)/2+1rem))] py-2.5 rounded-bl-[40px] hidden lg:flex items-center justify-between shadow-lg ml-[-20px] relative z-10">
               <div className="flex items-center gap-6">
-                <a href="mailto:hitmranchi40@gmail.com" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
-                  <Mail size={12} className="text-hitm-gold" /> hitmranchi40@gmail.com
+                <a href="mailto:info@hitmranchi.ac.in" className="flex items-center gap-2 hover:text-hitm-gold transition-colors">
+                  <Mail size={12} className="text-hitm-gold" /> info@hitmranchi.ac.in
                 </a>
                 <a href="tel:7644966461" className="flex items-center gap-2 hover:text-hitm-gold transition-colors border-l border-white/20 pl-6">
                   <Phone size={12} className="text-hitm-gold" /> Admission Cell: (+91) 7644966461

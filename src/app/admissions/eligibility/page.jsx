@@ -106,7 +106,7 @@ export default function EligibilityPage() {
                 <a href="tel:7644966461" className="bg-hitm-red hover:bg-white hover:text-hitm-red text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all shadow-xl">
                   Call: +91 7644966461
                 </a>
-                <a href="mailto:hitmranchi40@gmail.com" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all border border-white/20 backdrop-blur-md">
+                <a href="mailto:admissions@hitmranchi.ac.in" className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-full font-black uppercase tracking-widest transition-all border border-white/20 backdrop-blur-md">
                   Email Support
                 </a>
               </div>

@@ -134,7 +134,7 @@ export default function ContactPage() {
                         <Mail className="text-hitm-gold" size={20} />
                       </div>
                       <p className="text-gray-300 text-sm leading-relaxed">
-                        aahctranchi08@gmail.com
+                        info@hitmranchi.ac.in
                       </p>
                     </div>
                     <div className="flex gap-4">

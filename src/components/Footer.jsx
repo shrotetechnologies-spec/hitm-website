@@ -114,7 +114,7 @@ export default function Footer() {
               </div>
               <div className="flex gap-3">
                 <Mail size={16} className="text-hitm-gold shrink-0" />
-                <p className="text-gray-400 text-sm">hitmranchi40@gmail.com</p>
+                <p className="text-gray-400 text-sm">info@hitmranchi.ac.in</p>
               </div>
               <div className="flex gap-3">
                 <Clock size={16} className="text-hitm-gold shrink-0" />
