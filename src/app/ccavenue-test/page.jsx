@@ -143,7 +143,7 @@ export default function CCAvenueTestPage() {
                 </div>
                 
                 <p className="text-xs text-center text-gray-500 mt-4">
-                  You will be redirected to CCAvenue's staging portal. Select "Avenues Test" under Net Banking to simulate success or failure.
+                  You will be redirected to CCAvenue&apos;s staging portal. Select &quot;Avenues Test&quot; under Net Banking to simulate success or failure.
                 </p>
               </form>
             </CardContent>
