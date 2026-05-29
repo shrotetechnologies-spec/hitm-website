@@ -4,18 +4,20 @@ import { encrypt } from '@/lib/ccavenue';
 export async function POST(req) {
   try {
     const body = await req.json();
-    
-    const merchantId = '4447602';
-    const accessCode = 'ATIT92NE85CC48TICC';
-    const workingKey = '6C3E5591F1463527D3F2A223C4BAE474';
 
-    // Base URL depending on environment. For local testing, use localhost.
-    // In production, this should be https://www.hitmranchi.in
-    const baseUrl = req.headers.get('origin') || 'http://localhost:3000';
+    const merchantId = process.env.CCAVENUE_MERCHANT_ID;
+    const accessCode = process.env.CCAVENUE_ACCESS_CODE;
+    const workingKey = process.env.CCAVENUE_WORKING_KEY;
+
+    if (!merchantId || !accessCode || !workingKey) {
+      console.error('CCAvenue env vars missing');
+      return NextResponse.json({ error: 'Payment configuration error' }, { status: 500 });
+    }
+
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || req.headers.get('origin') || 'http://localhost:3000';
     const redirectUrl = `${baseUrl}/api/ccavenue/response`;
     const cancelUrl = `${baseUrl}/api/ccavenue/response`;
 
-    // Construct the payload according to CCAvenue's requirements
     const payloadData = {
       merchant_id: merchantId,
       order_id: body.order_id || Date.now().toString(),
@@ -34,17 +36,18 @@ export async function POST(req) {
       billing_email: body.billing_email || 'test@example.com',
     };
 
-    // Convert payload object to query string format: key1=value1&key2=value2...
     const queryString = Object.keys(payloadData)
       .map(key => `${key}=${encodeURIComponent(payloadData[key])}`)
       .join('&');
 
-    // Encrypt the payload string
     const encRequest = encrypt(queryString, workingKey);
 
-    // Generate the HTML form for CCAvenue auto-submit
+    const gatewayUrl = process.env.CCAVENUE_ENV === 'production'
+      ? 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction'
+      : 'https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction';
+
     const formHtml = `
-      <form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction">
+      <form id="nonseamless" method="post" name="redirect" action="${gatewayUrl}">
         <input type="hidden" id="encRequest" name="encRequest" value="${encRequest}">
         <input type="hidden" name="access_code" id="access_code" value="${accessCode}">
         <script language="javascript">document.redirect.submit();</script>

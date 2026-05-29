@@ -16,7 +16,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'ahctranchi.com',
+        hostname: 'hitmranchi.ac.in',
       },
       {
         protocol: 'https',

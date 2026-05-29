@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Phone, Mail, MapPin, Clock, ChevronRight, Facebook, Linkedin, Instagram, Twitter, Youtube } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import VisitCounter from '@/components/VisitCounter';
 
 const footerLinks = {
   quickLinks: [
@@ -136,6 +137,8 @@ export default function Footer() {
           <p className="text-gray-500 text-[10px] sm:text-xs">
             Developed by <a href="https://shrote.com" target="_blank" rel="noopener noreferrer" className="text-hitm-gold font-semibold tracking-wide hover:underline hover:text-white transition-colors">Shrote Technologies</a>
           </p>
+          <span className="hidden md:inline text-gray-700 text-xs">|</span>
+          <VisitCounter />
         </div>
         <div className="flex gap-4">
           <Link href="/privacy" className="text-gray-500 text-xs hover:text-hitm-gold transition-colors">Privacy Policy</Link>

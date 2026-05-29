@@ -6,7 +6,12 @@ export async function POST(req) {
   try {
     const formData = await req.formData();
     const encResp = formData.get('encResp');
-    const workingKey = '6C3E5591F1463527D3F2A223C4BAE474';
+    const workingKey = process.env.CCAVENUE_WORKING_KEY;
+
+    if (!workingKey) {
+      console.error('CCAVENUE_WORKING_KEY env var missing');
+      return new NextResponse('Payment configuration error', { status: 500 });
+    }
 
     if (!encResp) {
       return new NextResponse('No encrypted response received.', { status: 400 });

@@ -319,6 +319,11 @@ export default function HomePage() {
     setMounted(true);
   }, []);
 
+  // Increment visit counter only on homepage load
+  useEffect(() => {
+    fetch('/api/visits', { method: 'POST' }).catch(() => {});
+  }, []);
+
   useEffect(() => {
     if (!db) return;
     // Real-time Notices
