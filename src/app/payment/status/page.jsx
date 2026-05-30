@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -12,6 +12,23 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { CheckCircle2, XCircle, Loader2, Printer, Home, RefreshCw, FileText } from 'lucide-react';
 
 export default function PaymentStatusPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-gray-50 flex flex-col justify-between">
+        <Navbar />
+        <div className="flex-1 flex flex-col items-center justify-center p-4">
+          <Loader2 size={48} className="animate-spin text-hitm-red mb-4" />
+          <h2 className="text-xl font-bold font-serif text-hitm-navy">Loading Payment Status...</h2>
+        </div>
+        <Footer />
+      </main>
+    }>
+      <PaymentStatusContent />
+    </Suspense>
+  );
+}
+
+function PaymentStatusContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const orderId = searchParams.get('orderId');
