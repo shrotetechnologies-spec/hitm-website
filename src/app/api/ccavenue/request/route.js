@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { encrypt } from '@/lib/ccavenue';
+import { getAdminDb } from '@/lib/firebase-admin';
 
 export async function POST(req) {
   try {
@@ -18,9 +19,10 @@ export async function POST(req) {
     const redirectUrl = `${baseUrl}/api/ccavenue/response`;
     const cancelUrl = `${baseUrl}/api/ccavenue/response`;
 
+    const orderId = body.order_id || `TXN_${Date.now()}`;
     const payloadData = {
       merchant_id: merchantId,
-      order_id: body.order_id || Date.now().toString(),
+      order_id: orderId,
       currency: 'INR',
       amount: body.amount || '1.00',
       redirect_url: redirectUrl,
@@ -45,6 +47,30 @@ export async function POST(req) {
     const gatewayUrl = process.env.CCAVENUE_ENV === 'production'
       ? 'https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction'
       : 'https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction';
+
+    // Log the transaction in Firestore as Pending
+    try {
+      const adminDb = await getAdminDb();
+      if (adminDb) {
+        const orderType = body.order_type || (orderId.startsWith('APP_') ? 'admission' : 'general');
+        await adminDb.collection('transactions').doc(orderId).set({
+          orderId,
+          type: orderType,
+          amount: parseFloat(payloadData.amount),
+          currency: 'INR',
+          billing_name: payloadData.billing_name,
+          billing_email: payloadData.billing_email,
+          billing_tel: payloadData.billing_tel,
+          status: 'Pending',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        });
+      } else {
+        console.warn('Firebase Admin not initialized, skipping transaction logging.');
+      }
+    } catch (dbErr) {
+      console.error('Error logging transaction to Firestore:', dbErr);
+    }
 
     const formHtml = `
       <form id="nonseamless" method="post" name="redirect" action="${gatewayUrl}">

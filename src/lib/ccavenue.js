@@ -40,7 +40,66 @@ export function decrypt(encText, workingKey) {
     const iv = Buffer.from(ivBase64, 'base64');
 
     const decipher = crypto.createDecipheriv(getAlgorithm(keyBase64), key, iv);
-    let decrypted = decipher.update(encText, 'hex');
-    decrypted += decipher.final();
+    let decrypted = decipher.update(encText, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
     return decrypted;
 }
+
+export async function queryStatus(orderId, workingKey, accessCode, isProduction = true) {
+    try {
+        const payload = JSON.stringify({ order_no: orderId });
+        const encRequest = encrypt(payload, workingKey);
+
+        const apiEndpoint = isProduction
+            ? 'https://api.ccavenue.com/apis/servlet/DoWebTrans'
+            : 'https://apitest.ccavenue.com/apis/servlet/DoWebTrans';
+
+        const postBody = new URLSearchParams();
+        postBody.append('command', 'orderStatusTracker');
+        postBody.append('access_code', accessCode);
+        postBody.append('request_type', 'JSON');
+        postBody.append('response_type', 'JSON');
+        postBody.append('version', '1.2');
+        postBody.append('enc_request', encRequest);
+
+        const res = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: postBody.toString(),
+        });
+
+        if (!res.ok) {
+            throw new Error(`CCAvenue API responded with status ${res.status}`);
+        }
+
+        const responseText = await res.text();
+        let encResponse = responseText.trim();
+
+        if (encResponse.includes('enc_response=')) {
+            const params = new URLSearchParams(encResponse);
+            encResponse = params.get('enc_response') || encResponse;
+        }
+
+        const decrypted = decrypt(encResponse, workingKey);
+        
+        try {
+            return JSON.parse(decrypted.trim());
+        } catch (jsonErr) {
+            if (decrypted.includes('=')) {
+                const urlParams = new URLSearchParams(decrypted);
+                const obj = {};
+                for (const [key, val] of urlParams.entries()) {
+                    obj[key] = val;
+                }
+                return obj;
+            }
+            throw new Error(`Failed to parse decrypted response: ${decrypted}`);
+        }
+    } catch (error) {
+        console.error('Error querying CCAvenue transaction status:', error);
+        throw error;
+    }
+}
+

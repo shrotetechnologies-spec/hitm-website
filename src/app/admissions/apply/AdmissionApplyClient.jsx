@@ -58,7 +58,7 @@ export default function AdmissionApplyClient() {
     e.preventDefault();
     setError('');
 
-    if (!documentFile) {
+    if (!documentFile && !formData.documentUrl) {
       setError('Please upload your document (Marksheet/ID).');
       return;
     }
@@ -68,9 +68,19 @@ export default function AdmissionApplyClient() {
       const docRef = doc(db, 'enquiries', formData.phone);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setError('An application with this phone number already exists.');
-        setLoading(false);
-        return;
+        const existingData = docSnap.data();
+        if (existingData.payment?.status === 'Success' || existingData.payment?.status === 'Verified') {
+          setError('An application with this phone number already exists and has been successfully paid.');
+          setLoading(false);
+          return;
+        } else {
+          // Allow recovery: load the data and proceed to payment
+          setFormData(existingData);
+          setError('Unpaid application found. Directing to payment...');
+          setShowPayment(true);
+          setLoading(false);
+          return;
+        }
       }
 
       setShowPayment(true);
@@ -98,73 +108,69 @@ export default function AdmissionApplyClient() {
         return await getDownloadURL(storageRef);
       };
 
-      const docUrl = await processUpload(documentFile, `applications/${formData.phone}/document_${Date.now()}`);
+      let docUrl = formData.documentUrl || '';
+      if (documentFile) {
+        docUrl = await processUpload(documentFile, `applications/${formData.phone}/document_${Date.now()}`);
+      }
 
+      const orderId = `APP_${Date.now()}_${formData.phone}`;
+
+      // Save/Update form details with payment state Pending
       await setDoc(doc(db, 'enquiries', formData.phone), {
         ...formData,
         documentUrl: docUrl,
         payment: {
+          orderId: orderId,
+          amount: '1000.00',
           transactionId: 'N/A',
           receiptUrl: 'N/A',
-          status: 'Pending'
+          status: 'Pending',
+          createdAt: serverTimestamp()
         },
         status: 'New',
         ipAddress: userIp,
         createdAt: serverTimestamp()
+      }, { merge: true });
+
+      // Initiate CCAvenue payment request
+      const res = await fetch('/api/ccavenue/request', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          order_id: orderId,
+          amount: '1000.00',
+          billing_name: formData.name,
+          billing_email: formData.email,
+          billing_tel: formData.phone,
+          order_type: 'admission'
+        }),
       });
 
-      // Safe Web3Forms email submission
-      try {
-        const messageText = `
-=== NEW ADMISSION & PAYMENT ENQUIRY ===
+      const data = await res.json();
 
-STUDENT DETAILS:
-- Name: ${formData.name}
-- Father Name: ${formData.fatherName}
-- Mobile Number / App ID: ${formData.phone}
-- Email Address: ${formData.email}
-
-ACADEMIC DETAILS:
-- Selected Course: ${formData.program}
-- Branch/Specialization: ${formData.branch || 'N/A'}
-- 10th Score: ${formData.tenthPercentage}% (Board: ${formData.tenthBoard}, Year: ${formData.tenthYear})
-- 12th Score: ${formData.twelfthPercentage}% (Board: ${formData.twelfthBoard}, Year: ${formData.twelfthYear})
-- Entrance Exam Score: ${formData.examScore || 'N/A'}
-- Marksheet Document Link: ${docUrl}
-
-PAYMENT VERIFICATION DETAILS:
-- Transaction ID / UTR Number: N/A
-- Payment Receipt Image Link: N/A
-- Initial Status: Pending Verification
-
-Submitted from IP: ${userIp}
-`;
-
-        await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            access_key: "ea72c4d8-d56a-48f8-af05-7dd8d48268a9",
-            subject: `Admission & Payment Enquiry: ${formData.name} (${formData.program})`,
-            name: formData.name,
-            email: formData.email,
-            message: messageText
-          })
-        });
-      } catch (mailErr) {
-        console.error("Web3Forms admission email notification failed:", mailErr);
+      if (data.formHtml) {
+        const div = document.createElement('div');
+        div.innerHTML = data.formHtml;
+        document.body.appendChild(div);
+        
+        const form = div.querySelector('form#nonseamless');
+        if (form) {
+          form.submit();
+        } else {
+          setError('Failed to initiate secure checkout redirect.');
+          setLoading(false);
+        }
+      } else {
+        setError(data.error || 'Failed to initiate payment.');
+        setLoading(false);
       }
-
-      setShowPayment(false);
-      setSubmitted(true);
     } catch (submitError) {
       console.error('Error finalizing:', submitError);
       setError('Something went wrong during submission. Please try again.');
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -369,15 +375,14 @@ Submitted from IP: ${userIp}
               <form onSubmit={handleFinalSubmit} className="p-6">
                 <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 mb-6 space-y-2 text-center shadow-inner">
                   <p className="text-sm text-gray-700 leading-relaxed font-medium">
-                     A call or email will be sent from the college regarding the payment of the <strong className="text-hitm-navy font-bold">1,000 Rupees</strong> admission form fee. Kindly make the payment only through the payment link provided by the college.
-
+                    You are initiating a secure online payment of <strong className="text-hitm-navy font-bold">1,000 Rupees</strong> for the admission form fee. Clicking below will redirect you to CCAvenue to complete the transaction.
                   </p>
                 </div>
 
                 {error && showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100 mt-4">{error}</p>}
 
                 <Button type="submit" disabled={loading} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest mt-2 shadow-xl hover:-translate-y-0.5 transition-transform">
-                  {loading ? <Loader2 className="animate-spin" /> : 'Confirm & Submit Application'}
+                  {loading ? <Loader2 className="animate-spin" /> : 'Pay Application Fee (Rs. 1,000)'}
                 </Button>
               </form>
             </div>

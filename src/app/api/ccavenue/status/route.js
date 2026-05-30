@@ -1,61 +1,62 @@
 import { NextResponse } from 'next/server';
-import { decrypt } from '@/lib/ccavenue';
+import { queryStatus } from '@/lib/ccavenue';
 import { getAdminDb } from '@/lib/firebase-admin';
-import querystring from 'querystring';
 
-export async function POST(req) {
+export async function GET(req) {
   try {
-    const formData = await req.formData();
-    const encResp = formData.get('encResp');
+    const { searchParams } = new URL(req.url);
+    const orderId = searchParams.get('orderId');
+
+    if (!orderId) {
+      return NextResponse.json({ error: 'Order ID is required' }, { status: 400 });
+    }
+
+    const accessCode = process.env.CCAVENUE_ACCESS_CODE;
     const workingKey = process.env.CCAVENUE_WORKING_KEY;
+    const isProduction = process.env.CCAVENUE_ENV === 'production';
 
-    if (!workingKey) {
-      console.error('CCAVENUE_WORKING_KEY env var missing');
-      return new NextResponse('Payment configuration error', { status: 500 });
+    if (!accessCode || !workingKey) {
+      console.error('CCAvenue keys missing');
+      return NextResponse.json({ error: 'Payment configuration error' }, { status: 500 });
     }
 
-    if (!encResp) {
-      return new NextResponse('No encrypted response received.', { status: 400 });
-    }
+    // Call server-to-server status API
+    const responseObj = await queryStatus(orderId, workingKey, accessCode, isProduction);
+    console.log('CCAvenue Server-to-Server Status Query Response:', responseObj);
 
-    // Decrypt the response
-    const ccavResponse = decrypt(encResp, workingKey);
+    // Reconcile status in Firebase if status is returned
+    // CCAvenue Status API response parameters:
+    // order_status: "Success", "Failure", "Aborted", etc.
+    // reference_no (this is tracking_id)
+    // order_no (this is orderId)
+    // amount, currency, order_date_time, status_message, etc.
 
-    // The response is in the format of key1=value1&key2=value2...
-    const responseObj = querystring.parse(ccavResponse);
-
-    console.log('CCAvenue Decrypted Response:', responseObj);
-
-    const orderId = responseObj.order_id;
-    const trackingId = responseObj.tracking_id;
-    const orderStatus = responseObj.order_status; // Success, Failure, Aborted, etc.
-    const amount = responseObj.amount;
+    const orderStatus = responseObj.order_status || responseObj.status || 'Pending';
+    const trackingId = responseObj.reference_no || responseObj.tracking_id || '';
+    const amount = responseObj.amount || '';
     const currency = responseObj.currency || 'INR';
-    const paymentMode = responseObj.payment_mode;
-    const cardName = responseObj.card_name;
-    const statusMessage = responseObj.status_message || orderStatus;
-    const transDate = responseObj.trans_date;
+    const paymentMode = responseObj.payment_mode || 'N/A';
+    const cardName = responseObj.card_name || 'N/A';
+    const statusMessage = responseObj.status_message || responseObj.error_desc || orderStatus;
 
     const adminDb = await getAdminDb();
-
     if (adminDb && orderId) {
-      // 1. Update the central transactions collection
+      // 1. Update transactions
       try {
         await adminDb.collection('transactions').doc(orderId).update({
           status: orderStatus,
           trackingId: trackingId || 'N/A',
-          paymentMode: paymentMode || 'N/A',
-          cardName: cardName || 'N/A',
+          paymentMode: paymentMode,
+          cardName: cardName,
           statusMessage: statusMessage,
           updatedAt: new Date(),
         });
-      } catch (txnErr) {
-        console.error('Error updating transactions doc:', txnErr);
+      } catch (dbErr) {
+        console.error('Error updating transactions in status check:', dbErr);
       }
 
-      // 2. Determine type (Admission vs General)
+      // 2. Update type-specific collection
       if (orderId.startsWith('APP_')) {
-        // Query the enquiries collection to find the document with this orderId
         try {
           const enquiriesQuery = await adminDb.collection('enquiries')
             .where('payment.orderId', '==', orderId)
@@ -73,11 +74,13 @@ export async function POST(req) {
               status: orderStatus === 'Success' ? 'New' : 'Payment Failed',
             });
 
-            // 3. If successful, send Web3Forms notification email
-            if (orderStatus === 'Success') {
+            // If success, check if we should send email notification
+            // Usually, this status call is triggered if response webhook failed, so sending email is a good fallback
+            if (orderStatus === 'Success' && enquiryData.payment?.status !== 'Success') {
               try {
                 const messageText = `
 === NEW ADMISSION & PAYMENT ENQUIRY ===
+(RECONCILED VIA S2S STATUS QUERY)
 
 STUDENT DETAILS:
 - Name: ${enquiryData.name}
@@ -88,16 +91,14 @@ STUDENT DETAILS:
 ACADEMIC DETAILS:
 - Selected Course: ${enquiryData.program}
 - Branch/Specialization: ${enquiryData.branch || 'N/A'}
-- 10th Score: ${enquiryData.tenthPercentage}% (Board: ${enquiryData.tenthBoard}, Year: ${enquiryData.tenthYear})
-- 12th Score: ${enquiryData.twelfthPercentage}% (Board: ${enquiryData.twelfthBoard}, Year: ${enquiryData.twelfthYear})
-- Entrance Exam Score: ${enquiryData.examScore || 'N/A'}
+- 10th Score: ${enquiryData.tenthPercentage}%
+- 12th Score: ${enquiryData.twelfthPercentage}%
 - Marksheet Document Link: ${enquiryData.documentUrl}
 
 PAYMENT VERIFICATION DETAILS:
 - Transaction ID / Tracking ID: ${trackingId}
 - Payment Status: ${orderStatus} (Successful Online Payment)
 - Amount: ${currency} ${amount}
-- Date: ${transDate || new Date().toLocaleString()}
 
 Submitted from IP: ${enquiryData.ipAddress || 'N/A'}
 `;
@@ -110,22 +111,21 @@ Submitted from IP: ${enquiryData.ipAddress || 'N/A'}
                   },
                   body: JSON.stringify({
                     access_key: "ea72c4d8-d56a-48f8-af05-7dd8d48268a9",
-                    subject: `Admission Fee Paid: ${enquiryData.name} (${enquiryData.program})`,
+                    subject: `Admission Fee Paid (Reconciled): ${enquiryData.name}`,
                     name: enquiryData.name,
                     email: enquiryData.email,
                     message: messageText
                   })
                 });
               } catch (mailErr) {
-                console.error("Web3Forms payment email notification failed:", mailErr);
+                console.error("Web3Forms reconciled payment email failed:", mailErr);
               }
             }
           }
         } catch (enqErr) {
-          console.error('Error handling enquiry update:', enqErr);
+          console.error('Error handling enquiry status reconciliation:', enqErr);
         }
       } else {
-        // General Fee Payment
         try {
           await adminDb.collection('online_payments').doc(orderId).update({
             status: orderStatus,
@@ -133,17 +133,14 @@ Submitted from IP: ${enquiryData.ipAddress || 'N/A'}
             updatedAt: new Date(),
           });
         } catch (payErr) {
-          console.error('Error updating online_payments doc:', payErr);
+          console.error('Error updating online_payments in status check:', payErr);
         }
       }
     }
 
-    // Redirect the browser to the status page using HTTP 303 (See Other)
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || req.headers.get('origin') || 'http://localhost:3000';
-    return NextResponse.redirect(`${baseUrl}/payment/status?orderId=${orderId}`, 303);
-
+    return NextResponse.json({ success: true, status: orderStatus, response: responseObj });
   } catch (error) {
-    console.error('Error in CCAvenue Response API:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    console.error('Error in CCAvenue Status API:', error);
+    return NextResponse.json({ error: 'Internal Server Error', message: error.message }, { status: 500 });
   }
 }

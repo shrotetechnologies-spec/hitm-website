@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import {
   LayoutDashboard, Bell, CalendarDays, Users, Briefcase,
-  Globe, LogOut, Menu, Clock, Sparkles, Rocket
+  Globe, LogOut, Menu, Clock, Sparkles, Rocket, CreditCard
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -18,12 +18,14 @@ import EnquiriesManager from '@/components/admin/EnquiriesManager';
 import CareerManager from '@/components/admin/CareerManager';
 import PopupManager from '@/components/admin/PopupManager';
 import IncubationManager from '@/components/admin/IncubationManager';
+import PaymentsManager from '@/components/admin/PaymentsManager';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard size={16} /> },
   { id: 'notices', label: 'Notices', icon: <Bell size={16} /> },
   { id: 'events', label: 'Events', icon: <CalendarDays size={16} /> },
   { id: 'enquiries', label: 'Enquiries', icon: <Users size={16} /> },
+  { id: 'payments', label: 'Payments', icon: <CreditCard size={16} /> },
   { id: 'careers', label: 'Careers', icon: <Briefcase size={16} /> },
   { id: 'incubation', label: 'Incubation Leads', icon: <Rocket size={16} /> },
   { id: 'popup', label: 'Popup Leads', icon: <Sparkles size={16} /> },
@@ -82,6 +84,7 @@ export default function AdminDashboard() {
       case 'notices': return <NoticesManager />;
       case 'events': return <EventsManager />;
       case 'enquiries': return <EnquiriesManager />;
+      case 'payments': return <PaymentsManager />;
       case 'careers': return <CareerManager />;
       case 'incubation': return <IncubationManager />;
       case 'popup': return <PopupManager />;
