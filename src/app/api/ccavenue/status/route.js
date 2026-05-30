@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { queryStatus } from '@/lib/ccavenue';
 import { getAdminDb } from '@/lib/firebase-admin';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
