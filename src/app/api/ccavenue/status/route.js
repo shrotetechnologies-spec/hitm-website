@@ -13,8 +13,8 @@ export async function GET(req) {
       return NextResponse.json({ error: 'Order ID is required' }, { status: 400 });
     }
 
-    const accessCode = process.env.CCAVENUE_ACCESS_CODE;
-    const workingKey = process.env.CCAVENUE_WORKING_KEY;
+    const accessCode = process.env.CCAVENUE_ACCESS_CODE?.trim();
+    const workingKey = process.env.CCAVENUE_WORKING_KEY?.trim();
     const isProduction = process.env.CCAVENUE_ENV === 'production';
 
     if (!accessCode || !workingKey) {

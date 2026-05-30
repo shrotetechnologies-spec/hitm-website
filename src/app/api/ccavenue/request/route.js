@@ -6,9 +6,9 @@ export async function POST(req) {
   try {
     const body = await req.json();
 
-    const merchantId = process.env.CCAVENUE_MERCHANT_ID;
-    const accessCode = process.env.CCAVENUE_ACCESS_CODE;
-    const workingKey = process.env.CCAVENUE_WORKING_KEY;
+    const merchantId = process.env.CCAVENUE_MERCHANT_ID?.trim();
+    const accessCode = process.env.CCAVENUE_ACCESS_CODE?.trim();
+    const workingKey = process.env.CCAVENUE_WORKING_KEY?.trim();
 
     if (!merchantId || !accessCode || !workingKey) {
       console.error('CCAvenue env vars missing');

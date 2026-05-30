@@ -7,7 +7,7 @@ export async function POST(req) {
   try {
     const formData = await req.formData();
     const encResp = formData.get('encResp');
-    const workingKey = process.env.CCAVENUE_WORKING_KEY;
+    const workingKey = process.env.CCAVENUE_WORKING_KEY?.trim();
 
     if (!workingKey) {
       console.error('CCAVENUE_WORKING_KEY env var missing');

@@ -17,7 +17,7 @@ export async function POST(req) {
       encResp = body.encResp;
     }
 
-    const workingKey = process.env.CCAVENUE_WORKING_KEY;
+    const workingKey = process.env.CCAVENUE_WORKING_KEY?.trim();
 
     if (!workingKey) {
       console.error('CCAVENUE_WORKING_KEY missing in webhook');
