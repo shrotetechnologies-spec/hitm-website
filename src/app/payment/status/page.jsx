@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Label } from '@/components/ui/label';
 import { db } from '@/lib/firebase';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { CheckCircle2, XCircle, Loader2, Printer, Home, RefreshCw, FileText } from 'lucide-react';
