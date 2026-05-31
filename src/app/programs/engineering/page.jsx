@@ -38,9 +38,6 @@ export default function EngineeringPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex justify-between items-center mb-4">
             <Badge variant="gold">Department of Engineering</Badge>
-            <Button variant="ghost" size="sm" onClick={handleDownload} className="text-white hover:bg-white/10">
-              <Download size={16} className="mr-2" /> Download Details
-            </Button>
           </div>
           <h1 className="text-4xl md:text-6xl font-black font-serif text-white mb-6">Bachelor of Technology (B.Tech)</h1>
           <p className="text-gray-300 max-w-2xl text-lg leading-relaxed">

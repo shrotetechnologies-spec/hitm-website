@@ -6,12 +6,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { CheckCircle2, Loader2, Upload, File as FileIcon, X, ArrowRight } from 'lucide-react';
-import { db, storage } from '@/lib/firebase';
+import { CheckCircle2, Loader2, X, ArrowRight } from 'lucide-react';
+import { db } from '@/lib/firebase';
 import { doc, setDoc, serverTimestamp, getDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useState, useEffect } from 'react';
-import imageCompression from 'browser-image-compression';
+import InlinePhoneVerifier from '@/components/InlinePhoneVerifier';
+import Link from 'next/link';
 
 const branchOptions = {
   'B.Tech': ['Computer Science & Engineering (CSE)', 'Data Science', 'Artificial Intelligence & ML', 'Electric & Electronics Engineering', 'Mechanical Engineering', 'Civil Engineering'],
@@ -26,17 +26,10 @@ export default function AdmissionApplyClient() {
   const [userIp, setUserIp] = useState('');
   const [showPayment, setShowPayment] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [phoneVerified, setPhoneVerified] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: '', fatherName: '', email: '', phone: '', program: '', branch: '',
-    tenthBoard: '', tenthYear: '', tenthPercentage: '',
-    twelfthBoard: '', twelfthYear: '', twelfthPercentage: '',
-    pcmPercentage: '', examScore: ''
-  });
-  const [documentFile, setDocumentFile] = useState(null);
-
-  const [paymentData, setPaymentData] = useState({
-    transactionId: '', receiptFile: null
+    name: '', fatherName: '', email: '', phone: '', program: '', branch: ''
   });
 
   useEffect(() => {
@@ -58,8 +51,8 @@ export default function AdmissionApplyClient() {
     e.preventDefault();
     setError('');
 
-    if (!documentFile && !formData.documentUrl) {
-      setError('Please upload your document (Marksheet/ID).');
+    if (!phoneVerified) {
+      setError('Please verify your phone number with OTP first.');
       return;
     }
 
@@ -75,8 +68,15 @@ export default function AdmissionApplyClient() {
           return;
         } else {
           // Allow recovery: load the data and proceed to payment
-          setFormData(existingData);
-          setError('Unpaid application found. Directing to payment...');
+          setFormData({
+            name: existingData.name || '',
+            fatherName: existingData.fatherName || '',
+            email: existingData.email || '',
+            phone: existingData.phone || '',
+            program: existingData.program || '',
+            branch: existingData.branch || '',
+          });
+          setError('Unpaid application found. Directing to payment options...');
           setShowPayment(true);
           setLoading(false);
           return;
@@ -98,27 +98,12 @@ export default function AdmissionApplyClient() {
     setError('');
 
     try {
-      const processUpload = async (file, path) => {
-        let uploadFile = file;
-        if (file.type.startsWith('image/')) {
-          uploadFile = await imageCompression(file, { maxSizeMB: 1, maxWidthOrHeight: 1920, useWebWorker: true });
-        }
-        const storageRef = ref(storage, path);
-        await uploadBytes(storageRef, uploadFile);
-        return await getDownloadURL(storageRef);
-      };
-
-      let docUrl = formData.documentUrl || '';
-      if (documentFile) {
-        docUrl = await processUpload(documentFile, `applications/${formData.phone}/document_${Date.now()}`);
-      }
-
       const orderId = `APP_${Date.now()}_${formData.phone}`;
 
       // Save/Update form details with payment state Pending
       await setDoc(doc(db, 'enquiries', formData.phone), {
         ...formData,
-        documentUrl: docUrl,
+        documentUrl: 'N/A',
         payment: {
           orderId: orderId,
           amount: '1000.00',
@@ -173,6 +158,41 @@ export default function AdmissionApplyClient() {
     }
   };
 
+  const handleSkipPayment = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      const orderId = `APP_${Date.now()}_${formData.phone}`;
+
+      // Save form details with payment state Pending
+      await setDoc(doc(db, 'enquiries', formData.phone), {
+        ...formData,
+        documentUrl: 'N/A',
+        payment: {
+          orderId: orderId,
+          amount: '1000.00',
+          transactionId: 'N/A',
+          receiptUrl: 'N/A',
+          status: 'Pending',
+          createdAt: serverTimestamp()
+        },
+        status: 'New',
+        ipAddress: userIp,
+        createdAt: serverTimestamp()
+      }, { merge: true });
+
+      setSubmitted(true);
+      setShowPayment(false);
+    } catch (submitError) {
+      console.error('Error in skip payment submit:', submitError);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="flex flex-col min-h-screen">
       <Navbar />
@@ -187,9 +207,9 @@ export default function AdmissionApplyClient() {
             <div className="mb-10 space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
-                  { title: 'Step 1', description: 'Choose your program, review eligibility, and keep your academic details ready before starting.' },
-                  { title: 'Step 2', description: 'Complete the online application form and upload your required document for verification.' },
-                  { title: 'Step 3', description: 'Proceed to fee payment, upload the payment receipt, and submit your application.' },
+                  { title: 'Step 1', description: 'Choose your preferred program and keep your contact details ready.' },
+                  { title: 'Step 2', description: 'Verify your phone number with OTP and fill out the basic details form.' },
+                  { title: 'Step 3', description: 'Pay the application fee online or skip/pay later to finish your application.' },
                 ].map((step) => (
                   <Card key={step.title} className="border border-gray-200 shadow-sm">
                     <CardContent className="p-6">
@@ -241,15 +261,15 @@ export default function AdmissionApplyClient() {
               {submitted ? (
                 <div className="text-center py-10 animate-fade-in">
                   <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6"><CheckCircle2 size={32} /></div>
-                  <h3 className="text-2xl font-bold text-hitm-navy mb-2">Application Submitted successfully!</h3>
-                  <p className="text-gray-500">Your form details have been recorded. Our admissions cell will review and verify your application shortly.</p>
+                  <h3 className="text-2xl font-bold text-hitm-navy mb-2">Application Submitted Successfully!</h3>
+                  <p className="text-gray-500">Your details have been successfully saved with payment marked as pending. Our admissions cell will review your application shortly.</p>
                 </div>
               ) : !showForm ? (
                 <div className="text-center py-8">
                   <div className="max-w-2xl mx-auto">
                     <h3 className="text-2xl font-bold text-hitm-navy mb-3">Ready to Begin Your Application?</h3>
                     <p className="text-gray-600 leading-relaxed mb-8">
-                      Once you click below, the full application form will open along with document upload and payment steps.
+                      Once you click below, the simplified application form will open. You can verify your phone number and submit your application.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button type="button" onClick={() => setShowForm(true)} className="h-12 px-8 bg-hitm-red hover:bg-hitm-navy text-white font-bold uppercase tracking-widest">
@@ -264,15 +284,25 @@ export default function AdmissionApplyClient() {
               ) : (
                 <form className="space-y-6" onSubmit={handleInitialSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2"><Label>Student Name</Label><Input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>Father&apos;s Name</Label><Input required value={formData.fatherName} onChange={e => setFormData({ ...formData, fatherName: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>Mobile Number (Serves as your Application ID)</Label><Input type="tel" required value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>Email Address</Label><Input type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} /></div>
+                    <div className="space-y-2"><Label>Student Name *</Label><Input required value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} /></div>
+                    <div className="space-y-2"><Label>Father&apos;s Name *</Label><Input required value={formData.fatherName} onChange={e => setFormData({ ...formData, fatherName: e.target.value })} /></div>
+                    
+                    <div className="space-y-2">
+                      <Label>Mobile Number * (Serves as your Application ID)</Label>
+                      <InlinePhoneVerifier
+                        phone={formData.phone}
+                        onChange={(p) => setFormData({ ...formData, phone: p })}
+                        onVerificationComplete={setPhoneVerified}
+                        recaptchaId="admission-apply"
+                      />
+                    </div>
+                    
+                    <div className="space-y-2"><Label>Email Address *</Label><Input type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} /></div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <Label>Select Preferred Course</Label>
+                      <Label>Select Preferred Course *</Label>
                       <select className="w-full h-10 border rounded-md px-3 bg-gray-50" required value={formData.program} onChange={e => setFormData({ ...formData, program: e.target.value, branch: '' })}>
                         <option value="">Choose Course...</option>
                         <option value="B.Tech">B.Tech (Bachelor of Technology)</option>
@@ -286,7 +316,7 @@ export default function AdmissionApplyClient() {
 
                     {branchOptions[formData.program] ? (
                       <div className="space-y-2 animate-in fade-in zoom-in duration-200">
-                        <Label>Select Specialization / Branch</Label>
+                        <Label>Select Specialization / Branch *</Label>
                         <select className="w-full h-10 border rounded-md px-3 bg-white" required value={formData.branch} onChange={e => setFormData({ ...formData, branch: e.target.value })}>
                           <option value="">Choose Branch...</option>
                           {branchOptions[formData.program].map((b) => (
@@ -299,59 +329,9 @@ export default function AdmissionApplyClient() {
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2"><Label>10th Board</Label><Input placeholder="CBSE / ICSE / State" required value={formData.tenthBoard} onChange={e => setFormData({ ...formData, tenthBoard: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>10th Passing Year</Label><Input type="number" placeholder="YYYY" required value={formData.tenthYear} onChange={e => setFormData({ ...formData, tenthYear: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>10th Percentage (%)</Label><Input type="number" step="0.01" required value={formData.tenthPercentage} onChange={e => setFormData({ ...formData, tenthPercentage: e.target.value })} /></div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2"><Label>12th / Diploma Board</Label><Input placeholder="CBSE / Board / Univ" required value={formData.twelfthBoard} onChange={e => setFormData({ ...formData, twelfthBoard: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>12th / Diploma Passing Year</Label><Input type="number" placeholder="YYYY" required value={formData.twelfthYear} onChange={e => setFormData({ ...formData, twelfthYear: e.target.value })} /></div>
-                    <div className="space-y-2"><Label>12th / Diploma (%)</Label><Input type="number" step="0.01" required value={formData.twelfthPercentage} onChange={e => setFormData({ ...formData, twelfthPercentage: e.target.value })} /></div>
-                  </div>
-
-                  {(formData.program === 'B.Tech' || formData.program === 'Diploma' || formData.program === 'MBA' || formData.program === 'MCA') && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 p-5 rounded-2xl border border-gray-100 animate-in fade-in duration-300">
-                      {formData.program === 'B.Tech' && (
-                        <div className="space-y-2 animate-in slide-in-from-left duration-300">
-                          <Label>PCM Percentage (%)</Label>
-                          <Input type="number" step="0.01" required placeholder="Physics, Chem & Math %" className="bg-white" value={formData.pcmPercentage} onChange={e => setFormData({ ...formData, pcmPercentage: e.target.value })} />
-                        </div>
-                      )}
-
-                      <div className="space-y-2 animate-in slide-in-from-left duration-300">
-                        <Label>
-                          {formData.program === 'B.Tech' ? 'JEE Main / JCECEB Score or Percentile' :
-                            formData.program === 'Diploma' ? 'JCECEB / Entrance Score' :
-                            formData.program === 'MBA' ? 'CAT / MAT / CMAT Score' :
-                            'NIMCET / Entrance Score'}
-                        </Label>
-                        <Input required placeholder="Enter Score (Type NA if none)" className="bg-white" value={formData.examScore} onChange={e => setFormData({ ...formData, examScore: e.target.value })} />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="space-y-2">
-                    <Label>Upload Document (Photo/Marksheet/ID - Max 5MB)</Label>
-                    <div className="border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50 p-4 relative flex items-center justify-center min-h-[100px] hover:bg-gray-50 transition-colors">
-                      <input type="file" accept="image/*,.pdf" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onChange={e => setDocumentFile(e.target.files[0])} required />
-                      {documentFile ? (
-                        <div className="flex items-center gap-2 text-hitm-navy font-bold">
-                          <FileIcon className="text-hitm-red" /> {documentFile.name}
-                        </div>
-                      ) : (
-                        <div className="text-center text-gray-500">
-                          <Upload className="mx-auto mb-2 opacity-50" />
-                          <span className="text-sm font-bold uppercase tracking-widest text-gray-400">Click to Browse</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
                   {error && !showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100">{error}</p>}
-                  <Button type="submit" disabled={loading} className="w-full h-12 bg-hitm-navy hover:bg-hitm-red text-white uppercase font-bold tracking-widest shadow-lg">
-                    {loading ? <Loader2 className="animate-spin" /> : 'Proceed to Payment'}
+                  <Button type="submit" disabled={loading || !phoneVerified} className="w-full h-12 bg-hitm-navy hover:bg-hitm-red text-white uppercase font-bold tracking-widest shadow-lg">
+                    {loading ? <Loader2 className="animate-spin" /> : 'Proceed to Payment Options'}
                   </Button>
                 </form>
               )}
@@ -372,19 +352,28 @@ export default function AdmissionApplyClient() {
                 </button>
               </div>
 
-              <form onSubmit={handleFinalSubmit} className="p-6">
-                <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 mb-6 space-y-2 text-center shadow-inner">
+              <div className="p-6 space-y-6">
+                <div className="bg-blue-50 p-5 rounded-xl border border-blue-100 text-center shadow-inner">
                   <p className="text-sm text-gray-700 leading-relaxed font-medium">
-                    You are initiating a secure online payment of <strong className="text-hitm-navy font-bold">1,000 Rupees</strong> for the admission form fee. Clicking below will redirect you to CCAvenue to complete the transaction.
+                    You can either complete your secure online payment of <strong className="text-hitm-navy font-bold">1,000 Rupees</strong> now, or submit your details and pay later.
                   </p>
                 </div>
 
-                {error && showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100 mt-4">{error}</p>}
+                {error && showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100">{error}</p>}
 
-                <Button type="submit" disabled={loading} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest mt-2 shadow-xl hover:-translate-y-0.5 transition-transform">
-                  {loading ? <Loader2 className="animate-spin" /> : 'Pay Application Fee (Rs. 1,000)'}
-                </Button>
-              </form>
+                <div className="flex flex-col gap-3">
+                  <Button type="button" onClick={handleFinalSubmit} disabled={loading} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest shadow-xl hover:-translate-y-0.5 transition-transform">
+                    {loading ? <Loader2 className="animate-spin" /> : 'Pay Application Fee Online'}
+                  </Button>
+                  <Button type="button" onClick={handleSkipPayment} disabled={loading} variant="outline" className="w-full h-12 border-gray-200 hover:bg-gray-50 text-gray-700 uppercase font-bold tracking-widest transition-transform">
+                    {loading ? <Loader2 className="animate-spin" /> : 'Submit & Pay Later'}
+                  </Button>
+                  
+                  <p className="text-center text-xs text-gray-400 mt-2">
+                    By proceeding, you agree to the college <Link href="/refund-policy" target="_blank" className="text-hitm-navy hover:text-hitm-red font-bold hover:underline">Refund Policy</Link>.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -393,3 +382,4 @@ export default function AdmissionApplyClient() {
     </main>
   );
 }
+

@@ -7,6 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import { Bell, Calendar, ChevronRight, Search, Filter } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import Link from 'next/link';
+
+const isOpeningRelated = (n) => {
+  const keywords = ['opening', 'career', 'job', 'vacancy', 'hiring', 'recruitment', 'join us', 'walk-in', 'walkin', 'interview'];
+  const text = `${n.title || ''} ${n.content || ''} ${n.tag || ''} ${n.category || ''}`.toLowerCase();
+  return keywords.some(k => text.includes(k));
+};
 
 export default function NoticePage() {
   const [notices, setNotices] = useState([]);
@@ -67,9 +74,10 @@ export default function NoticePage() {
                 <p className="text-gray-500">Loading announcements...</p>
               </div>
             ) : filteredNotices.length > 0 ? (
-              filteredNotices.map((n) => (
-                <Card key={n.id} className="hover:shadow-lg transition-all border-none shadow-sm">
-                  <CardContent className="p-0 flex flex-col md:flex-row">
+              filteredNotices.map((n) => {
+                const openingRelated = isOpeningRelated(n);
+                const CardInner = (
+                  <CardContent className="p-0 flex flex-col md:flex-row cursor-pointer">
                     <div className="bg-hitm-red md:w-24 p-6 flex items-center justify-center text-center text-white shrink-0">
                       <div>
                         <div className="text-3xl font-black">{new Date(n.date || n.createdAt?.toDate()).getDate()}</div>
@@ -88,14 +96,34 @@ export default function NoticePage() {
                       <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight">{n.title}</h3>
                       <p className="text-gray-600 text-sm leading-relaxed mb-4">{n.content}</p>
                       {n.link && (
-                        <a href={n.link} className="inline-flex items-center gap-1.5 text-hitm-red font-bold text-xs hover:gap-3 transition-all">
+                        <span className="inline-flex items-center gap-1.5 text-hitm-red font-bold text-xs hover:gap-3 transition-all">
                           Download Document <ChevronRight size={14} />
-                        </a>
+                        </span>
                       )}
                     </div>
                   </CardContent>
-                </Card>
-              ))
+                );
+
+                if (openingRelated) {
+                  return (
+                    <Link key={n.id} href="/career" className="block">
+                      <Card className="hover:shadow-lg transition-all border-none shadow-sm overflow-hidden">
+                        {CardInner}
+                      </Card>
+                    </Link>
+                  );
+                }
+
+                return (
+                  <Card key={n.id} className="hover:shadow-lg transition-all border-none shadow-sm overflow-hidden">
+                    {n.link ? (
+                      <a href={n.link} target="_blank" rel="noreferrer" className="block">
+                        {CardInner}
+                      </a>
+                    ) : CardInner}
+                  </Card>
+                );
+              })
             ) : (
               <div className="bg-white rounded-2xl p-12 text-center border-2 border-dashed border-gray-100">
                 <Bell className="mx-auto text-gray-300 mb-4" size={48} />

@@ -17,7 +17,7 @@ const navItems = [
     isHome: true,
   },
   {
-    label: 'Courses', icon: <BookOpen size={16} />,
+    label: 'Programs', icon: <BookOpen size={16} />,
     children: [
       { label: 'Engineering (B.Tech)', href: '/programs/engineering' },
       { label: 'MBA', href: '/programs/mba' },
@@ -248,6 +248,18 @@ export default function Navbar() {
               )}
             </li>
           ))}
+          <li className="border-b border-gray-100 px-4">
+            <Link
+              href="/payment"
+              onClick={() => setMobileOpen(false)}
+              className="w-full flex items-center py-4 text-sm font-bold text-hitm-navy uppercase tracking-wide hover:text-hitm-red transition-colors"
+            >
+              <span className="flex items-center gap-3">
+                <span className="text-hitm-gold"><CreditCard size={16} /></span>
+                Online Fee Payment
+              </span>
+            </Link>
+          </li>
         </ul>
 
         <div className="p-6 border-t bg-gray-50 mt-auto shadow-inner">

@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/badge';
 import { CreditCard, Loader2, ShieldCheck } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import InlinePhoneVerifier from '@/components/InlinePhoneVerifier';
+import Link from 'next/link';
 
 export default function PaymentPage() {
   const [formData, setFormData] = useState({
@@ -22,10 +24,16 @@ export default function PaymentPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [phoneVerified, setPhoneVerified] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!phoneVerified) {
+      setError('Please verify your mobile number with OTP first.');
+      return;
+    }
 
     const amt = parseFloat(formData.amount);
     if (isNaN(amt) || amt <= 0) {
@@ -154,13 +162,11 @@ export default function PaymentPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="mobile">Mobile Number *</Label>
-                      <Input 
-                        id="mobile" 
-                        required 
-                        type="tel" 
-                        placeholder="+91 99999 99999" 
-                        value={formData.mobile}
-                        onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                      <InlinePhoneVerifier
+                        phone={formData.mobile}
+                        onChange={(p) => setFormData({ ...formData, mobile: p })}
+                        onVerificationComplete={setPhoneVerified}
+                        recaptchaId="online-payment"
                       />
                     </div>
                     <div className="space-y-2">
@@ -213,7 +219,7 @@ export default function PaymentPage() {
 
                   <Button 
                     type="submit" 
-                    disabled={loading}
+                    disabled={loading || !phoneVerified}
                     className="w-full h-14 bg-hitm-red hover:bg-hitm-navy text-white font-black uppercase tracking-widest text-sm shadow-xl hover:shadow-2xl transition-all"
                   >
                     {loading ? (
@@ -222,6 +228,10 @@ export default function PaymentPage() {
                       `Pay ₹${formData.amount || '0.00'} Online Now`
                     )}
                   </Button>
+                  
+                  <p className="text-center text-xs text-gray-500 mt-3">
+                    By making this payment, you agree to our <Link href="/refund-policy" className="text-hitm-navy hover:text-hitm-red font-bold hover:underline">Refund Policy</Link>.
+                  </p>
                 </form>
               </CardContent>
             </Card>

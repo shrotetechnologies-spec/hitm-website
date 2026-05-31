@@ -35,6 +35,13 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
+import InlinePhoneVerifier from "@/components/InlinePhoneVerifier";
+
+const isOpeningRelated = (n) => {
+  const keywords = ['opening', 'career', 'job', 'vacancy', 'hiring', 'recruitment', 'join us', 'walk-in', 'walkin', 'interview'];
+  const text = `${n.title || ''} ${n.content || ''} ${n.category || ''}`.toLowerCase();
+  return keywords.some(k => text.includes(k));
+};
 
 //  Hero Slides
 const heroSlides = [
@@ -260,7 +267,7 @@ function HeroSlider() {
             <div className="flex gap-3 flex-wrap">
               <Button asChild variant="gold" size="lg" className="shadow-xl">
                 <Link href="/admissions/apply?form=1">
-                  Apply Now 2026 <ArrowRight size={18} />
+                  Register Now <ArrowRight size={18} />
                 </Link>
               </Button>
               <Button
@@ -311,6 +318,7 @@ function HeroSlider() {
 // Main Page
 export default function HomePage() {
   const [enquiry, setEnquiry] = useState({ name: "", phone: "", program: "" });
+  const [enquiryPhoneVerified, setEnquiryPhoneVerified] = useState(false);
   const [notices, setNotices] = useState([]);
   const [events, setEvents] = useState([]);
   const [mounted, setMounted] = useState(false);
@@ -364,6 +372,10 @@ export default function HomePage() {
 
   const handleEnquiry = async (e) => {
     e.preventDefault();
+    if (!enquiryPhoneVerified) {
+      alert("Please verify your phone number with OTP first.");
+      return;
+    }
     let firestoreSuccess = false;
     try {
       const response = await fetch("/api/enquiries", {
@@ -402,10 +414,12 @@ export default function HomePage() {
 
       alert("Enquiry submitted! We will contact you shortly.");
       setEnquiry({ name: "", phone: "", program: "" });
+      setEnquiryPhoneVerified(false);
     } else {
       // Fallback fallback alert to match original behavior if Firestore endpoint failed
       alert("Thank you! We will contact you shortly.");
       setEnquiry({ name: "", phone: "", program: "" });
+      setEnquiryPhoneVerified(false);
     }
   };
 
@@ -422,7 +436,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* Marquee */}
-      <div className="bg-hitm-red py-2.5 overflow-hidden">
+      <Link href="/career" className="block bg-hitm-red py-2.5 overflow-hidden hover:bg-hitm-navy transition-colors cursor-pointer">
         <div className="marquee-track">
           {[0, 1]
             .flatMap(() => marqueeItems)
@@ -436,7 +450,7 @@ export default function HomePage() {
               </span>
             ))}
         </div>
-      </div>
+      </Link>
 
       {/* Hero */}
       <HeroSlider />
@@ -468,6 +482,109 @@ export default function HomePage() {
               )
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Quick Enquiry Form (Moved Higher) */}
+      <section className="py-16 bg-gradient-to-br from-gray-900 to-hitm-navy">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <Badge variant="gold" className="mb-4">
+              Admissions 2026
+            </Badge>
+            <h2 className="text-4xl font-black font-serif text-white mt-3">
+              Start Your Application Today
+            </h2>
+            <p className="text-gray-400 mt-3">
+              Fill in a quick form and our admissions team will contact you within 24 hours.
+            </p>
+          </div>
+
+          <Card className="max-w-2xl mx-auto shadow-2xl">
+            <CardHeader>
+              <CardTitle className="text-center">Quick Enquiry Form</CardTitle>
+              <CardDescription className="text-center">
+                We will contact you within 24 hours
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form
+                onSubmit={handleEnquiry}
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
+                <div className="space-y-1">
+                  <label className="text-sm font-medium">Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="Your full name"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-hitm-red outline-none"
+                    value={enquiry.name}
+                    onChange={(e) =>
+                      setEnquiry({ ...enquiry, name: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-sm font-medium">Mobile Number *</label>
+                  <InlinePhoneVerifier
+                    phone={enquiry.phone}
+                    onChange={(p) => setEnquiry({ ...enquiry, phone: p })}
+                    onVerificationComplete={setEnquiryPhoneVerified}
+                    recaptchaId="quick-enquiry"
+                  />
+                </div>
+                <div className="space-y-1 md:col-span-2">
+                  <label className="text-sm font-medium">
+                    Program of Interest *
+                  </label>
+                  <select
+                    required
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-hitm-red outline-none"
+                    value={enquiry.program}
+                    onChange={(e) =>
+                      setEnquiry({ ...enquiry, program: e.target.value })
+                    }
+                  >
+                    <option value="">Select Program</option>
+                    {[
+                      "B.Tech CSE",
+                      "B.Tech AI",
+                      "B.Tech Data Science",
+                      "B.Tech Electrical",
+                      "B.Tech EEE",
+                      "B.Tech ECE",
+                      "B.Tech Mechanical",
+                      "B.Tech Civil",
+                      "Diploma CSE",
+                      "Diploma Data Science",
+                      "Diploma AI",
+                      "Diploma Mechanical",
+                      "Diploma Civil",
+                      "Diploma Electrical",
+                      "Diploma EEE",
+                      "Diploma ECE",
+                      "MBA",
+                      "MCA",
+                      "BCA",
+                      "BBA",
+                    ].map((p) => (
+                      <option key={p}>{p}</option>
+                    ))}
+                  </select>
+                </div>
+                <Button
+                  type="submit"
+                  variant="default"
+                  size="lg"
+                  className="md:col-span-2 w-full mt-2"
+                  disabled={!enquiryPhoneVerified}
+                >
+                  Submit Enquiry <ArrowRight size={16} />
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -665,38 +782,59 @@ export default function HomePage() {
               <Card className="h-[420px] bg-white group overflow-hidden">
                 <marquee direction="up" scrollamount="4" className="h-full">
                   <div className="w-full flex flex-col">
-                    {notices.map((n, i) => (
-                      <div
-                        key={i}
-                        className="flex gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100"
-                      >
-                        <div className="bg-hitm-red text-white rounded-lg p-2.5 text-center min-w-[52px] shrink-0 h-fit shadow-sm">
-                          <div className="text-xl font-black leading-none">
-                            {n.day}
+                    {notices.map((n, i) => {
+                      const openingRelated = isOpeningRelated(n);
+                      const CardContent = (
+                        <>
+                          <div className="bg-hitm-red text-white rounded-lg p-2.5 text-center min-w-[52px] shrink-0 h-fit shadow-sm">
+                            <div className="text-xl font-black leading-none">
+                              {n.day}
+                            </div>
+                            <div className="text-[10px] text-white/80 uppercase mt-0.5">
+                              {n.month}
+                            </div>
                           </div>
-                          <div className="text-[10px] text-white/80 uppercase mt-0.5">
-                            {n.month}
+
+                          <div className="flex-1">
+                            <p className="font-semibold text-sm text-gray-800 group-hover:text-hitm-red transition-colors">
+                              {n.title}
+                            </p>
+                            <p className="text-xs text-gray-500 mt-0.5">
+                              {n.content}
+                            </p>
+                            <Badge variant="gold" className="mt-1.5 text-[10px]">
+                              {n.category}
+                            </Badge>
                           </div>
-                        </div>
 
-                        <div className="flex-1">
-                          <p className="font-semibold text-sm text-gray-800 group-hover:text-hitm-red transition-colors">
-                            {n.title}
-                          </p>
-                          <p className="text-xs text-gray-500 mt-0.5">
-                            {n.content}
-                          </p>
-                          <Badge variant="gold" className="mt-1.5 text-[10px]">
-                            {n.category}
-                          </Badge>
-                        </div>
+                          <ChevronRight
+                            size={16}
+                            className="text-gray-300 group-hover:text-hitm-red shrink-0 mt-1 transition-colors"
+                          />
+                        </>
+                      );
 
-                        <ChevronRight
-                          size={16}
-                          className="text-gray-300 group-hover:text-hitm-red shrink-0 mt-1 transition-colors"
-                        />
-                      </div>
-                    ))}
+                      if (openingRelated) {
+                        return (
+                          <Link
+                            key={i}
+                            href="/career"
+                            className="flex gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 w-full text-left"
+                          >
+                            {CardContent}
+                          </Link>
+                        );
+                      }
+
+                      return (
+                        <div
+                          key={i}
+                          className="flex gap-4 p-4 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100"
+                        >
+                          {CardContent}
+                        </div>
+                      );
+                    })}
                   </div>
                 </marquee>
               </Card>
@@ -892,112 +1030,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Quick Enquiry CTA */}
-      <section className="py-20 bg-gradient-to-br from-gray-900 to-hitm-navy">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <Badge variant="gold" className="mb-4">
-              Admissions 2026
-            </Badge>
-            <h2 className="text-4xl font-black font-serif text-white mt-3">
-              Start Your Application Today
-            </h2>
-            <p className="text-gray-400 mt-3">
-              Fill in a quick form and our admissions team will contact you
-              within 24 hours.
-            </p>
-          </div>
 
-          <Card className="max-w-2xl mx-auto shadow-2xl">
-            <CardHeader>
-              <CardTitle className="text-center">Quick Enquiry Form</CardTitle>
-              <CardDescription className="text-center">
-                We will contact you within 24 hours
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form
-                onSubmit={handleEnquiry}
-                className="grid grid-cols-1 md:grid-cols-2 gap-4"
-              >
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">Full Name *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Your full name"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-hitm-red outline-none"
-                    value={enquiry.name}
-                    onChange={(e) =>
-                      setEnquiry({ ...enquiry, name: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-sm font-medium">Mobile Number *</label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+91 98765 43210"
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-hitm-red outline-none"
-                    value={enquiry.phone}
-                    onChange={(e) =>
-                      setEnquiry({ ...enquiry, phone: e.target.value })
-                    }
-                  />
-                </div>
-                <div className="space-y-1 md:col-span-2">
-                  <label className="text-sm font-medium">
-                    Program of Interest *
-                  </label>
-                  <select
-                    required
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-hitm-red outline-none"
-                    value={enquiry.program}
-                    onChange={(e) =>
-                      setEnquiry({ ...enquiry, program: e.target.value })
-                    }
-                  >
-                    <option value="">Select Program</option>
-                    {[
-                      "B.Tech CSE",
-                      "B.Tech AI",
-                      "B.Tech Data Science",
-                      "B.Tech Electrical",
-                      "B.Tech EEE",
-                      "B.Tech ECE",
-                      "B.Tech Mechanical",
-                      "B.Tech Civil",
-                      "Diploma CSE",
-                      "Diploma Data Science",
-                      "Diploma AI",
-                      "Diploma Mechanical",
-                      "Diploma Civil",
-                      "Diploma Electrical",
-                      "Diploma EEE",
-                      "Diploma ECE",
-                      "MBA",
-                      "MCA",
-                      "BCA",
-                      "BBA",
-                    ].map((p) => (
-                      <option key={p}>{p}</option>
-                    ))}
-                  </select>
-                </div>
-                <Button
-                  type="submit"
-                  variant="default"
-                  size="lg"
-                  className="md:col-span-2 w-full"
-                >
-                  Submit Enquiry <ArrowRight size={16} />
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
 
       {/* Institute Overview */}
       <section className="py-20 bg-white">

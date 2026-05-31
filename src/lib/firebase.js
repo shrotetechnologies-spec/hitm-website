@@ -26,6 +26,11 @@ if (typeof window !== "undefined" || isConfigValid) {
     auth = getAuth(app);
     db = getFirestore(app);
     storage = getStorage(app);
+    
+    // Enable app verification bypass for testing on localhost
+    if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+      auth.settings.appVerificationDisabledForTesting = true;
+    }
   } catch (error) {
     console.error("Firebase initialization failed:", error);
   }

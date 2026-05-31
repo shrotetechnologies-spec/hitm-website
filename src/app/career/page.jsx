@@ -13,12 +13,14 @@ import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from 
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useEffect } from 'react';
 import imageCompression from 'browser-image-compression';
+import InlinePhoneVerifier from '@/components/InlinePhoneVerifier';
 
 export default function CareerPage() {
   const [applyModal, setApplyModal] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', exp: '', coverLetter: '' });
   const [resume, setResume] = useState(null);
+  const [phoneVerified, setPhoneVerified] = useState(false);
 
   const [jobsData, setJobsData] = useState([]);
 
@@ -43,6 +45,10 @@ export default function CareerPage() {
 
   const handleApply = async (e) => {
     e.preventDefault();
+    if (!phoneVerified) {
+      alert("Please verify your phone number with OTP first.");
+      return;
+    }
     setSubmitting(true);
     try {
       let resumeUrl = '';
@@ -72,6 +78,7 @@ export default function CareerPage() {
       setApplyModal(null);
       setFormData({ name: '', email: '', phone: '', exp: '', coverLetter: '' });
       setResume(null);
+      setPhoneVerified(false);
     } catch (err) {
       console.error(err);
       alert('Error submitting application. Please try again.');
@@ -206,7 +213,12 @@ export default function CareerPage() {
                   </div>
                   <div className="space-y-2">
                     <Label>Phone Number *</Label>
-                    <Input required type="tel" value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} placeholder="+91 0000 0000" />
+                    <InlinePhoneVerifier
+                      phone={formData.phone}
+                      onChange={(p) => setFormData({...formData, phone: p})}
+                      onVerificationComplete={setPhoneVerified}
+                      recaptchaId="careers-apply"
+                    />
                   </div>
                   <div className="space-y-2">
                     <Label>Experience (Years) *</Label>
@@ -241,8 +253,8 @@ export default function CareerPage() {
                 </div>
 
                 <div className="flex gap-4 pt-4 sticky bottom-0 bg-white">
-                  <Button type="button" variant="outline" className="flex-1" onClick={() => setApplyModal(null)}>Cancel</Button>
-                  <Button type="submit" disabled={submitting} className="flex-1 bg-hitm-red hover:bg-hitm-navy font-bold h-12">
+                  <Button type="button" variant="outline" className="flex-1" onClick={() => { setApplyModal(null); setPhoneVerified(false); }}>Cancel</Button>
+                  <Button type="submit" disabled={submitting || !phoneVerified} className="flex-1 bg-hitm-red hover:bg-hitm-navy font-bold h-12">
                     {submitting ? (
                       <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>
                     ) : 'Submit Application'}

@@ -16,18 +16,27 @@ import { Textarea } from '@/components/ui/textarea';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
+import InlinePhoneVerifier from '@/components/InlinePhoneVerifier';
+
 const ContactLeafletMap = dynamicImport(() => import('@/components/ContactLeafletMap'), { ssr: false });
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // 'success' | 'error'
   const [errorMessage, setErrorMessage] = useState('');
+  const [phoneVerified, setPhoneVerified] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.message || !formData.phone) {
       setErrorMessage("Please fill in all required fields.");
+      setStatus("error");
+      return;
+    }
+
+    if (!phoneVerified) {
+      setErrorMessage("Please verify your phone number with OTP first.");
       setStatus("error");
       return;
     }
@@ -44,6 +53,7 @@ export default function ContactPage() {
         await addDoc(collection(db, 'contact_submissions'), {
           name: formData.name,
           email: formData.email,
+          phone: formData.phone,
           subject: formData.subject || 'General Inquiry',
           message: formData.message,
           createdAt: serverTimestamp()
@@ -72,6 +82,7 @@ export default function ContactPage() {
             access_key: "ea72c4d8-d56a-48f8-af05-7dd8d48268a9",
             name: formData.name,
             email: formData.email,
+            phone: formData.phone,
             subject: formData.subject || "Contact Page Message",
             message: formData.message
           })
@@ -85,11 +96,13 @@ export default function ContactPage() {
       }
 
       setStatus("success");
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      setPhoneVerified(false);
     }
 
     setLoading(false);
   };
+
 
   return (
     <main className="flex flex-col min-h-screen">
@@ -202,14 +215,25 @@ export default function ContactPage() {
                         />
                       </div>
                     </div>
-                    <div className="space-y-2">
-                      <Label>Subject</Label>
-                      <Input 
-                        value={formData.subject}
-                        onChange={e => setFormData({ ...formData, subject: e.target.value })}
-                        placeholder="Admission Inquiry" 
-                        className="h-12 bg-gray-50 border-gray-200" 
-                      />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label>Mobile Number *</Label>
+                        <InlinePhoneVerifier 
+                          phone={formData.phone}
+                          onChange={p => setFormData({ ...formData, phone: p })}
+                          onVerificationComplete={setPhoneVerified}
+                          recaptchaId="contact-us"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Subject</Label>
+                        <Input 
+                          value={formData.subject}
+                          onChange={e => setFormData({ ...formData, subject: e.target.value })}
+                          placeholder="Admission Inquiry" 
+                          className="h-12 bg-gray-50 border-gray-200" 
+                        />
+                      </div>
                     </div>
                     <div className="space-y-2">
                       <Label>Your Message *</Label>
@@ -230,7 +254,7 @@ export default function ContactPage() {
 
                     <Button 
                       type="submit"
-                      disabled={loading}
+                      disabled={loading || !phoneVerified}
                       className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-hitm-red/20 group"
                     >
                       {loading ? (
@@ -243,6 +267,7 @@ export default function ContactPage() {
                         </>
                       )}
                     </Button>
+
                   </form>
                 )}
               </CardContent>

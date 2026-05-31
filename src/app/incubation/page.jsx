@@ -7,12 +7,14 @@ import { Lightbulb, Target, Zap, Globe, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import InlinePhoneVerifier from '@/components/InlinePhoneVerifier';
 
 export default function IncubationPage() {
   const [showModal, setShowModal] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [form, setForm] = useState({ name: '', email: '', phone: '', interest: '' });
+  const [phoneVerified, setPhoneVerified] = useState(false);
 
   const features = [
     { icon: <Lightbulb size={32} />, title: 'Idea Validation', desc: 'Work with industry mentors to turn your academic projects into viable business models.' },
@@ -27,6 +29,7 @@ export default function IncubationPage() {
 
   const closeModal = () => {
     setShowModal(false);
+    setPhoneVerified(false);
   };
 
   const handleChange = (field, value) => {
@@ -37,6 +40,10 @@ export default function IncubationPage() {
     event.preventDefault();
     if (!form.name || !form.email || !form.phone || !form.interest) {
       setStatusMessage('Please fill in all fields before submitting.');
+      return;
+    }
+    if (!phoneVerified) {
+      setStatusMessage('Please verify your phone number with OTP first.');
       return;
     }
 
@@ -50,6 +57,7 @@ export default function IncubationPage() {
       });
       setStatusMessage('Thank you! Your request has been submitted successfully.');
       setForm({ name: '', email: '', phone: '', interest: '' });
+      setPhoneVerified(false);
       setShowModal(false);
     } catch (error) {
       console.error('Error saving incubation enquiry:', error);
@@ -200,16 +208,15 @@ export default function IncubationPage() {
                 </label>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <label className="space-y-2 text-sm text-gray-700">
-                  <span>Phone</span>
-                  <input
-                    type="tel"
-                    value={form.phone}
-                    onChange={(e) => handleChange('phone', e.target.value)}
-                    className="w-full rounded-3xl border border-gray-200 px-4 py-3 focus:border-hitm-navy focus:ring-hitm-navy/10 outline-none"
-                    placeholder="Mobile number"
+                <div className="space-y-2 text-sm text-gray-700">
+                  <span>Phone *</span>
+                  <InlinePhoneVerifier
+                    phone={form.phone}
+                    onChange={(p) => handleChange('phone', p)}
+                    onVerificationComplete={setPhoneVerified}
+                    recaptchaId="incubation"
                   />
-                </label>
+                </div>
                 <label className="space-y-2 text-sm text-gray-700">
                   <span>Area of Interest</span>
                   <input
@@ -228,7 +235,7 @@ export default function IncubationPage() {
                 <Button variant="outline" type="button" className="h-14 rounded-full" onClick={closeModal}>
                   Cancel
                 </Button>
-                <Button type="submit" className="h-14 rounded-full" disabled={submitting}>
+                <Button type="submit" className="h-14 rounded-full" disabled={submitting || !phoneVerified}>
                   {submitting ? 'Submitting...' : 'Submit Enquiry'}
                 </Button>
               </div>
