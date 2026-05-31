@@ -88,7 +88,12 @@ export default function InlinePhoneVerifier({
 
     setLoading(true);
     setError('');
-    setOtpSent(false);
+    
+    // Preserve the OTP input container when resending
+    const isResend = otpSent;
+    if (!isResend) {
+      setOtpSent(false);
+    }
     cleanupVerifier();
 
     try {
@@ -107,10 +112,14 @@ export default function InlinePhoneVerifier({
       setOtpSent(true);
       setTimer(60);
       setCanResend(false);
+      setOtp(''); // Clear the previous OTP input box on resend
     } catch (err) {
       console.error("Firebase send phone OTP error:", err);
       setError('Failed to send verification code. Please try again.');
       cleanupVerifier();
+      if (isResend) {
+        setCanResend(true);
+      }
     } finally {
       setLoading(false);
     }
