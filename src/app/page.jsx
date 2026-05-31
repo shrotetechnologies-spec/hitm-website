@@ -20,6 +20,7 @@ import {
   Bell,
   CheckCircle,
   Play,
+  Loader2,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -319,6 +320,7 @@ function HeroSlider() {
 export default function HomePage() {
   const [enquiry, setEnquiry] = useState({ name: "", phone: "", program: "" });
   const [enquiryPhoneVerified, setEnquiryPhoneVerified] = useState(false);
+  const [enquiryLoading, setEnquiryLoading] = useState(false);
   const [notices, setNotices] = useState([]);
   const [events, setEvents] = useState([]);
   const [mounted, setMounted] = useState(false);
@@ -376,6 +378,9 @@ export default function HomePage() {
       alert("Please verify your phone number with OTP first.");
       return;
     }
+    if (enquiryLoading) return;
+    setEnquiryLoading(true);
+
     let firestoreSuccess = false;
     try {
       const response = await fetch("/api/enquiries", {
@@ -421,6 +426,7 @@ export default function HomePage() {
       setEnquiry({ name: "", phone: "", program: "" });
       setEnquiryPhoneVerified(false);
     }
+    setEnquiryLoading(false);
   };
 
   const activeNotices = notices
@@ -573,15 +579,21 @@ export default function HomePage() {
                     ))}
                   </select>
                 </div>
-                <Button
-                  type="submit"
-                  variant="default"
-                  size="lg"
-                  className="md:col-span-2 w-full mt-2"
-                  disabled={!enquiryPhoneVerified}
-                >
-                  Submit Enquiry <ArrowRight size={16} />
-                </Button>
+                {enquiryLoading ? (
+                  <div className="md:col-span-2 w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-md py-3 text-sm font-bold animate-pulse">
+                    <Loader2 className="animate-spin" size={16} /> Submitting Enquiry... Please wait
+                  </div>
+                ) : (
+                  <Button
+                    type="submit"
+                    variant="default"
+                    size="lg"
+                    className="md:col-span-2 w-full mt-2"
+                    disabled={!enquiryPhoneVerified}
+                  >
+                    Submit Enquiry <ArrowRight size={16} />
+                  </Button>
+                )}
               </form>
             </CardContent>
           </Card>

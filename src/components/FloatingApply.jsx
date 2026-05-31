@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { X, Send, CheckCircle2, MessageSquareText } from 'lucide-react';
+import { X, Send, CheckCircle2, MessageSquareText, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { db } from '@/lib/firebase';
@@ -178,17 +178,19 @@ export default function FloatingApply() {
                     )}
                   </div>
                   
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-hitm-red hover:bg-hitm-navy text-white rounded-xl h-12 font-bold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mt-4" 
-                    disabled={loading || !phoneVerified}
-                  >
-                    {loading ? "Submitting..." : (
-                      <>
-                        <Send size={16} /> Submit Enquiry
-                      </>
-                    )}
-                  </Button>
+                  {loading ? (
+                    <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-xl py-3 text-sm font-bold animate-pulse mt-4">
+                      <Loader2 className="animate-spin" size={16} /> Submitting Enquiry... Please wait
+                    </div>
+                  ) : (
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-hitm-red hover:bg-hitm-navy text-white rounded-xl h-12 font-bold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mt-4" 
+                      disabled={!phoneVerified}
+                    >
+                      <Send size={16} /> Submit Enquiry
+                    </Button>
+                  )}
                 </form>
               ) : (
                 <div className="py-10 text-center">

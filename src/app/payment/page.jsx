@@ -217,17 +217,19 @@ export default function PaymentPage() {
 
                   {error && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-2xl border border-red-100">{error}</p>}
 
-                  <Button 
-                    type="submit" 
-                    disabled={loading || !phoneVerified}
-                    className="w-full h-14 bg-hitm-red hover:bg-hitm-navy text-white font-black uppercase tracking-widest text-sm shadow-xl hover:shadow-2xl transition-all"
-                  >
-                    {loading ? (
-                      <><Loader2 className="mr-2 animate-spin" /> Transferring to CCAvenue...</>
-                    ) : (
-                      `Pay ₹${formData.amount || '0.00'} Online Now`
-                    )}
-                  </Button>
+                   {loading ? (
+                     <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-md py-4 text-sm font-bold animate-pulse">
+                       <Loader2 className="animate-spin" size={16} /> Transferring to CCAvenue... Please wait
+                     </div>
+                   ) : (
+                     <Button 
+                       type="submit" 
+                       disabled={!phoneVerified}
+                       className="w-full h-14 bg-hitm-red hover:bg-hitm-navy text-white font-black uppercase tracking-widest text-sm shadow-xl hover:shadow-2xl transition-all"
+                     >
+                       Pay ₹{formData.amount || '0.00'} Online Now
+                     </Button>
+                   )}
                   
                   <p className="text-center text-xs text-gray-500 mt-3">
                     By making this payment, you agree to our <Link href="/refund-policy" className="text-hitm-navy hover:text-hitm-red font-bold hover:underline">Refund Policy</Link>.

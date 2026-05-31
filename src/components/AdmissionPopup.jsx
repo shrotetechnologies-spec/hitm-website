@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { X, Sparkles, Send, CheckCircle2 } from 'lucide-react';
+import { X, Sparkles, Send, CheckCircle2, Loader2 } from 'lucide-react';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
@@ -156,17 +156,19 @@ export default function AdmissionPopup() {
                     )}
                   </div>
                   
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-hitm-red hover:bg-hitm-navy text-white rounded-xl h-12 font-bold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mt-4" 
-                    disabled={loading || !phoneVerified}
-                  >
-                    {loading ? "Submitting..." : (
-                      <>
-                        <Send size={16} /> Request Callback
-                      </>
-                    )}
-                  </Button>
+                  {loading ? (
+                    <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-xl py-3 text-sm font-bold animate-pulse mt-4">
+                      <Loader2 className="animate-spin" size={16} /> Requesting Callback... Please wait
+                    </div>
+                  ) : (
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-hitm-red hover:bg-hitm-navy text-white rounded-xl h-12 font-bold transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 mt-4" 
+                      disabled={!phoneVerified}
+                    >
+                      <Send size={16} /> Request Callback
+                    </Button>
+                  )}
                </form>
              </>
            ) : (

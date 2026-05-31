@@ -253,12 +253,18 @@ export default function CareerPage() {
                 </div>
 
                 <div className="flex gap-4 pt-4 sticky bottom-0 bg-white">
-                  <Button type="button" variant="outline" className="flex-1" onClick={() => { setApplyModal(null); setPhoneVerified(false); }}>Cancel</Button>
-                  <Button type="submit" disabled={submitting || !phoneVerified} className="flex-1 bg-hitm-red hover:bg-hitm-navy font-bold h-12">
-                    {submitting ? (
-                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Submitting...</>
-                    ) : 'Submit Application'}
-                  </Button>
+                  {submitting ? (
+                    <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-xl py-3 text-sm font-bold animate-pulse">
+                      <Loader2 className="animate-spin" size={16} /> Submitting Application... Please wait
+                    </div>
+                  ) : (
+                    <>
+                      <Button type="button" variant="outline" className="flex-1 rounded-xl" onClick={() => { setApplyModal(null); setPhoneVerified(false); }}>Cancel</Button>
+                      <Button type="submit" disabled={!phoneVerified} className="flex-1 bg-hitm-red hover:bg-hitm-navy font-bold h-12 rounded-xl">
+                        Submit Application
+                      </Button>
+                    </>
+                  )}
                 </div>
               </form>
             </CardContent>

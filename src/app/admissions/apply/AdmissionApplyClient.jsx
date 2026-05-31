@@ -330,9 +330,15 @@ export default function AdmissionApplyClient() {
                   </div>
 
                   {error && !showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100">{error}</p>}
-                  <Button type="submit" disabled={loading || !phoneVerified} className="w-full h-12 bg-hitm-navy hover:bg-hitm-red text-white uppercase font-bold tracking-widest shadow-lg">
-                    {loading ? <Loader2 className="animate-spin" /> : 'Proceed to Payment Options'}
-                  </Button>
+                  {loading ? (
+                    <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-md py-3 text-sm font-bold animate-pulse">
+                      <Loader2 className="animate-spin" size={16} /> Verifying application... Please wait
+                    </div>
+                  ) : (
+                    <Button type="submit" disabled={!phoneVerified} className="w-full h-12 bg-hitm-navy hover:bg-hitm-red text-white uppercase font-bold tracking-widest shadow-lg">
+                      Proceed to Payment Options
+                    </Button>
+                  )}
                 </form>
               )}
             </CardContent>
@@ -362,12 +368,20 @@ export default function AdmissionApplyClient() {
                 {error && showPayment && <p className="text-red-500 text-sm font-bold bg-red-50 p-3 rounded-lg border border-red-100">{error}</p>}
 
                 <div className="flex flex-col gap-3">
-                  <Button type="button" onClick={handleFinalSubmit} disabled={loading} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest shadow-xl hover:-translate-y-0.5 transition-transform">
-                    {loading ? <Loader2 className="animate-spin" /> : 'Pay Application Fee Online'}
-                  </Button>
-                  <Button type="button" onClick={handleSkipPayment} disabled={loading} variant="outline" className="w-full h-12 border-gray-200 hover:bg-gray-50 text-gray-700 uppercase font-bold tracking-widest transition-transform">
-                    {loading ? <Loader2 className="animate-spin" /> : 'Submit & Pay Later'}
-                  </Button>
+                  {loading ? (
+                    <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-md py-3 text-sm font-bold animate-pulse">
+                      <Loader2 className="animate-spin" size={16} /> Finalizing application... Please wait
+                    </div>
+                  ) : (
+                    <>
+                      <Button type="button" onClick={handleFinalSubmit} className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white uppercase font-bold tracking-widest shadow-xl hover:-translate-y-0.5 transition-transform">
+                        Pay Application Fee Online
+                      </Button>
+                      <Button type="button" onClick={handleSkipPayment} variant="outline" className="w-full h-12 border-gray-200 hover:bg-gray-50 text-gray-700 uppercase font-bold tracking-widest transition-transform">
+                        Submit & Pay Later
+                      </Button>
+                    </>
+                  )}
                   
                   <p className="text-center text-xs text-gray-400 mt-2">
                     By proceeding, you agree to the college <Link href="/refund-policy" target="_blank" className="text-hitm-navy hover:text-hitm-red font-bold hover:underline">Refund Policy</Link>.

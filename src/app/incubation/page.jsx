@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Badge } from '@/components/ui/badge';
-import { Lightbulb, Target, Zap, Globe, X } from 'lucide-react';
+import { Lightbulb, Target, Zap, Globe, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -231,13 +231,21 @@ export default function IncubationPage() {
               {statusMessage && (
                 <p className="text-sm text-rose-600">{statusMessage}</p>
               )}
-              <div className="flex flex-col sm:flex-row gap-4 justify-end">
-                <Button variant="outline" type="button" className="h-14 rounded-full" onClick={closeModal}>
-                  Cancel
-                </Button>
-                <Button type="submit" className="h-14 rounded-full" disabled={submitting || !phoneVerified}>
-                  {submitting ? 'Submitting...' : 'Submit Enquiry'}
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-end w-full">
+                {submitting ? (
+                  <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-full py-4 text-sm font-bold animate-pulse">
+                    <Loader2 className="animate-spin" size={16} /> Submitting Idea... Please wait
+                  </div>
+                ) : (
+                  <>
+                    <Button variant="outline" type="button" className="h-14 rounded-full flex-1 sm:flex-none" onClick={closeModal}>
+                      Cancel
+                    </Button>
+                    <Button type="submit" className="h-14 rounded-full flex-1 sm:flex-none" disabled={!phoneVerified}>
+                      Submit Enquiry
+                    </Button>
+                  </>
+                )}
               </div>
             </form>
           </div>

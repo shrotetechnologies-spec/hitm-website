@@ -252,21 +252,19 @@ export default function ContactPage() {
                       </p>
                     )}
 
-                    <Button 
-                      type="submit"
-                      disabled={loading || !phoneVerified}
-                      className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-hitm-red/20 group"
-                    >
-                      {loading ? (
-                        <>
-                          <Loader2 className="animate-spin mr-2" size={18} /> Submitting...
-                        </>
-                      ) : (
-                        <>
-                          Send Message <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
-                        </>
-                      )}
-                    </Button>
+                     {loading ? (
+                       <div className="w-full flex items-center justify-center gap-2 bg-hitm-navy text-white rounded-md py-3 text-sm font-bold animate-pulse">
+                         <Loader2 className="animate-spin" size={16} /> Sending Message... Please wait
+                       </div>
+                     ) : (
+                       <Button 
+                         type="submit"
+                         disabled={!phoneVerified}
+                         className="w-full h-12 bg-hitm-red hover:bg-hitm-navy text-white font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-hitm-red/20 group"
+                       >
+                         Send Message <Send className="ml-2 group-hover:translate-x-1 transition-transform" size={18} />
+                       </Button>
+                     )}
 
                   </form>
                 )}
